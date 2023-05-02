@@ -3,12 +3,12 @@ package iesFranciscodelosRios.model;
 import java.util.Objects;
 
 public class Person {
-    private int id_person;
-    private String name;
-    private String surname;
-    private String telephone;
-    private String email;
-    private String password;
+    protected int id_person;
+    protected String name;
+    protected String surname;
+    protected String telephone;
+    protected String email;
+    protected String password;
 
     public Person(int id_person, String name, String surname, String telephone, String email, String password) {
         this.id_person = id_person;
