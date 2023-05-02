@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Appointment {
     private int id_appointment;
@@ -31,5 +32,77 @@ public class Appointment {
         this.date = LocalDate.parse("01/01/1970", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         this.client = null;
         this.space = null;
+    }
+
+    public int getId_appointment() {
+        return id_appointment;
+    }
+
+    public void setId_appointment(int id_appointment) {
+        this.id_appointment = id_appointment;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Space getSpace() {
+        return space;
+    }
+
+    public void setSpace(Space space) {
+        this.space = space;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Appointment that = (Appointment) o;
+        return id_appointment == that.id_appointment;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_appointment);
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment" +
+                "\n\tid_appointment=" + id_appointment +
+                "\n\tstartTime=" + startTime +
+                "\n\tendTime=" + endTime +
+                "\n\tdate=" + date +
+                "\n\tclient=" + client +
+                "\n\tspace=" + space;
     }
 }
