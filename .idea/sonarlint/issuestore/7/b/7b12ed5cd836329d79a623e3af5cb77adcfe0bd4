@@ -1,8 +1,0 @@
-
-m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ‰ş¡8íÌ‰İı0
-r	java:S117'"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤©òõıÿÿÿÿ8Õ¸˜İı0
-v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(«Ó“8îÌ‰İı0
-z	java:S116
-"YRename this field "id_appointment" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¬ïÅıÿÿÿÿ8óÌ‰İı0
-j	java:S100#"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ‡Ûè8á¸˜İı0
-o	java:S100'"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤©òõıÿÿÿÿ8â¸˜İı0
