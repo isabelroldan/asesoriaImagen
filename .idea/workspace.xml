@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ff6990f-5aa9-4964-a20b-192e7974e819" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/iesFranciscodelosRios/model/ColorTestResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/iesFranciscodelosRios/model/Appointment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/iesFranciscodelosRios/model/Professional.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/iesFranciscodelosRios/model/Space.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/iesFranciscodelosRios/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/iesFranciscodelosRios/model/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iesFranciscodelosRios/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/iesFranciscodelosRios/model/Person.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +19,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="HTML File" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -76,7 +77,7 @@
       <workItem from="1683011854343" duration="5351000" />
       <workItem from="1683017859358" duration="31000" />
       <workItem from="1683021829559" duration="473000" />
-      <workItem from="1683022320717" duration="470000" />
+      <workItem from="1683022320717" duration="2516000" />
     </task>
     <servers />
   </component>
