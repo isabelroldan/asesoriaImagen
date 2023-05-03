@@ -1,4 +1,4 @@
-package src.main.java.iesFranciscodelosRios.model;
+package iesFranciscodelosRios.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

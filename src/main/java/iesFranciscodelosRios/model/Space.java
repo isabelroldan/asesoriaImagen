@@ -1,4 +1,4 @@
-package src.main.java.iesFranciscodelosRios.model;
+package iesFranciscodelosRios.model;
 
 import java.util.ArrayList;
 import java.util.List;

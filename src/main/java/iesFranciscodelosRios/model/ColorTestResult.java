@@ -1,4 +1,4 @@
-package src.main.java.iesFranciscodelosRios.model;
+package iesFranciscodelosRios.model;
 
 public enum ColorTestResult {
     sprint,

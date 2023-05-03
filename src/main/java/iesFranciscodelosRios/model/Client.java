@@ -1,7 +1,6 @@
-package src.main.java.iesFranciscodelosRios.model;
+package iesFranciscodelosRios.model;
 
-import src.main.java.iesFranciscodelosRios.model.*;
-
+import iesFranciscodelosRios.model.Person;
 import java.util.ArrayList;
 import java.util.List;
 

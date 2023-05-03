@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(https://i.pinimg.com/736x/d1/64/08/d1640814ffd53702480fc1b84575cc9a.jpg); -fx-background-repeat: stretch; -fx-background-size: 650 550; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.PrimaryController">
+    <children>
+        <Text fill="#f2f2f2" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" wrappingWidth="90.24566650390625">
+            <VBox.margin>
+                <Insets left="10.0" top="10.0" />
+            </VBox.margin></Text>
+        <TextField fx:id="txtNombre">
+            <VBox.margin>
+                <Insets left="10.0" right="400.0" top="10.0" />
+            </VBox.margin></TextField>
+        <Text fill="#efe9e9" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos" wrappingWidth="78.93670654296875">
+            <VBox.margin>
+                <Insets left="10.0" top="10.0" />
+            </VBox.margin></Text>
+        <TextField fx:id="txtApellidos">
+            <VBox.margin>
+                <Insets left="10.0" right="400.0" top="10.0" />
+            </VBox.margin></TextField>
+        <Text fill="#f4eeee" strokeType="OUTSIDE" strokeWidth="0.0" text="Edad" wrappingWidth="121.33673095703125">
+            <VBox.margin>
+                <Insets left="10.0" top="10.0" />
+            </VBox.margin></Text>
+        <TextField fx:id="txtEdad">
+            <VBox.margin>
+                <Insets bottom="40.0" left="10.0" right="400.0" top="10.0" />
+            </VBox.margin></TextField>
+        <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <Button fx:id="btnAgregar" layoutX="46.0" layoutY="35.0" mnemonicParsing="false" onAction="#agregarPersona" style="-fx-background-color: #AC69D3; -fx-background-radius: 15;" text="Agregar " textFill="#faf3f3" />
+                        <Button fx:id="post" layoutX="46.0" layoutY="91.0" mnemonicParsing="false" onAction="#setLogout" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #AC69D3; -fx-background-radius: 15;" text="Logout" textFill="#ece9e9" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="349.0">
+                    <children>
+                        <TableView fx:id="tbPersonas" layoutX="-1.0" layoutY="-6.0" prefHeight="170.0" prefWidth="418.0">
+                            <columns>
+                                <TableColumn fx:id="colNombre" prefWidth="128.19999086856842" text="Nombre" />
+                                <TableColumn fx:id="colApellidos" prefWidth="140.60003662109375" text="Apellidos" />
+                                <TableColumn fx:id="colEdad" prefWidth="150.0" text="Edad" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>
