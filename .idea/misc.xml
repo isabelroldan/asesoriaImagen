@@ -11,6 +11,9 @@
   <component name="ProjectResources">
     <resource url="http://javafx.com/javafx/19" location="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectRootManager" version="2" default="true">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
   <component name="ProjectType">
     <option name="id" value="jpab" />
   </component>
