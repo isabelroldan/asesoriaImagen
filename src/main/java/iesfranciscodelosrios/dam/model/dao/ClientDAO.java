@@ -58,23 +58,91 @@ public class ClientDAO implements DAO<Client> {
     }
 
     @Override
-    public Client findById(int id) throws SQLException {
-        return null;
+    public Client findById(int id_client) throws SQLException {
+        Client result = null;
+        try(PreparedStatement pst = this.conn.prepareStatement(FINDBYID)) {
+            pst.setInt(1, id_client);
+            try(ResultSet res = pst.executeQuery()) {
+                if(res.next()) {
+                    Client client = new Client();
+                    client.setId_person(res.getInt("id_client"));
+                    client.setName(res.getString("name"));
+                    client.setSurname(res.getString("surname"));
+                    client.setTelephone(res.getString("telephone"));
+                    client.setEmail(res.getString("email"));
+                    client.setPassword(res.getString("password"));
+
+                    String resultString = res.getString("colorTestResult");
+                    ColorTestResult ctr = null;
+                    for(ColorTestResult r: ColorTestResult.values()) {
+                        if(r.name().equalsIgnoreCase(resultString)) {
+                            ctr = r;
+                            break;
+                        }
+                    }
+
+                    if (result != null) {
+                        client.setColorTestResult(ctr);
+                    }
+
+                    result = client;
+                }
+            }
+        }
+        return result;
     }
 
     @Override
     public Client save(Client entity) throws SQLException {
-        return null;
+        Client result = new Client();
+        if (entity != null) {
+            Client client = findById(entity.getId_person());
+            if (client == null) {
+                try (PreparedStatement pst = this.conn.prepareStatement(INSERT)) {
+                    pst.setInt(1, entity.getId_person());
+                    pst.setString(2, entity.getName());
+                    pst.setString(3, entity.getSurname());
+                    pst.setString(4, entity.getTelephone());
+                    pst.setString(5, entity.getEmail());
+                    pst.setString(6, entity.getPassword());
+                    pst.setString(7, entity.getColorTestResult().name());
+                    pst.executeUpdate();
+                }
+            }
+            result = entity;
+        }
+        return result;
     }
 
     @Override
     public Client update(Client entity) throws SQLException {
-        return null;
+        Client result = new Client();
+        if (entity != null) {
+            Client client = findById(entity.getId_person());
+            if (client != null) {
+                try(PreparedStatement pst = this.conn.prepareStatement(UPDATE)) {
+                    pst.setString(1, entity.getName());
+                    pst.setString(2, entity.getSurname());
+                    pst.setString(3, entity.getTelephone());
+                    pst.setString(4, entity.getEmail());
+                    pst.setString(5, entity.getPassword());
+                    pst.setString(6, entity.getColorTestResult().name());
+                    pst.executeUpdate();
+                }
+            }
+            result = entity;
+        }
+        return result;
     }
 
     @Override
     public void delete(Client entity) throws SQLException {
-
+        if (entity != null) {
+            try (PreparedStatement pst = this.conn.prepareStatement(DELETE)) {
+                pst.setInt(1, entity.getId_person());
+                pst.executeUpdate();
+            }
+        }
     }
 
     @Override
