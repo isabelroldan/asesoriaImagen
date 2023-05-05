@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpaceDAO implements DAO<Space> {
+    private final static String FINDALL = "SELECT * FROM space";
     private final static String FINDBYID = "SELECT * FROM space WHERE id_space = ?";
     private final static String INSERT = "INSERT INTO space(id_space, name, serviceType) VALUES(?, ?, ?)";
     private final static String UPDATE = "UPDATE space SET name = ?, serviceType = ?";
@@ -28,7 +29,7 @@ public class SpaceDAO implements DAO<Space> {
     @Override
     public List<Space> findAll() throws SQLException {
         List<Space> result = new ArrayList<>();
-        try(PreparedStatement pst = this.conn.prepareStatement(FINDBYID)) {
+        try(PreparedStatement pst = this.conn.prepareStatement(FINDALL)) {
             try(ResultSet res = pst.executeQuery()) {
                 while(res.next()) {
                     Space space = new Space();

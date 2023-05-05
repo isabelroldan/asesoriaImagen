@@ -13,6 +13,7 @@ import java.util.List;
 
 public class ClientDAO implements DAO<Client> {
 
+    private final static String FINDALL = "SELECT * FROM client";
     private final static  String FINDBYID = "SELECT * FROM client WHERE id_client = ?";
     private final static  String INSERT = "INSERT INTO client(id_client, name, surname, telephone, email, password, colorTestResult) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final static  String UPDATE = "UPDATE client SET name = ?, surname = ?, telephone = ?, email = ?, password = ?, colorTestResult = ?";
@@ -27,7 +28,7 @@ public class ClientDAO implements DAO<Client> {
     @Override
     public List<Client> findAll() throws SQLException {
         List<Client> result = new ArrayList<>();
-        try(PreparedStatement pst = this.conn.prepareStatement(FINDBYID)) {
+        try(PreparedStatement pst = this.conn.prepareStatement(FINDALL)) {
             try(ResultSet res = pst.executeQuery()) {
                 while(res.next()) {
                     Client client = new Client();
@@ -49,6 +50,7 @@ public class ClientDAO implements DAO<Client> {
 
                     if (result != null) {
                         client.setColorTestResult(ctr);
+
                     }
                     result.add(client);
                 }
