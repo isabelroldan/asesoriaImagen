@@ -7,9 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-public class SpaceDAO {
+public class SpaceDAO implements DAO<Space> {
     private final static String FINDBYID = "SELECT * FROM space WHERE id_space = ?";
+    private final static String INSERT = "INSERT INTO space(id_space, name, serviceType) " + "VALUES(?, ?, ?)";
+    private final static String UPDATE = "UPDATE space SET name = ?, serviceType = ?";
+    private final static String DELETE = "DELETE FROM space WHERE id_space = ?";
     private Connection conn;
 
     public SpaceDAO(Connection conn) {
@@ -18,6 +22,11 @@ public class SpaceDAO {
 
     public SpaceDAO() {
         this.conn = Connect.getConnect();
+    }
+
+    @Override
+    public List<Space> findAll() throws SQLException {
+        return null;
     }
 
     public Space findById(int id_space) throws SQLException {
@@ -38,5 +47,53 @@ public class SpaceDAO {
         return result;
     }
 
+    @Override
+    public Space save(Space entity) throws SQLException {
+        Space result = new Space();
+        if (entity != null) {
+            Space space = findById(entity.getId_space());
+            if(space == null) {
+                try(PreparedStatement pst = this.conn.prepareStatement(INSERT)) {
+                    pst.setInt(1, entity.getId_space());
+                    pst.setString(2, entity.getName());
+                    pst.setString(3, entity.getServiceType());
+                    pst.executeUpdate();
+                }
+            }
+            result = entity;
+        }
+        return result;
+    }
 
+    public Space update(Space entity) throws SQLException {
+        Space result = new Space();
+        if(entity != null) {
+            Space space = findById(entity.getId_space());
+            if(space != null) {
+                try (PreparedStatement pst = this.conn.prepareStatement(UPDATE)) {
+                    pst.setString(1, entity.getName());
+                    pst.setString(2, entity.getServiceType());
+                    pst.executeUpdate();
+                }
+            }
+            result = entity;
+        }
+        return result;
+    }
+
+    @Override
+    public void delete(Space entity) throws SQLException {
+        if(entity != null) {
+            try(PreparedStatement pst = this.conn.prepareStatement(DELETE)) {
+                pst.setInt(1, entity.getId_space());
+                pst.executeUpdate();
+            }
+        }
+    }
+
+
+    @Override
+    public void close() throws Exception {
+
+    }
 }
