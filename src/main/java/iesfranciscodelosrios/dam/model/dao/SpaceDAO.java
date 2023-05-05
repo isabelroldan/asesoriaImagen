@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SpaceDAO implements DAO<Space> {
     private final static String FINDBYID = "SELECT * FROM space WHERE id_space = ?";
-    private final static String INSERT = "INSERT INTO space(id_space, name, serviceType) " + "VALUES(?, ?, ?)";
+    private final static String INSERT = "INSERT INTO space(id_space, name, serviceType) VALUES(?, ?, ?)";
     private final static String UPDATE = "UPDATE space SET name = ?, serviceType = ?";
     private final static String DELETE = "DELETE FROM space WHERE id_space = ?";
     private Connection conn;
