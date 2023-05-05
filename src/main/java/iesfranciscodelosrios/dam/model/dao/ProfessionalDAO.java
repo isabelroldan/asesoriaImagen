@@ -17,6 +17,7 @@ public class ProfessionalDAO implements DAO<Professional> {
     private final static String FINDBYID = "SELECT * FROM professional WHERE id_professional = ?";
     private final static String INSERT = "INSERT INTO professional(id_professional, name, surname, telephone, email, password, dni, nPersonnel, nSocialSecurity, id_space) " +
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final static String DELETE = "DELETE FROM professional WHERE id = ?";
 
     private Connection conn;
 
@@ -83,13 +84,35 @@ public class ProfessionalDAO implements DAO<Professional> {
 
     @Override
     public Professional save(Professional entity) throws SQLException {
-        return null;
+        Professional result = new Professional();
+        if(entity != null) {
+            Professional professional = findById(entity.getId_person());
+            SpaceDAO sdao = new SpaceDAO(this.conn);
+            Space mySpace = sdao.findById(entity.getSpace().getId_space());
+            if(professional == null) {
+                if(mySpace == null)
+                    sdao.save(entity.getSpace());
+                try(PreparedStatement pst = this.conn.prepareStatement(INSERT)) {
+                    pst.setInt(1, entity.getId_person());
+                    
+                }
+
+            }
+        }
+        return result;
     }
 
     @Override
     public void delete(Professional entity) throws SQLException {
-
+        if(entity != null) {
+            try(PreparedStatement pst = this.conn.prepareStatement(DELETE)) {
+                pst.setInt(1, entity.getId_person());
+                pst.executeUpdate();
+            }
+        }
     }
+
+
 
     @Override
     public void close() throws Exception {
