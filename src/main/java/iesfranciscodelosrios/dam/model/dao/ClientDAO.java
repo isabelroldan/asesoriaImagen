@@ -16,7 +16,7 @@ public class ClientDAO implements DAO<Client> {
     private final static String FINDALL = "SELECT * FROM client";
     private final static  String FINDBYID = "SELECT * FROM client WHERE id_client = ?";
     private final static  String INSERT = "INSERT INTO client(id_client, name, surname, telephone, email, password, colorTestResult) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private final static  String UPDATE = "UPDATE client SET name = ?, surname = ?, telephone = ?, email = ?, password = ?, colorTestResult = ?";
+    private final static  String UPDATE = "UPDATE client SET name = ?, surname = ?, telephone = ?, email = ?, password = ?, colorTestResult = ? WHERE id_client = ?";
     private final static  String DELETE = "DELETE FROM client WHERE id_client = ?";
 
     private Connection conn;
@@ -129,6 +129,7 @@ public class ClientDAO implements DAO<Client> {
                     pst.setString(4, entity.getEmail());
                     pst.setString(5, entity.getPassword());
                     pst.setString(6, entity.getColorTestResult().name());
+                    pst.setInt(7, entity.getId_person());
                     pst.executeUpdate();
                 }
             }

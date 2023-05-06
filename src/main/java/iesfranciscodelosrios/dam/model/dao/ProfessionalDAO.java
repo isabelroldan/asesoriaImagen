@@ -16,7 +16,7 @@ public class ProfessionalDAO implements DAO<Professional> {
     private final static String FINDALL = "SELECT * FROM professional";
     private final static String FINDBYID = "SELECT * FROM professional WHERE id_professional = ?";
     private final static String INSERT = "INSERT INTO professional(id_professional, name, surname, telephone, email, password, dni, nPersonnel, nSocialSecurity, id_space) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final static String UPDATE = "UPDATE professional SET name = ?, surname = ?, telephone = ?, email = ?, password = ?, dni = ?, nPersonnel = ?, nSocialSecurity = ?, is_space = ?";
+    private final static String UPDATE = "UPDATE professional SET name = ?, surname = ?, telephone = ?, email = ?, password = ?, dni = ?, nPersonnel = ?, nSocialSecurity = ?, is_space = ? WHERE id_professional = ?";
     private final static String DELETE = "DELETE FROM professional WHERE id_professional = ?";
 
     private Connection conn;
@@ -131,6 +131,7 @@ public class ProfessionalDAO implements DAO<Professional> {
                     pst.setInt(7, entity.getnPersonnel());
                     pst.setInt(8, entity.getnSocialSecurity());
                     pst.setInt(9, entity.getSpace().getId_space());
+                    pst.setInt(10, entity.getId_person());
                     pst.executeUpdate();
                 }
             }

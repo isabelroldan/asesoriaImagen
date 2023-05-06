@@ -15,7 +15,7 @@ public class AppointmentDAO implements DAO<Appointment> {
     private final static  String FINDALL = "SELECT * FROM appointment";
     private final static  String FINDBYID = "SELECT * FROM appointment WHERE id_appointment = ?";
     private final static  String INSERT = "INSERT INTO appointment(id_appointment, startTime, endTime, date, id_client, id_space) VALUES(?, ?, ?, ?, ?, ?)";
-    private final static  String UPDATE = "UPDATE appointment SET startTime = ?, endTime = ?, date = ?, id_client= ?, id_space = ?";
+    private final static  String UPDATE = "UPDATE appointment SET startTime = ?, endTime = ?, date = ?, id_client= ?, id_space = ? WHERE id_appointment = ?";
     private final static  String DELETE = "DELETE FROM appointment WHERE id_appointment = ?";
 
     private Connection conn;
@@ -138,6 +138,7 @@ public class AppointmentDAO implements DAO<Appointment> {
                     pst.setDate(3, Date.valueOf(entity.getDate()));
                     pst.setInt(4, entity.getClient().getId_person());
                     pst.setInt(5, entity.getSpace().getId_space());
+                    pst.setInt(6, entity.getId_appointment());
                     pst.executeUpdate();
                 }
 
