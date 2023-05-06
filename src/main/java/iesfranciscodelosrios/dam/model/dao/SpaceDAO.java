@@ -14,7 +14,7 @@ public class SpaceDAO implements DAO<Space> {
     private final static String FINDALL = "SELECT * FROM space";
     private final static String FINDBYID = "SELECT * FROM space WHERE id_space = ?";
     private final static String INSERT = "INSERT INTO space(id_space, name, serviceType) VALUES(?, ?, ?)";
-    private final static String UPDATE = "UPDATE space SET name = ?, serviceType = ?";
+    private final static String UPDATE = "UPDATE space SET name = ?, serviceType = ? WHERE id_space = ?";
     private final static String DELETE = "DELETE FROM space WHERE id_space = ?";
     private Connection conn;
 
@@ -87,6 +87,7 @@ public class SpaceDAO implements DAO<Space> {
                 try (PreparedStatement pst = this.conn.prepareStatement(UPDATE)) {
                     pst.setString(1, entity.getName());
                     pst.setString(2, entity.getServiceType());
+                    pst.setInt(3, entity.getId_space());
                     pst.executeUpdate();
                 }
             }
