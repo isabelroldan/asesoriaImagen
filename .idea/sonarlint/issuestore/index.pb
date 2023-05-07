@@ -15,5 +15,3 @@ v
 Fsrc/main/java/iesfranciscodelosrios/dam/model/connections/Connect.java,5\3\53cb9ce52ad820c0a6cf80aa3a654d330a92d123
 |
 Lsrc/main/java/iesfranciscodelosrios/dam/model/connections/ConectionData.java,8\2\8206e0e9baa299ed09d1e1dfb98d413576938beb
-O
-src/test/java/SpaceDAOTest.java,b\5\b56d6e22b3ed06c16aca06cd36271e3397656ebd
