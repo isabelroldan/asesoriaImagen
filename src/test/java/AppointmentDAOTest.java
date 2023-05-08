@@ -16,7 +16,7 @@ import java.util.List;
 
 public class AppointmentDAOTest {
     public static void main(String[] args) {
-        /*System.out.println("Prueba FINDALL");
+        System.out.println("Prueba FINDALL");
         Connection conn = Connect.getConnect();
         AppointmentDAO appointmentDao = new AppointmentDAO(conn);
         List<Appointment> appointments = null;
@@ -36,7 +36,7 @@ public class AppointmentDAOTest {
             System.out.println();
         }
 
-        System.out.println("Prueba FINDBYID");
+        /*System.out.println("Prueba FINDBYID");
 
         AppointmentDAO dao = new AppointmentDAO(conn);
         try {
@@ -44,7 +44,7 @@ public class AppointmentDAOTest {
             System.out.println(appointmentid);
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
 
         /*System.out.println("Prueba save");
         Connection conn = Connect.getConnect();
@@ -122,7 +122,7 @@ public class AppointmentDAOTest {
             e.printStackTrace();
         }*/
 
-        System.out.println("Prueba delete");
+        /*System.out.println("Prueba delete");
 
         Connection conn = Connect.getConnect();
         AppointmentDAO dao = new AppointmentDAO(conn);
@@ -135,6 +135,6 @@ public class AppointmentDAOTest {
             System.out.println("Cita eliminada con éxito.");
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
