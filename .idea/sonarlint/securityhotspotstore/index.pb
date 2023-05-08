@@ -15,3 +15,7 @@ v
 Fsrc/main/java/iesfranciscodelosrios/dam/model/connections/Connect.java,5\3\53cb9ce52ad820c0a6cf80aa3a654d330a92d123
 <
 conexion.xml,c\e\cea450a916b0aacd653f63795bba766a27f71026
+O
+src/test/java/SpaceDAOTest.java,b\5\b56d6e22b3ed06c16aca06cd36271e3397656ebd
+p
+@src/main/java/iesfranciscodelosrios/dam/model/dao/ClientDAO.java,e\3\e39ed493e6101ccfb7acef5c9a8e941c235c2726

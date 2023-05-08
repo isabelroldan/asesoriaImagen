@@ -1,8 +1,11 @@
-import com.mysql.cj.xdevapi.Client;
+
 import iesfranciscodelosrios.dam.model.connections.Connect;
 import iesfranciscodelosrios.dam.model.dao.AppointmentDAO;
 import iesfranciscodelosrios.dam.model.dao.ClientDAO;
+import iesfranciscodelosrios.dam.model.dao.SpaceDAO;
 import iesfranciscodelosrios.dam.model.domain.Appointment;
+import iesfranciscodelosrios.dam.model.domain.Client;
+import iesfranciscodelosrios.dam.model.domain.Space;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,7 +46,7 @@ public class AppointmentDAOTest {
             e.printStackTrace();
         }*/
 
-        System.out.println("Prueba save");
+        /*System.out.println("Prueba save");
         Connection conn = Connect.getConnect();
         AppointmentDAO dao = new AppointmentDAO(conn);
 
@@ -55,17 +58,25 @@ public class AppointmentDAOTest {
         newAppointment.setDate(LocalDate.of(2023, 5, 9));
 
 // Crear un nuevo objeto Client y asignarlo al nuevo objeto Appointment
-        Client newClient = new Client();
-        newClient.setId_person(2);
-        newClient.setName("Juan");
-        newClient.setSurname("Pérez");
+        ClientDAO cdao = new ClientDAO(conn);
+        Client newClient = null;
+        try {
+            newClient = cdao.findById(2);
+            newAppointment.setClient(newClient);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         newAppointment.setClient(newClient);
 
+
 // Crear un nuevo objeto Space y asignarlo al nuevo objeto Appointment
-        Space newSpace = new Space();
-        newSpace.setId_space(1);
-        newSpace.setCapacity(10);
-        newSpace.setFloor(1);
+        SpaceDAO sdao = new SpaceDAO(conn);
+        Space newSpace = null;
+        try {
+            newSpace = sdao.findById(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         newAppointment.setSpace(newSpace);
 
         try {
@@ -80,6 +91,48 @@ public class AppointmentDAOTest {
             System.out.println("Fecha: " + savedAppointment.getDate());
             System.out.println("ID de cliente: " + savedAppointment.getClient().getId_person());
             System.out.println("ID de espacio: " + savedAppointment.getSpace().getId_space());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+
+        /*System.out.println("Prueba update");
+
+        Connection conn = Connect.getConnect();
+        AppointmentDAO dao = new AppointmentDAO(conn);
+
+        try {
+            // Buscar la cita con id=5 y modificar sus datos
+            Appointment appointmentToUpdate = dao.findById(5);
+            appointmentToUpdate.setStartTime(LocalTime.of(11, 0));
+            appointmentToUpdate.setEndTime(LocalTime.of(13, 0));
+            appointmentToUpdate.setDate(LocalDate.of(2023, 5, 10));
+
+            // Guardar los cambios en la base de datos
+            dao.update(appointmentToUpdate);
+
+            // Mostrar la cita modificada
+            Appointment updatedAppointment = dao.findById(5);
+            System.out.println("ID de cita: " + updatedAppointment.getId_appointment());
+            System.out.println("Hora de inicio: " + updatedAppointment.getStartTime());
+            System.out.println("Hora de fin: " + updatedAppointment.getEndTime());
+            System.out.println("Fecha: " + updatedAppointment.getDate());
+            System.out.println("ID de cliente: " + updatedAppointment.getClient().getId_person());
+            System.out.println("ID de espacio: " + updatedAppointment.getSpace().getId_space());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+
+        System.out.println("Prueba delete");
+
+        Connection conn = Connect.getConnect();
+        AppointmentDAO dao = new AppointmentDAO(conn);
+
+// Borrar la cita con id = 5
+        Appointment appointmentToDelete = new Appointment();
+        appointmentToDelete.setId_appointment(5);
+        try {
+            dao.delete(appointmentToDelete);
+            System.out.println("Cita eliminada con éxito.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
