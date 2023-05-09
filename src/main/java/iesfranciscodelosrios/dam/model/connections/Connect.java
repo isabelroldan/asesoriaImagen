@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connect {
-    private String file = "conexion.xml";
+    private String file = "./conexion.xml";
     private static Connect _newInstance;
     private static Connection con;
 
@@ -55,6 +55,7 @@ public class Connect {
             con = (ConectionData) jaxbUnmarshaller.unmarshal(new File(file));
         }catch (JAXBException e) {
             e.printStackTrace();
+            /*throw new JAXBException(e);*/
         }
         return con;
     }

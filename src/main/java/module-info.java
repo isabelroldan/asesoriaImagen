@@ -7,5 +7,8 @@ module iesfranciscodelosrios.dam.imageconsulting {
     requires java.xml.bind;
 
     opens iesfranciscodelosrios.dam.imageconsulting to javafx.fxml;
+
+    opens iesfranciscodelosrios.dam.model.connections to java.xml.bind;
+
     exports iesfranciscodelosrios.dam.imageconsulting;
 }
