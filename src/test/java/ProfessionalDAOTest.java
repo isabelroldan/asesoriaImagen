@@ -8,12 +8,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class ProfessionalDAOTest {
     public static void main(String[] args) {
         /*Prueba FINDALL*/
         Connection conn = Connect.getConnect();
         ProfessionalDAO dao = new ProfessionalDAO(conn);
-        List<Professional> professionals = null;
+        /*List<Professional> professionals = null;
         try {
             professionals = dao.findAll();
         } catch (SQLException e) {
@@ -22,7 +24,7 @@ public class ProfessionalDAOTest {
         System.out.println("Lista de todos los profesionales:");
         for (Professional professional : professionals) {
             System.out.println(professional);
-        }
+        }*/
 
         /*PRUEBA FINDBYID*/
         /*int id_professional = 6; // Aquí puedes cambiar el id que quieres buscar
@@ -90,6 +92,17 @@ public class ProfessionalDAOTest {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }*/
+
+        boolean result = false;
+        try {
+            result = dao.professionalLogin("du@gmail.com", "5632");
+            System.out.println(result);
+
+            boolean result2 = dao.professionalLogin("invalid@example.com", "invalidpassword");
+            System.out.println(result2);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
