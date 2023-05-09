@@ -42,13 +42,15 @@ public class LoginController {
             if (result == true) {
                 labelUser.setText("Correct user and password!");
                 labelUser.setTextFill(Color.GREEN);
-                /*App.setRoot("");*/
+                App.setRoot("menu");
             } else {
                 labelUser.setText("Wrong username or password!");
                 labelUser.setTextFill(Color.RED);
             }
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
