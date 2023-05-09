@@ -5,6 +5,7 @@ import iesfranciscodelosrios.dam.model.domain.Appointment;
 import iesfranciscodelosrios.dam.model.domain.Client;
 import iesfranciscodelosrios.dam.model.domain.Space;
 
+import javax.xml.bind.JAXBException;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;

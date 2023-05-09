@@ -4,6 +4,7 @@ import iesfranciscodelosrios.dam.model.connections.Connect;
 import iesfranciscodelosrios.dam.model.domain.Client;
 import iesfranciscodelosrios.dam.model.domain.ColorTestResult;
 
+import javax.xml.bind.JAXBException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -4,6 +4,7 @@ import iesfranciscodelosrios.dam.model.domain.Professional;
 import iesfranciscodelosrios.dam.model.connections.Connect;
 import iesfranciscodelosrios.dam.model.domain.Space;
 
+import javax.xml.bind.JAXBException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +19,7 @@ public class ProfessionalDAO implements DAO<Professional> {
     private final static String INSERT = "INSERT INTO professional(id_professional, name, surname, telephone, email, password, dni, nPersonnel, nSocialSecurity, id_space) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final static String UPDATE = "UPDATE professional SET name = ?, surname = ?, telephone = ?, email = ?, password = ?, dni = ?, nPersonnel = ?, nSocialSecurity = ?, id_space = ? WHERE id_professional = ?";
     private final static String DELETE = "DELETE FROM professional WHERE id_professional = ?";
+    private final static String PROFESSIONALLOGIN = "SELECT * FROM professional WHERE email = ? AND password = ?";
 
     private Connection conn;
 
@@ -148,6 +150,27 @@ public class ProfessionalDAO implements DAO<Professional> {
                 pst.executeUpdate();
             }
         }
+    }
+
+    /**
+     * Method that checks in the login if there is a professional with an email and a password equal to the one entered
+     * @param email to check
+     * @param password to check
+     * @return boolean true if it has been found and false if not
+     * @throws SQLException
+     */
+    public boolean professionalLogin(String email, String password) throws SQLException {
+        boolean result = false;
+        try(PreparedStatement pst = this.conn.prepareStatement(PROFESSIONALLOGIN)) {
+            pst.setString(1, email);
+            pst.setString(2, password);
+            try(ResultSet res = pst.executeQuery()) {
+                if(res.next()) {
+                    result = true;
+                }
+            }
+        }
+        return result;
     }
 
 

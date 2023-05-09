@@ -3,6 +3,7 @@ package iesfranciscodelosrios.dam.model.dao;
 import iesfranciscodelosrios.dam.model.connections.Connect;
 import iesfranciscodelosrios.dam.model.domain.Space;
 
+import javax.xml.bind.JAXBException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
