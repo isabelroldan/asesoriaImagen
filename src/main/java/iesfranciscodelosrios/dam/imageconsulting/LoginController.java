@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import iesfranciscodelosrios.dam.model.connections.Connect;
 import iesfranciscodelosrios.dam.model.dao.ProfessionalDAO;
+import iesfranciscodelosrios.dam.model.domain.Professional;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,6 +43,8 @@ public class LoginController {
             if (result == true) {
                 labelUser.setText("Correct user and password!");
                 labelUser.setTextFill(Color.GREEN);
+                Professional currentProfessional = dao.getProfessional(userField.getText());
+                App.setCurrentProfessional(currentProfessional);
                 App.setRoot("menu");
             } else {
                 labelUser.setText("Wrong username or password!");
