@@ -1,5 +1,6 @@
 package iesfranciscodelosrios.dam.imageconsulting;
 
+import iesfranciscodelosrios.dam.model.domain.Professional;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 public class App extends Application {
     private static Scene scene;
+    private static Professional currentProfessional;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -26,6 +28,15 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml+ ".fxml"));
         return fxmlLoader.load();
     }
+
+    public static void setCurrentProfessional(Professional professional) {
+        currentProfessional = professional;
+    }
+
+    public static Professional getCurrentProfessional() {
+        return currentProfessional;
+    }
+
 
     public static void main(String[] args) {
         launch();
