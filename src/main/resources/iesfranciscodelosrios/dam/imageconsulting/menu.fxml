@@ -1,35 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iesfranciscodelosrios.dam.imageconsulting.MenuController">
-    <VBox prefHeight="400.0" prefWidth="600.0">
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu fx:id="menuButton" mnemonicParsing="false" text="☰">
-                    <items>
-                        <MenuItem fx:id="clientesBtn" mnemonicParsing="false" text="Client management" onAction="#handleClientesBtn"/>
-                        <MenuItem fx:id="profesionalesBtn" mnemonicParsing="false" text="Professional management" onAction="#handleProfesionalesBtn"/>
-                        <MenuItem fx:id="espaciosBtn" mnemonicParsing="false" text="Space management" onAction="#handleEspaciosBtn"/>
-                        <MenuItem fx:id="citasBtn" mnemonicParsing="false" text="Appointment management" onAction="#handleCitasBtn"/>
-                        <SeparatorMenuItem />
-                        <MenuItem fx:id="exitButton" mnemonicParsing="false" text="Exit" onAction="#handleExitClick"/>
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <StackPane VBox.vgrow="ALWAYS">
+<GridPane style="-fx-background-image: url(https://i.pinimg.com/564x/73/99/6f/73996f3dadf73ff416bcb2104f647527.jpg); -fx-background-repeat: stretch; -fx-background-size: 650 550; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iesfranciscodelosrios.dam.imageconsulting.MenuController">
+    <columnConstraints>
+        <ColumnConstraints minWidth="0" prefWidth="75" />
+        <ColumnConstraints hgrow="ALWAYS" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
+            <VBox prefHeight="400.0" prefWidth="84.0">
             <children>
-                <Label text="Content goes here" StackPane.alignment="CENTER" />
-            </children>
-        </StackPane>
-    </VBox>
-</AnchorPane>
+                  <MenuBar prefHeight="26.0" prefWidth="15.0" style="-fx-background-color: rgba(255,255,255,0.63); -fx-background-radius: 0;">
+                      <menus>
+                          <Menu fx:id="menuButton" mnemonicParsing="false" text="☰" style="-fx-font-size: 17px;">
+                              <items>
+                                  <Menu mnemonicParsing="false" onAction="#handleClientesBtn" text="Client management" >
+                                      <items>
+                                          <MenuItem fx:id="readClient" onAction="#handleReadClient" text="Read" />
+                                          <MenuItem fx:id="insertClient" onAction="#handleInsertClient" text="Insert" />
+                                          <MenuItem fx:id="updateClient" onAction="#handleUpdateClient" text="Update" />
+                                          <MenuItem fx:id="deleteClient" onAction="#handleDeleteClient" text="Delete" />
+                                      </items>
+                                  </Menu>
+                                  <Menu mnemonicParsing="false" onAction="#handleProfesionalesBtn" text="Professional management">
+                                      <items>
+                                          <MenuItem fx:id="readProfessional" text="Read" />
+                                          <MenuItem fx:id="insertProfessional" text="Insert" />
+                                          <MenuItem fx:id="updateProfessional" text="Update" />
+                                          <MenuItem fx:id="deleteProfessional" text="Delete" />
+                                      </items>
+                                  </Menu>
+                                  <Menu mnemonicParsing="false" onAction="#handleEspaciosBtn" text="Space management">
+                                      <items>
+                                          <MenuItem fx:id="readSpace" text="Read" />
+                                          <MenuItem fx:id="insertSpace" text="Insert" />
+                                          <MenuItem fx:id="updateSpace" text="Update" />
+                                          <MenuItem fx:id="daleteSpace" text="Delete" />
+                                      </items>
+                                  </Menu>
+                                  <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
+                                      <items>
+                                          <MenuItem fx:id="readAppointment" text="Read" />
+                                          <MenuItem fx:id="insertAppointment" text="Insert" />
+                                          <MenuItem fx:id="updateAppointment" text="Update" />
+                                          <MenuItem fx:id="deleteAppointment" text="Delete" />
+                                      </items>
+                                  </Menu>
+                                  <SeparatorMenuItem />
+                                  <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#handleExitClick" text="Exit" />
+                              </items>
+                          </Menu>
+                      </menus>
+                  </MenuBar>
+            </children></VBox>
+        </VBox>
+        <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0">
+                <HBox alignment="CENTER">
+                    <Label text="ID:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="id_personLabel" text="ID: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="Name:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="nameLabel" text="Name: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="Surname:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="surnameLabel" text="Surname: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="Telephone:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="telephoneLabel" text="Telephone: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="Email:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="emailLabel" text="Email: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="Password:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="passwordLabel" text="Password: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="DNI:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="dniLabel" text="DNI: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="Personnel Number:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="nPersonnelLabel" text="Personnel Number: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="Social Security Number:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="nSocialSecurityLabel" text="Social Security Number: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <Label text="Assigned Space:">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                    <Label fx:id="spaceLabel" text="Assigned Space: ">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+                </HBox>
+            </VBox>
+        </VBox>
+    </children>
+</GridPane>
