@@ -20,6 +20,7 @@ public class ProfessionalDAO implements DAO<Professional> {
     private final static String UPDATE = "UPDATE professional SET name = ?, surname = ?, telephone = ?, email = ?, password = ?, dni = ?, nPersonnel = ?, nSocialSecurity = ?, id_space = ? WHERE id_professional = ?";
     private final static String DELETE = "DELETE FROM professional WHERE id_professional = ?";
     private final static String PROFESSIONALLOGIN = "SELECT * FROM professional WHERE email = ? AND password = ?";
+    private final static String GETPROFESSIONAL = "SELECT * FROM professional WHERE email = ?";
 
     private Connection conn;
 
@@ -167,6 +168,56 @@ public class ProfessionalDAO implements DAO<Professional> {
             try(ResultSet res = pst.executeQuery()) {
                 if(res.next()) {
                     result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    /*public Professional getProfessional(String email) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM professionals WHERE email = ?");
+        ps.setString(1, email);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            String surname = rs.getString("surname");
+            String telephone = rs.getString("telephone");
+            email = rs.getString("email");
+            String password = rs.getString("password");
+            String dni = rs.getString("dni");
+            int nPersonnel = rs.getInt("nPersonnel");
+            int nSocialSecurity = rs.getInt("nSocialSecurity");
+            Space space = rs.getString("space");
+
+            Professional professional = new Professional(id, name, surname, telephone, email, password, dni, nPersonnel, nSocialSecurity, space);
+            return professional;
+        }
+
+        return null;
+    }*/
+
+    public Professional getProfessional(String email) throws SQLException {
+        Professional result = null;
+        try(PreparedStatement pst = this.conn.prepareStatement(GETPROFESSIONAL)) {
+            pst.setString(1, email);
+            try(ResultSet res = pst.executeQuery()) {
+                if(res.next()) {
+                    Professional professional = new Professional();
+                    professional.setId_person(res.getInt("id_professional"));
+                    professional.setName(res.getString("name"));
+                    professional.setSurname(res.getString("surname"));
+                    professional.setTelephone(res.getString("telephone"));
+                    professional.setEmail(res.getString("email"));
+                    professional.setPassword(res.getString("password"));
+                    professional.setDni(res.getString("dni"));
+                    professional.setnPersonnel(res.getInt("nPersonnel"));
+                    professional.setnSocialSecurity(res.getInt("nSocialSecurity"));
+                    SpaceDAO adao = new SpaceDAO(this.conn);
+                    Space space = adao.findById(res.getInt("id_space"));
+                    professional.setSpace(space);
+                    result = professional;
                 }
             }
         }
