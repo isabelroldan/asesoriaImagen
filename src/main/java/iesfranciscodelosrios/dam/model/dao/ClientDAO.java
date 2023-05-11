@@ -95,6 +95,26 @@ public class ClientDAO implements DAO<Client> {
         return result;
     }
 
+    public boolean checkIfIdExists(int id) throws SQLException {
+        String sql = "SELECT * FROM client WHERE id_client = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    public boolean checkIfEmailExists(String email) throws SQLException {
+        String sql = "SELECT * FROM client WHERE email = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
     @Override
     public Client save(Client entity) throws SQLException {
         Client result = new Client();
@@ -148,6 +168,8 @@ public class ClientDAO implements DAO<Client> {
             }
         }
     }
+
+
 
     @Override
     public void close() throws Exception {
