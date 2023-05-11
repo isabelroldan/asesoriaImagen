@@ -62,6 +62,16 @@ public class SpaceDAO implements DAO<Space> {
         return result;
     }
 
+    public boolean checkIfIdExists(int id) throws SQLException {
+        String sql = "SELECT * FROM space WHERE id_space = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
     @Override
     public Space save(Space entity) throws SQLException {
         Space result = new Space();

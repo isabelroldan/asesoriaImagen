@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iesfranciscodelosrios.dam.imageconsulting.SpaceController">
+
+    <GridPane alignment="center" hgap="10" layoutX="-3.0" layoutY="-4.0" prefHeight="400.0" prefWidth="600.0" vgap="10">
+
+        <Label text="Introduce el ID del cliente:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+        <TextField fx:id="idField" prefHeight="26.0" prefWidth="154.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+        <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Service type:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="serviceTypeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Button onAction="#handleIntroButton" text="Intro" GridPane.columnIndex="2" />
+
+        <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="0.0" text="" GridPane.rowIndex="9" />
+        <Button fx:id="insertButton" onAction="#handleInsertButton" text="Insert" GridPane.rowIndex="8" />
+        <Button fx:id="updateButton" onAction="#handleUpdateButton" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <Button fx:id="deleteButton" onAction="#handleDeleteButton" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+
+        <columnConstraints>
+            <ColumnConstraints maxWidth="171.19998779296876" minWidth="86.39996337890625" prefWidth="144.8" />
+            <ColumnConstraints maxWidth="155.20003662109374" minWidth="71.20001220703125" prefWidth="140.79998779296875" />
+            <ColumnConstraints maxWidth="155.20003662109374" minWidth="36.80001220703127" prefWidth="49.60001220703123" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="50.400000000000006" minHeight="21.600012207031256" prefHeight="27.20001831054688" />
+            <RowConstraints maxHeight="30.39998779296876" minHeight="1.6000000000000085" prefHeight="24.799981689453134" />
+            <RowConstraints maxHeight="25.599999999999994" minHeight="25.599999999999994" prefHeight="25.599999999999994" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+            <RowConstraints />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+            <RowConstraints maxHeight="25.599999999999994" minHeight="25.599999999999994" prefHeight="25.599999999999994" />
+         <RowConstraints />
+        </rowConstraints>
+
+    </GridPane>
+
+</AnchorPane>
