@@ -92,6 +92,15 @@ public class MenuController {
         }
     }
 
+    @FXML
+    void handleSpace() {
+        try {
+            App.setRoot("space");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     public void initialize() {
