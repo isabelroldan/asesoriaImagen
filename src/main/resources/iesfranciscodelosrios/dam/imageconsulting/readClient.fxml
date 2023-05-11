@@ -8,9 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="iesfranciscodelosrios.dam.imageconsulting.ReadClientController"
-            prefHeight="400.0" prefWidth="600.0">
-
-    <Label text="HOLA:"></Label>
+            fx:controller="$CONTROLLER_NAME$"
+            prefHeight="400.0" prefWidth="600.0" >
 
 </AnchorPane>
