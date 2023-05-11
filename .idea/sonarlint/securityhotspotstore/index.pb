@@ -9,8 +9,6 @@ u
 Esrc/main/java/iesfranciscodelosrios/dam/model/domain/Appointment.java,5\e\5e490b6b0beae1c00099d768032810dce6e30718
 o
 ?src/main/java/iesfranciscodelosrios/dam/model/domain/Space.java,5\9\5999d4e982a5c63eee0374d3971b0f59cec4fe14
-y
-Isrc/main/java/iesfranciscodelosrios/dam/model/domain/ColorTestResult.java,f\c\fc0ac211ad517a05b5362fc4f35e209b65a1a173
 j
 :src/main/java/iesfranciscodelosrios/dam/model/dao/DAO.java,a\c\ac808a97262dab3839a34f7a07e709a066380388
 |
@@ -21,5 +19,21 @@ U
 %src/test/java/AppointmentDAOTest.java,d\8\d8b29a39cadb2a366a62adcd01b8bbe16f8bb2f6
 <
 conexion.xml,c\e\cea450a916b0aacd653f63795bba766a27f71026
+|
+Lsrc/main/java/iesfranciscodelosrios/dam/imageconsulting/LoginController.java,d\e\de840043311e26c67759b5e0d2cac33dc17f41e2
+p
+@src/main/java/iesfranciscodelosrios/dam/model/domain/Client.java,7\a\7a53d2d3fde9f2077889e132f328fc3b6e642c98
+|
+Lsrc/main/java/iesfranciscodelosrios/dam/model/connections/ConectionData.java,8\2\8206e0e9baa299ed09d1e1dfb98d413576938beb
+v
+Fsrc/main/java/iesfranciscodelosrios/dam/model/connections/Connect.java,5\3\53cb9ce52ad820c0a6cf80aa3a654d330a92d123
+v
+Fsrc/main/java/iesfranciscodelosrios/dam/model/dao/ProfessionalDAO.java,d\a\da7ba45ee1cb77cea967d6ad27bba2206485423d
+o
+?src/main/java/iesfranciscodelosrios/dam/model/dao/SpaceDAO.java,2\e\2ec670e9b91b79d1412d1eee29bf83687ad1efc1
+y
+Isrc/main/java/iesfranciscodelosrios/dam/model/domain/ColorTestResult.java,f\c\fc0ac211ad517a05b5362fc4f35e209b65a1a173
 p
 @src/main/java/iesfranciscodelosrios/dam/model/dao/ClientDAO.java,e\3\e39ed493e6101ccfb7acef5c9a8e941c235c2726
+
+Qsrc/main/java/iesfranciscodelosrios/dam/imageconsulting/ReadClientController.java,2\0\200613b6fd090482b15cb4c4c87effef2890f3b2
