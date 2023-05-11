@@ -46,7 +46,7 @@
                                   </Menu>
                                   <Menu mnemonicParsing="false" onAction="#handleEspaciosBtn" text="Space management">
                                       <items>
-                                          <MenuItem fx:id="readSpace" text="Read" />
+                                          <MenuItem fx:id="readSpace" onAction="#handleSpace" text="Read" />
                                           <MenuItem fx:id="insertSpace" text="Insert" />
                                           <MenuItem fx:id="updateSpace" text="Update" />
                                           <MenuItem fx:id="daleteSpace" text="Delete" />
