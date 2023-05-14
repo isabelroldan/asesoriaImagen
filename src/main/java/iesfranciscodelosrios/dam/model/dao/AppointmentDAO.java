@@ -82,6 +82,16 @@ public class AppointmentDAO implements DAO<Appointment> {
         return result;
     }
 
+    public boolean checkIfIdExists(int id) throws SQLException {
+        String sql = "SELECT * FROM appointment WHERE id_appointment = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
     @Override
     public Appointment save(Appointment entity) throws SQLException {
         Appointment result = new Appointment();

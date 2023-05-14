@@ -38,7 +38,7 @@
                                   </Menu>
                                   <Menu mnemonicParsing="false" onAction="#handleProfesionalesBtn" text="Professional management">
                                       <items>
-                                          <MenuItem fx:id="readProfessional" text="Read" />
+                                          <MenuItem fx:id="readProfessional" onAction="#handleProfessional" text="Read" />
                                           <MenuItem fx:id="insertProfessional" text="Insert" />
                                           <MenuItem fx:id="updateProfessional" text="Update" />
                                           <MenuItem fx:id="deleteProfessional" text="Delete" />
@@ -54,8 +54,8 @@
                                   </Menu>
                                   <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
                                       <items>
-                                          <MenuItem fx:id="readAppointment" text="Read" />
-                                          <MenuItem fx:id="insertAppointment" text="Insert" />
+                                          <MenuItem fx:id="readAppointment"  text="Read" />
+                                          <MenuItem fx:id="insertAppointment" onAction="#handleInsertAppointment" text="Insert" />
                                           <MenuItem fx:id="updateAppointment" text="Update" />
                                           <MenuItem fx:id="deleteAppointment" text="Delete" />
                                       </items>

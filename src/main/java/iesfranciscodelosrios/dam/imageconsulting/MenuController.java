@@ -101,6 +101,24 @@ public class MenuController {
         }
     }
 
+    @FXML
+    void handleProfessional() {
+        try {
+            App.setRoot("professional");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void handleInsertAppointment() {
+        try {
+            App.setRoot("insertAppointment");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     public void initialize() {

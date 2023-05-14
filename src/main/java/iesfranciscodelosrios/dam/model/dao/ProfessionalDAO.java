@@ -85,6 +85,26 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
+    public boolean checkIfIdExists(int id) throws SQLException {
+        String sql = "SELECT * FROM professional WHERE id_professional = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    public boolean checkIfEmailExists(String email) throws SQLException {
+        String sql = "SELECT * FROM professional WHERE email = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
     @Override
     public Professional save(Professional entity) throws SQLException {
         Professional result = new Professional();
