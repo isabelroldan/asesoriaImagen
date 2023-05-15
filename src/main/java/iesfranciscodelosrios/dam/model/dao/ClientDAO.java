@@ -95,6 +95,35 @@ public class ClientDAO implements DAO<Client> {
         return result;
     }
 
+    public Client findByEmail(String email) throws SQLException {
+        Client result = null;
+        String query = "SELECT * FROM client WHERE email = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    result = new Client();
+                    result.setId_person(resultSet.getInt("id_client"));
+                    result.setName(resultSet.getString("name"));
+                    result.setSurname(resultSet.getString("surname"));
+                    result.setTelephone(resultSet.getString("telephone"));
+                    result.setEmail(resultSet.getString("email"));
+                    result.setPassword(resultSet.getString("password"));
+                    String resultString = resultSet.getString("colorTestResult");
+                    ColorTestResult ctr = null;
+                    for (ColorTestResult r : ColorTestResult.values()) {
+                        if (r.name().equalsIgnoreCase(resultString)) {
+                            ctr = r;
+                            break;
+                        }
+                    }
+                    result.setColorTestResult(ctr);
+                }
+            }
+        }
+        return result;
+    }
+
     public boolean checkIfIdExists(int id) throws SQLException {
         String sql = "SELECT * FROM client WHERE id_client = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {

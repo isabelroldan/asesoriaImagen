@@ -77,11 +77,8 @@ public class Space {
 
     @Override
     public String toString() {
-        return "Space" +
-                "\n\tid_space=" + id_space +
-                "\n\tname='" + name +
-                "\n\tserviceType='" + serviceType +
-                "\n\tprofessionals=" + professionals +
-                "\n\tappointments=" + appointments;
+        return  "id_space: " + id_space +
+                ", name: " + name +
+                ", serviceType: " + serviceType;
     }
 }

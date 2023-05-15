@@ -7,6 +7,7 @@ import iesfranciscodelosrios.dam.model.domain.Space;
 
 import javax.xml.bind.JAXBException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -168,6 +169,48 @@ public class AppointmentDAO implements DAO<Appointment> {
                 pst.executeUpdate();
             }
         }
+    }
+
+    public List<Appointment> findByDateAndSpace(int spaceId, LocalDate date) throws SQLException {
+        List<Appointment> appointments = new ArrayList<>();
+        String query = "SELECT * FROM appointment WHERE id_space = ? AND date = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, spaceId);
+            statement.setDate(2, java.sql.Date.valueOf(date));
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Appointment appointment = new Appointment();
+                appointment.setId_appointment(resultSet.getInt("id_appointment"));
+                appointment.setStartTime(resultSet.getTime("startTime").toLocalTime());
+                appointment.setEndTime(resultSet.getTime("endTime").toLocalTime());
+                appointment.setDate(resultSet.getDate("date").toLocalDate());
+                int clientId = resultSet.getInt("id_client");
+                if (clientId > 0) {
+                    ClientDAO clientDAO = new ClientDAO(conn);
+                    Client client = clientDAO.findById(clientId);
+                    appointment.setClient(client);
+                }
+                int spaceIdFromResultSet = resultSet.getInt("id_space");
+                if (spaceIdFromResultSet > 0) {
+                    SpaceDAO spaceDAO = new SpaceDAO(conn);
+                    Space space = spaceDAO.findById(spaceIdFromResultSet);
+                    appointment.setSpace(space);
+                }
+                appointments.add(appointment);
+            }
+        }
+        return appointments;
+    }
+
+    public int findLastId() throws SQLException {
+        String query = "SELECT MAX(id_appointment) AS max_id FROM appointment";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("max_id");
+            }
+        }
+        return 0; // Si no se encuentra ningún ID, se devuelve 0 o un valor predeterminado
     }
 
     @Override
