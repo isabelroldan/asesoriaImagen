@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
@@ -49,6 +51,8 @@ public class ReadClientController {
         this.clientDAO = new ClientDAO();
     }
 
+    private static final Logger logger = LogManager.getLogger(ReadClientController.class);
+
     /**
      * Handles the event when the "Intro" button is clicked.
      * Contains the logic for retrieving and displaying client information based on the entered ID.
@@ -77,6 +81,8 @@ public class ReadClientController {
             }
         } catch (NumberFormatException | SQLException e) {
             errorLabel.setText("Error searching for client: " + e.getMessage());
+
+            logger.error("Error searching for client: " + e.getMessage(), e);
         }
     }
 
@@ -94,6 +100,8 @@ public class ReadClientController {
             errorLabel.setText("Client deleted successfully.");
         } catch (NumberFormatException | SQLException e) {
             errorLabel.setText("Error deleting the client. Please delete the client's appointments before removing it.");
+
+            logger.error("Error deleting client: " + e.getMessage(), e);
         }
     }
 
@@ -130,6 +138,7 @@ public class ReadClientController {
         } catch (SQLException e) {
             // Display an error message if an exception occurs
             errorLabel.setText("Error updating client: " + e.getMessage());
+            logger.error("Error updating client: " + e.getMessage(), e);
         }
     }
 
@@ -172,6 +181,8 @@ public class ReadClientController {
             }
         } catch (SQLException ex) {
             errorLabel.setText("Error inserting client: " + ex.getMessage());
+
+            logger.error("Error inserting client: " + ex.getMessage(), ex);
         }
     }
 }

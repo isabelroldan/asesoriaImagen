@@ -3,6 +3,8 @@ import iesfranciscodelosrios.dam.model.dao.AppointmentDAO;
 import iesfranciscodelosrios.dam.model.domain.Appointment;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -27,6 +29,8 @@ public class AppointmentController2 {
     private Button deleteButton;
 
     private final AppointmentDAO appointmentDAO = new AppointmentDAO(); // Instancia de tu clase AppointmentDAO
+
+    private static final Logger logger = LogManager.getLogger(AppointmentController2.class);
 
     /**
      * Handles the action of the intro button.
@@ -55,6 +59,8 @@ public class AppointmentController2 {
         } catch (SQLException e) {
             // Handle any SQL exceptions
             errorLabel.setText("Error de base de datos: " + e.getMessage());
+
+            logger.error("Error retrieving appointment data", e);
         }
     }
 
@@ -96,6 +102,8 @@ public class AppointmentController2 {
         } catch (SQLException e) {
             // Handle any SQL exceptions
             errorLabel.setText("Error de base de datos: " + e.getMessage());
+
+            logger.error("Error deleting appointment", e);
         }
     }
 }

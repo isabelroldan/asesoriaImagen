@@ -31,6 +31,7 @@ public class LoginController {
     @FXML
     private PasswordField passField;
 
+
     /**
      * Handles the validation of the user and password in the home button action.
      * It checks if the entered user and password are correct.

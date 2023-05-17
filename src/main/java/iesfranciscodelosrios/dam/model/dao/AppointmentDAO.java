@@ -55,6 +55,8 @@ public class AppointmentDAO implements DAO<Appointment> {
                     appointment.setEndTime(res.getTime("endTime").toLocalTime());
                     appointment.setDate(res.getDate("date").toLocalDate());
 
+                    //LAZY
+
                     // Retrieve the client associated with the appointment using ClientDAO
                     ClientDAO cdao = new ClientDAO(this.conn);
                     Client client = cdao.findById(res.getInt("id_client"));
@@ -157,6 +159,7 @@ public class AppointmentDAO implements DAO<Appointment> {
             if(appointment == null) {
                 if(myClient == null & mySpace == null){
                     // Save the associated client and space if they do not exist in the database
+                    //EAGER
                     cdao.save(entity.getClient());
                     sdao.save(entity.getSpace());
                 }
@@ -203,6 +206,7 @@ public class AppointmentDAO implements DAO<Appointment> {
             if(appointment != null) {
                 if(myClient == null & mySpace == null){
                     // Save the associated client and space if they do not exist in the database
+                    //EAGER
                     cdao.save(entity.getClient());
                     sdao.save(entity.getSpace());
                 }

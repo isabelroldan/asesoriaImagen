@@ -15,6 +15,8 @@ import javafx.scene.control.cell.TextFieldListCell;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -63,6 +65,8 @@ public class AppointmentController {
     private ObservableList<Client> clientData;
 
     private ClientDAO clientDAO;
+
+    private static final Logger logger = LogManager.getLogger(AppointmentController.class);
 
     /**
      * Initializes the controller and sets up the initial state of the UI components.
@@ -387,6 +391,8 @@ public class AppointmentController {
             clientComboBox.setItems(clientData);
         } catch (SQLException e) {
             e.printStackTrace();
+
+            logger.error("Error loading client data: " + e.getMessage(), e);
             // Handle the exception in an appropriate way for your application
         }
     }

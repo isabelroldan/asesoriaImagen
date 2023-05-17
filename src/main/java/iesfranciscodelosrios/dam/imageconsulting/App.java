@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class App extends Application {
     private static Scene scene;
@@ -67,8 +69,9 @@ public class App extends Application {
         return currentProfessional;
     }
 
-
+    private static final Logger logger = LogManager.getLogger(App.class);
     public static void main(String[] args) {
         launch();
+        org.apache.logging.log4j.core.config.Configurator.initialize(null, "classpath:log4j2.xml");
     }
 }

@@ -10,8 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.sql.SQLException;
+
 
 public class SpaceController {
     @FXML
@@ -38,6 +41,8 @@ public class SpaceController {
         this.spaceDAO = new SpaceDAO();
     }
 
+    private static final Logger logger = LogManager.getLogger(SpaceController.class);
+
     /**
      * Handles the event when the "Intro" button is clicked.
      * Contains the logic for retrieving and displaying space information based on the entered space ID.
@@ -51,6 +56,7 @@ public class SpaceController {
                 nameField.setText(space.getName());
                 serviceTypeField.setText(space.getServiceType());
             } else {
+                logger.error("No se encontró un space con ese ID");
                 errorLabel.setText("No se encontró un space con ese ID");
             }
         } catch (NumberFormatException | SQLException e) {
@@ -72,6 +78,7 @@ public class SpaceController {
             errorLabel.setText("Space deleted successfully.");
         } catch (NumberFormatException | SQLException e) {
             errorLabel.setText("Error deleting the space. Please delete the client's appointments before removing it.");
+            logger.error("Error deleting space: " + e.getMessage(), e);
         }
     }
 
@@ -104,6 +111,7 @@ public class SpaceController {
         } catch (SQLException e) {
             // Display an error message if an exception occurs
             errorLabel.setText("Error updating space: " + e.getMessage());
+            logger.error("Error updating space: " + e.getMessage(), e);
         }
     }
 
@@ -130,12 +138,16 @@ public class SpaceController {
                 String errorMessage = "";
                 errorMessage += "ID already exists. ";
                 errorLabel.setText(errorMessage);
+
+                logger.error("ID already exists for space: " + space.getId_space());
             } else {
                 dao.save(space);
                 errorLabel.setText("Space inserted successfully");
             }
         } catch (SQLException ex) {
             errorLabel.setText("Error inserting space: " + ex.getMessage());
+
+            logger.error("Error inserting space: " + ex.getMessage(), ex);
         }
     }
 }

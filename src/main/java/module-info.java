@@ -5,6 +5,8 @@ module iesfranciscodelosrios.dam.imageconsulting {
     requires org.controlsfx.controls;
     requires java.sql;
     requires java.xml.bind;
+    requires org.apache.logging.log4j;
+    requires org.apache.logging.log4j.core;
 
     opens iesfranciscodelosrios.dam.imageconsulting to javafx.fxml;
 

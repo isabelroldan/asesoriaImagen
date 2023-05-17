@@ -18,6 +18,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MenuController {
     @FXML
@@ -55,6 +57,7 @@ public class MenuController {
 
     @FXML
     private MenuItem readClient;
+
 
     /**
      * Handles the action of reading a client.

@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
@@ -61,6 +63,8 @@ public class ProfessionalController {
         this.professionalDAO = new ProfessionalDAO();
     }
 
+    private static final Logger logger = LogManager.getLogger(ProfessionalController.class);
+
     /**
      * Handles the event when the "Intro" button is clicked.
      * Contains the logic for retrieving and displaying professional data based on the entered ID.
@@ -85,6 +89,8 @@ public class ProfessionalController {
             }
         } catch (NumberFormatException | SQLException e) {
             errorLabel.setText("Error al buscar professional: " + e.getMessage());
+
+            logger.error("Error al buscar professional: " + e.getMessage(), e);
         }
     }
 
@@ -100,6 +106,8 @@ public class ProfessionalController {
             errorLabel.setText("Professional eliminado correctamente.");
         } catch (NumberFormatException | SQLException e) {
             errorLabel.setText("Error al eliminar el professional. ...");
+
+            logger.error("Error al eliminar el professional: " + e.getMessage(), e);
         }
     }
 
@@ -141,6 +149,8 @@ public class ProfessionalController {
         } catch (SQLException e) {
             // Display an error message if an exception occurs
             errorLabel.setText("Error updating professional: " + e.getMessage());
+
+            logger.error("Error updating professional: " + e.getMessage(), e);
         }
     }
 
@@ -193,6 +203,8 @@ public class ProfessionalController {
             }
         } catch (SQLException ex) {
             errorLabel.setText("Error inserting professional: " + ex.getMessage());
+
+            logger.error("Error inserting professional: " + ex.getMessage(), ex);
         }
     }
 }
