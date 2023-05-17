@@ -31,6 +31,10 @@ public class LoginController {
     @FXML
     private PasswordField passField;
 
+    /**
+     * Handles the validation of the user and password in the home button action.
+     * It checks if the entered user and password are correct.
+     */
     @FXML
     private void btnHomeValidate() { //Controlador de usuario y contraseña
         Connection conn = Connect.getConnect();
@@ -38,15 +42,21 @@ public class LoginController {
 
         boolean result = false;
         try {
+            // Check if the entered user and password are valid
             result = dao.professionalLogin(userField.getText(), passField.getText());
 
             if (result == true) {
+                // If the login is successful
                 labelUser.setText("Correct user and password!");
                 labelUser.setTextFill(Color.GREEN);
+                // Retrieve the current professional from the DAO
                 Professional currentProfessional = dao.getProfessional(userField.getText());
+                // Set the current professional in the application
                 App.setCurrentProfessional(currentProfessional);
+                // Navigate to the menu screen
                 App.setRoot("menu");
             } else {
+                // If the login is unsuccessful
                 labelUser.setText("Wrong username or password!");
                 labelUser.setTextFill(Color.RED);
             }
@@ -56,22 +66,5 @@ public class LoginController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
-
-
-
-        /*if (userField.getText().equals("admin") && passField.getText().equals("admin")){
-            labelUser.setText("Correct user and password!");
-            labelUser.setTextFill(Color.GREEN);
-            App.setRoot("primary");
-        }else {
-            if (userField.getText().equals("user") && passField.getText().equals("user")){
-                App.setRoot("users");
-            } else {
-                labelUser.setText("Wrong username or password!");
-                labelUser.setTextFill(Color.RED);
-            }
-        }*/
     }
 }

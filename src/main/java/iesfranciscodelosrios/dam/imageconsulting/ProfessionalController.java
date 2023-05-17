@@ -61,6 +61,10 @@ public class ProfessionalController {
         this.professionalDAO = new ProfessionalDAO();
     }
 
+    /**
+     * Handles the event when the "Intro" button is clicked.
+     * Contains the logic for retrieving and displaying professional data based on the entered ID.
+     */
     @FXML
     public void handleIntroButton() {
         try {
@@ -84,6 +88,10 @@ public class ProfessionalController {
         }
     }
 
+    /**
+     * Handles the event when the "Delete" button is clicked.
+     * Contains the logic for deleting a professional based on the entered ID.
+     */
     @FXML
     void handleDeleteButton(ActionEvent event) {
         try {
@@ -98,10 +106,14 @@ public class ProfessionalController {
     @FXML
     private Button updateButton;
 
+    /**
+     * Handles the event when the "Update" button is clicked.
+     * Contains the logic for updating a professional based on the entered values in the form.
+     */
     @FXML
     private void handleUpdateButton(ActionEvent event) {
         try {
-            // Recupera los valores del formulario
+            // Retrieve the values from the form
             int id = Integer.parseInt(idField.getText());
             String name = nameField.getText();
             String surname = surnameField.getText();
@@ -113,25 +125,32 @@ public class ProfessionalController {
             int nSocialSecurity = Integer.parseInt(nSocialSecurityField.getText());
             int id_space = Integer.parseInt(id_spaceField.getText());
 
-            //Crea un objeto SpaceDAO y recupera el Space correspondiente al id_space
+            // Create a SpaceDAO object and retrieve the Space corresponding to the id_space
             SpaceDAO spaceDAO = new SpaceDAO();
             Space space = spaceDAO.findById(id_space);
 
-            // Crea un objeto Professional con los valores recuperados
+            // Create a Professional object with the retrieved values
             Professional professional = new Professional(id, name, surname, telephone, email, password, dni, nPersonnel, nSocialSecurity, space);
 
-            // Actualiza el professional en la base de datos
+            // Update the professional in the database
             ProfessionalDAO professionalDAO = new ProfessionalDAO();
             professionalDAO.update(professional);
 
-            // Muestra un mensaje de éxito
+            // Display a success message
             errorLabel.setText("Professional updated successfully");
         } catch (SQLException e) {
-            // Muestra un mensaje de error si ocurre una excepción
+            // Display an error message if an exception occurs
             errorLabel.setText("Error updating professional: " + e.getMessage());
         }
     }
 
+
+    /**
+     * Handles the event when the "Insert" button is clicked.
+     * Contains the logic for inserting a new professional based on the entered values in the form.
+     *
+     * @throws SQLException if an SQL exception occurs
+     */
     @FXML
     private void handleInsertButton(ActionEvent event) throws SQLException {
         ProfessionalDAO dao = new ProfessionalDAO();
@@ -146,7 +165,7 @@ public class ProfessionalController {
         professional.setnPersonnel(Integer.parseInt(nPersonnelField.getText()));
         professional.setnSocialSecurity(Integer.parseInt(nSocialSecurityField.getText()));
 
-        // Recupera el objeto Space correspondiente al id_space
+        // Retrieve the Space object corresponding to the id_space
         int idSpace = Integer.parseInt(id_spaceField.getText());
         SpaceDAO spaceDAO = new SpaceDAO();
         Space space = spaceDAO.findById(idSpace);
@@ -154,11 +173,11 @@ public class ProfessionalController {
         professional.setSpace(space);
 
         try {
-            // Comprobar si el id o el email ya existen en la base de datos
+            // Check if the id or email already exist in the database
             boolean idExists = dao.checkIfIdExists(professional.getId_person());
             boolean emailExists = dao.checkIfEmailExists(professional.getEmail());
 
-            // Si el id o el email ya existen, mostrar un mensaje de error
+            // If the id or email already exist, display an error message
             if (idExists || emailExists) {
                 String errorMessage = "";
                 if (idExists) {

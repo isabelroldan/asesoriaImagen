@@ -54,7 +54,7 @@
                                   </Menu>
                                   <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
                                       <items>
-                                          <MenuItem fx:id="readAppointment"  text="Read" />
+                                          <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment"  text="Read" />
                                           <MenuItem fx:id="insertAppointment" onAction="#handleInsertAppointment" text="Insert" />
                                           <MenuItem fx:id="updateAppointment" text="Update" />
                                           <MenuItem fx:id="deleteAppointment" text="Delete" />

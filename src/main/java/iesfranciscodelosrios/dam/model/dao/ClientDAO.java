@@ -26,11 +26,18 @@ public class ClientDAO implements DAO<Client> {
 
     public ClientDAO() { this.conn = Connect.getConnect(); }
 
+    /**
+     * Retrieves a list of all clients from the database.
+     *
+     * @return A list of all clients.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public List<Client> findAll() throws SQLException {
         List<Client> result = new ArrayList<>();
         try(PreparedStatement pst = this.conn.prepareStatement(FINDALL)) {
             try(ResultSet res = pst.executeQuery()) {
+                // Iterate over the result set and create Client objects
                 while(res.next()) {
                     Client client = new Client();
                     client.setId_person(res.getInt("id_client"));
@@ -40,8 +47,10 @@ public class ClientDAO implements DAO<Client> {
                     client.setEmail(res.getString("email"));
                     client.setPassword(res.getString("password"));
 
+                    // Retrieve the color test result string from the result set
                     String resultString = res.getString("colorTestResult");
                     ColorTestResult ctr = null;
+                    // Find the corresponding ColorTestResult enum value
                     for(ColorTestResult r: ColorTestResult.values()) {
                         if(r.name().equalsIgnoreCase(resultString)) {
                             ctr = r;
@@ -49,7 +58,8 @@ public class ClientDAO implements DAO<Client> {
                         }
                     }
 
-                    if (result != null) {
+                    // Set the color test result on the client if it is not null
+                    if (client != null) {
                         client.setColorTestResult(ctr);
 
                     }
@@ -60,6 +70,13 @@ public class ClientDAO implements DAO<Client> {
         return result;
     }
 
+    /**
+     * Retrieves a client by their ID from the database.
+     *
+     * @param id_client The ID of the client to retrieve.
+     * @return The client with the specified ID, or null if not found.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public Client findById(int id_client) throws SQLException {
         Client result = null;
@@ -75,8 +92,10 @@ public class ClientDAO implements DAO<Client> {
                     client.setEmail(res.getString("email"));
                     client.setPassword(res.getString("password"));
 
+                    // Retrieve the color test result string from the result set
                     String resultString = res.getString("colorTestResult");
                     ColorTestResult ctr = null;
+                    // Find the corresponding ColorTestResult enum value
                     for(ColorTestResult r: ColorTestResult.values()) {
                         if(r.name().equalsIgnoreCase(resultString)) {
                             ctr = r;
@@ -84,7 +103,8 @@ public class ClientDAO implements DAO<Client> {
                         }
                     }
 
-                    if (result != null) {
+                    // Set the color test result on the client if it is not null
+                    if (client != null) {
                         client.setColorTestResult(ctr);
                     }
 
@@ -95,6 +115,13 @@ public class ClientDAO implements DAO<Client> {
         return result;
     }
 
+    /**
+     * Retrieves a client by their email from the database.
+     *
+     * @param email The email of the client to retrieve.
+     * @return The client with the specified email, or null if not found.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public Client findByEmail(String email) throws SQLException {
         Client result = null;
         String query = "SELECT * FROM client WHERE email = ?";
@@ -109,14 +136,18 @@ public class ClientDAO implements DAO<Client> {
                     result.setTelephone(resultSet.getString("telephone"));
                     result.setEmail(resultSet.getString("email"));
                     result.setPassword(resultSet.getString("password"));
+
+                    // Retrieve the color test result string from the result set
                     String resultString = resultSet.getString("colorTestResult");
                     ColorTestResult ctr = null;
+                    // Find the corresponding ColorTestResult enum value
                     for (ColorTestResult r : ColorTestResult.values()) {
                         if (r.name().equalsIgnoreCase(resultString)) {
                             ctr = r;
                             break;
                         }
                     }
+                    // Set the color test result on the client
                     result.setColorTestResult(ctr);
                 }
             }
@@ -124,6 +155,13 @@ public class ClientDAO implements DAO<Client> {
         return result;
     }
 
+    /**
+     * Checks if a client with the specified ID exists in the database.
+     *
+     * @param id The ID of the client to check.
+     * @return {@code true} if a client with the specified ID exists, {@code false} otherwise.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public boolean checkIfIdExists(int id) throws SQLException {
         String sql = "SELECT * FROM client WHERE id_client = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -134,6 +172,13 @@ public class ClientDAO implements DAO<Client> {
         }
     }
 
+    /**
+     * Checks if a client with the specified email exists in the database.
+     *
+     * @param email The email of the client to check.
+     * @return {@code true} if a client with the specified email exists, {@code false} otherwise.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public boolean checkIfEmailExists(String email) throws SQLException {
         String sql = "SELECT * FROM client WHERE email = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -144,6 +189,13 @@ public class ClientDAO implements DAO<Client> {
         }
     }
 
+    /**
+     * Saves a client entity to the database.
+     *
+     * @param entity The client entity to save.
+     * @return The saved client entity.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public Client save(Client entity) throws SQLException {
         Client result = new Client();
@@ -166,6 +218,13 @@ public class ClientDAO implements DAO<Client> {
         return result;
     }
 
+    /**
+     * Updates a client entity in the database.
+     *
+     * @param entity The client entity to update.
+     * @return The updated client entity.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public Client update(Client entity) throws SQLException {
         Client result = new Client();
@@ -188,6 +247,12 @@ public class ClientDAO implements DAO<Client> {
         return result;
     }
 
+    /**
+     * Deletes a client entity from the database.
+     *
+     * @param entity The client entity to delete.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public void delete(Client entity) throws SQLException {
         if (entity != null) {

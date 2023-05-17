@@ -32,13 +32,21 @@ public class ProfessionalDAO implements DAO<Professional> {
         this.conn = Connect.getConnect();
     }
 
+    /**
+     * Retrieves all professionals from the database.
+     *
+     * @return A list of professionals.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public List<Professional> findAll() throws SQLException {
         List<Professional> result = new ArrayList<>();
         try(PreparedStatement pst = this.conn.prepareStatement(FINDALL)) {
             try(ResultSet res = pst.executeQuery()) {
                 while(res.next()) {
+                    // Creating a new Professional object
                     Professional professional = new Professional();
+                    // Setting the properties of the Professional object
                     professional.setId_person(res.getInt("id_professional"));
                     professional.setName(res.getString("name"));
                     professional.setSurname(res.getString("surname"));
@@ -48,9 +56,13 @@ public class ProfessionalDAO implements DAO<Professional> {
                     professional.setDni(res.getString("dni"));
                     professional.setnPersonnel(res.getInt("nPersonnel"));
                     professional.setnSocialSecurity(res.getInt("nSocialSecurity"));
+
+                    // Retrieving the associated Space object from the SpaceDAO
                     SpaceDAO adao = new SpaceDAO(this.conn);
                     Space space = adao.findById(res.getInt("id_space"));
                     professional.setSpace(space);
+
+                    // Adding the Professional object to the result list
                     result.add(professional);
                 }
             }
@@ -58,6 +70,13 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
+    /**
+     * Retrieves a professional from the database based on the provided ID.
+     *
+     * @param id_professional The ID of the professional to retrieve.
+     * @return The professional object if found, or null if not found.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public Professional findById(int id_professional) throws SQLException {
         Professional result = null;
@@ -65,7 +84,9 @@ public class ProfessionalDAO implements DAO<Professional> {
             pst.setInt(1, id_professional);
             try(ResultSet res = pst.executeQuery()) {
                 if(res.next()) {
+                    // Creating a new Professional object
                     Professional professional = new Professional();
+                    // Setting the properties of the Professional object
                     professional.setId_person(res.getInt("id_professional"));
                     professional.setName(res.getString("name"));
                     professional.setSurname(res.getString("surname"));
@@ -75,6 +96,8 @@ public class ProfessionalDAO implements DAO<Professional> {
                     professional.setDni(res.getString("dni"));
                     professional.setnPersonnel(res.getInt("nPersonnel"));
                     professional.setnSocialSecurity(res.getInt("nSocialSecurity"));
+
+                    // Retrieving the associated Space object from the SpaceDAO
                     SpaceDAO adao = new SpaceDAO(this.conn);
                     Space space = adao.findById(res.getInt("id_space"));
                     professional.setSpace(space);
@@ -85,6 +108,13 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
+    /**
+     * Checks if a professional with the specified ID exists in the database.
+     *
+     * @param id The ID of the professional to check.
+     * @return true if a professional with the specified ID exists, false otherwise.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public boolean checkIfIdExists(int id) throws SQLException {
         String sql = "SELECT * FROM professional WHERE id_professional = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -95,6 +125,13 @@ public class ProfessionalDAO implements DAO<Professional> {
         }
     }
 
+    /**
+     * Checks if a professional with the specified email exists in the database.
+     *
+     * @param email The email of the professional to check.
+     * @return true if a professional with the specified email exists, false otherwise.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public boolean checkIfEmailExists(String email) throws SQLException {
         String sql = "SELECT * FROM professional WHERE email = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -105,6 +142,13 @@ public class ProfessionalDAO implements DAO<Professional> {
         }
     }
 
+    /**
+     * Saves a Professional entity in the database.
+     *
+     * @param entity The Professional entity to be saved.
+     * @return The saved Professional entity.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public Professional save(Professional entity) throws SQLException {
         Professional result = new Professional();
@@ -135,6 +179,13 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
+    /**
+     * Updates a Professional entity in the database.
+     *
+     * @param entity The Professional entity to be updated.
+     * @return The updated Professional entity.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public Professional update(Professional entity) throws SQLException {
         Professional result = new Professional();
         if(entity != null) {
@@ -163,6 +214,12 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
+    /**
+     * Deletes a Professional entity from the database.
+     *
+     * @param entity The Professional entity to be deleted.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public void delete(Professional entity) throws SQLException {
         if(entity != null) {
@@ -174,11 +231,12 @@ public class ProfessionalDAO implements DAO<Professional> {
     }
 
     /**
-     * Method that checks in the login if there is a professional with an email and a password equal to the one entered
-     * @param email to check
-     * @param password to check
-     * @return boolean true if it has been found and false if not
-     * @throws SQLException
+     * Authenticates a professional based on their email and password.
+     *
+     * @param email    The email of the professional.
+     * @param password The password of the professional.
+     * @return true if the professional is authenticated, false otherwise.
+     * @throws SQLException if there is an error executing the SQL query.
      */
     public boolean professionalLogin(String email, String password) throws SQLException {
         boolean result = false;
@@ -194,30 +252,13 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
-    /*public Professional getProfessional(String email) throws SQLException {
-        PreparedStatement ps = conn.prepareStatement("SELECT * FROM professionals WHERE email = ?");
-        ps.setString(1, email);
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            String surname = rs.getString("surname");
-            String telephone = rs.getString("telephone");
-            email = rs.getString("email");
-            String password = rs.getString("password");
-            String dni = rs.getString("dni");
-            int nPersonnel = rs.getInt("nPersonnel");
-            int nSocialSecurity = rs.getInt("nSocialSecurity");
-            Space space = rs.getString("space");
-
-            Professional professional = new Professional(id, name, surname, telephone, email, password, dni, nPersonnel, nSocialSecurity, space);
-            return professional;
-        }
-
-        return null;
-    }*/
-
+    /**
+     * Retrieves a professional based on their email.
+     *
+     * @param email The email of the professional.
+     * @return The Professional object representing the professional, or null if not found.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public Professional getProfessional(String email) throws SQLException {
         Professional result = null;
         try(PreparedStatement pst = this.conn.prepareStatement(GETPROFESSIONAL)) {

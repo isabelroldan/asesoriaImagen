@@ -56,15 +56,24 @@ public class MenuController {
     @FXML
     private MenuItem readClient;
 
+    /**
+     * Handles the action of reading a client.
+     * Navigates to the "readClient" screen.
+     */
     @FXML
     void handleReadClient() {
         try {
+            // Navigate to the "readClient" screen
             App.setRoot("readClient");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Handles the action of inserting a client.
+     * Navigates to the "readClient" screen.
+     */
     @FXML
     void handleInsertClient() {
         try {
@@ -74,6 +83,10 @@ public class MenuController {
         }
     }
 
+    /**
+     * Handles the action of updating a client.
+     * Navigates to the "readClient" screen.
+     */
     @FXML
     void handleUpdateClient() {
         try {
@@ -83,6 +96,10 @@ public class MenuController {
         }
     }
 
+    /**
+     * Handles the action of deleting a client.
+     * Navigates to the "readClient" screen.
+     */
     @FXML
     void handleDeleteClient() {
         try {
@@ -92,6 +109,9 @@ public class MenuController {
         }
     }
 
+    /**
+     * Handles the action of navigating to the "space" screen.
+     */
     @FXML
     void handleSpace() {
         try {
@@ -101,6 +121,9 @@ public class MenuController {
         }
     }
 
+    /**
+     * Handles the action of navigating to the "professional" screen.
+     */
     @FXML
     void handleProfessional() {
         try {
@@ -110,6 +133,9 @@ public class MenuController {
         }
     }
 
+    /**
+     * Handles the action of navigating to the "insertAppointment" screen.
+     */
     @FXML
     void handleInsertAppointment() {
         try {
@@ -119,14 +145,27 @@ public class MenuController {
         }
     }
 
+    /**
+     * Handles the action of navigating to the "appointment" screen.
+     */
+    @FXML
+    void handleReadAppointment() {
+        try {
+            App.setRoot("appointment");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * Retrieves the current professional from the application context and populates the corresponding fields.
+     */
     public void initialize() {
         Professional professional = App.getCurrentProfessional();
 
-
-        //Rellenar los campos correspondientes
-
+        // Populate the corresponding fields
         id_personLabel.setText(Integer.toString(professional.getId_person()));
         nameLabel.setText(professional.getName());
         surnameLabel.setText(professional.getSurname());
@@ -140,30 +179,46 @@ public class MenuController {
     }
 
 
+    /**
+     * Handles the event when the "Clientes" button is clicked.
+     * Contains the logic for handling the selection of clientes.
+     */
     @FXML
     private void handleClientesBtn(ActionEvent event) {
-        // Lógica para manejar la selección de clientes
         System.out.println("Selected clientes");
     }
 
+    /**
+     * Handles the event when the "Profesionales" button is clicked.
+     * Contains the logic for handling the selection of profesionales.
+     */
     @FXML
     private void handleProfesionalesBtn(ActionEvent event) {
-        // Lógica para manejar la selección de profesionales
         System.out.println("Selected profesionales");
     }
 
+    /**
+     * Handles the event when the "Espacios" button is clicked.
+     * Contains the logic for handling the selection of espacios.
+     */
     @FXML
     private void handleEspaciosBtn(ActionEvent event) {
-        // Lógica para manejar la selección de espacios
         System.out.println("Selected espacios");
     }
 
+    /**
+     * Handles the event when the "Citas" button is clicked.
+     * Contains the logic for handling the selection of citas.
+     */
     @FXML
     private void handleCitasBtn(ActionEvent event) {
-        // Lógica para manejar la selección de citas
         System.out.println("Selected citas");
     }
 
+    /**
+     * Handles the event when the "Exit" button is clicked.
+     * Contains the logic for handling the exit action.
+     */
     @FXML
     private void handleExitClick(ActionEvent event) {
         // Lógica para manejar la selección de salir

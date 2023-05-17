@@ -64,30 +64,32 @@ public class AppointmentController {
 
     private ClientDAO clientDAO;
 
-
+    /**
+     * Initializes the controller and sets up the initial state of the UI components.
+     */
     public void initialize() {
         try {
-            // Obtener el último ID de cita de la base de datos
+            // Get the last appointment ID from the database
             int lastAppointmentId = new AppointmentDAO().findLastId();
-            // Autocompletar el campo con el siguiente número disponible
+            // Auto-complete the field with the next available number
             idAppointmentLabel.setText(String.valueOf(lastAppointmentId + 1));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            // Recuperar los datos de todos los Space y añadirlos al ComboBox
+            // Retrieve data for all Spaces and add them to the ComboBox
             spaceComboBox.getItems().addAll(new SpaceDAO().findAll());
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        // Crear una instancia del formateador de fecha que se utilizará para mostrar las fechas deshabilitadas
+        // Create an instance of the date formatter used to display disabled dates
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("dd")
                 .toFormatter();
 
-        // Crear un Callback que se llamará para cada celda del DatePicker
+        // Create a Callback that will be called for each cell in the DatePicker
         Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
             @Override
             public DateCell call(DatePicker datePicker) {
@@ -96,13 +98,13 @@ public class AppointmentController {
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
 
-                        // Deshabilitar las celdas para fines de semana y festivos
+                        // Disable cells for weekends and holidays
                         DayOfWeek day = DayOfWeek.from(item);
                         boolean weekend = day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY;
                         boolean holiday = isHoliday(item); // Define aquí tu lógica para identificar los festivos
                         setDisable(weekend || holiday);
 
-                        // Si la celda está deshabilitada, establecer un estilo para mostrarlo
+                        // If the cell is disabled, set a style to indicate it
                         if (weekend || holiday) {
                             setStyle("-fx-background-color: #ffc0cb;");
                             setTooltip(new Tooltip("Día no disponible"));
@@ -113,29 +115,40 @@ public class AppointmentController {
             }
         };
 
-        // Establecer el Callback dayCellFactory en la propiedad dayCellFactory del DatePicker
+        // Set the dayCellFactory Callback to the dayCellFactory property of the DatePicker
         datePicker.setDayCellFactory(dayCellFactory);
 
 
 
 
-        // Configurar el ComboBox CLIENT
+        // Configure the CLIENT ComboBox
         clientComboBox.setConverter(new ClientStringConverter());
         clientComboBox.setCellFactory(TextFieldListCell.forListView(new ClientStringConverter()));
 
-        // Cargar los datos de los clientes
+        // Load client data
         loadClientData();
 
     }
 
+    /**
+     * Checks if the given date is a holiday.
+     *
+     * @param date The date to check.
+     * @return {@code true} if the date is a holiday, {@code false} otherwise.
+     */
     private boolean isHoliday(LocalDate date) {
-        // Si es sábado o domingo, es festivo
+        // If it's Saturday or Sunday, it's a holiday
         if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
             return true;
         }
         return false;
     }
 
+    /**
+     * Handles the action when a space is selected from the spaceComboBox.
+     *
+     * @param event The action event.
+     */
     @FXML
     private void handleSpaceComboBoxAction(ActionEvent event) {
         Space selectedSpace = spaceComboBox.getSelectionModel().getSelectedItem();
@@ -148,30 +161,36 @@ public class AppointmentController {
 
     @FXML
     private Button hoursAvailable;
+
+    /**
+     * Handles the action when the hours available button is clicked.
+     *
+     * @param event The action event.
+     */
     @FXML
     private void handleHoursAvailableButton(ActionEvent event) {
-        // Obtener el espacio seleccionado y la fecha elegida
+        // Get the selected space and chosen date
         Space selectedSpace = spaceComboBox.getSelectionModel().getSelectedItem();
         LocalDate selectedDate = datePicker.getValue();
 
         if (selectedSpace != null && selectedDate != null) {
             try {
-                // Obtener las horas ocupadas para el espacio y la fecha seleccionada
+                // Get the occupied appointments for the selected space and date
                 AppointmentDAO appointmentDAO = new AppointmentDAO();
                 List<Appointment> occupiedAppointments = appointmentDAO.findByDateAndSpace(selectedSpace.getId_space(), selectedDate);
 
-                // Crear una lista de horas disponibles
+                // Create a list of available times
                 List<LocalTime> availableTimes = new ArrayList<>();
 
-                // Definir la hora de inicio y la hora de fin para los horarios disponibles
+                // Define the start time and end time for the available schedules
                 LocalTime startTime = LocalTime.of(10, 0);
                 LocalTime endTime = LocalTime.of(20, 30);
 
-                // Agregar las horas disponibles a la lista
+                // Add the available times to the list
                 while (startTime.isBefore(endTime) || startTime.equals(endTime)) {
                     final LocalTime currentTime = startTime; // Crear una variable final efectiva
 
-                    // Verificar si la hora está ocupada
+                    // Check if the time slot is occupied
                     boolean isOccupied = false;
                     if (occupiedAppointments != null) {
                         isOccupied = occupiedAppointments.stream()
@@ -184,21 +203,21 @@ public class AppointmentController {
                         availableTimes.add(startTime);
                     }
 
-                    // Añadir intervalo de 30 minutos
+                    // Add 30-minute interval
                     startTime = startTime.plusMinutes(30);
                 }
 
-                // Limpiar ComboBox de horas de inicio
+                // Clear the start time ComboBox
                 startTimeComboBox.getItems().clear();
 
-// Agregar todas las horas al ComboBox de horas de inicio
+                // Add all the times to the start time ComboBox
                 LocalTime currentTime = LocalTime.of(10, 0);
                 while (currentTime.isBefore(endTime) || currentTime.equals(endTime)) {
                     startTimeComboBox.getItems().add(currentTime);
                     currentTime = currentTime.plusMinutes(30);
                 }
 
-// Personalizar la apariencia de los elementos en el ComboBox
+                // Customize the appearance of items in the start time ComboBox
                 startTimeComboBox.setCellFactory(listView -> new ListCell<LocalTime>() {
                     @Override
                     protected void updateItem(LocalTime item, boolean empty) {
@@ -228,32 +247,40 @@ public class AppointmentController {
         }
     }
 
+    /**
+     * Updates the start time ComboBox based on the selected time.
+     */
     public void updateStartTimeComboBox() {
         LocalTime selectedTime = startTimeComboBox.getSelectionModel().getSelectedItem();
         updateEndTimeComboBox(selectedTime);
     }
 
+    /**
+     * Updates the end time ComboBox based on the selected start time.
+     *
+     * @param selectedTime The selected start time.
+     */
     private void updateEndTimeComboBox(LocalTime selectedTime) {
-        // Limpiar ComboBox de horas de fin
+        // Clear the end time ComboBox
         endTimeComboBox.getItems().clear();
 
-        // Verificar si se seleccionó una hora
+        // Check if a time is selected
         if (selectedTime != null) {
-            // Obtener el espacio seleccionado y la fecha elegida
+            // Get the selected space and date
             Space selectedSpace = spaceComboBox.getSelectionModel().getSelectedItem();
             LocalDate selectedDate = datePicker.getValue();
 
             if (selectedSpace != null && selectedDate != null) {
                 try {
-                    // Obtener las horas ocupadas para el espacio y la fecha seleccionada
+                    // Get the occupied appointments for the selected space and date
                     AppointmentDAO appointmentDAO = new AppointmentDAO();
                     List<Appointment> occupiedAppointments = appointmentDAO.findByDateAndSpace(selectedSpace.getId_space(), selectedDate);
 
-                    // Obtener todas las horas disponibles y ocupadas en el rango de tiempo
+                    // Get all the available and occupied times in the time range
                     List<LocalTime> allTimes = getAllTimes(selectedTime);
                     List<LocalTime> availableTimes = getAvailableTimes(selectedTime, occupiedAppointments);
 
-                    // Personalizar la apariencia de los elementos en el ComboBox
+                    // Customize the appearance of the items in the ComboBox
                     endTimeComboBox.setCellFactory(listView -> new ListCell<LocalTime>() {
                         @Override
                         protected void updateItem(LocalTime item, boolean empty) {
@@ -283,7 +310,7 @@ public class AppointmentController {
                         }
                     });
 
-                    // Agregar todas las horas al ComboBox
+                    // Add all the times to the ComboBox
                     endTimeComboBox.getItems().addAll(allTimes);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -292,6 +319,13 @@ public class AppointmentController {
         }
     }
 
+    /**
+     * Retrieves the available times within the selected time range, excluding the occupied appointments.
+     *
+     * @param selectedTime         The selected start time.
+     * @param occupiedAppointments The list of occupied appointments.
+     * @return The list of available times.
+     */
     private List<LocalTime> getAvailableTimes(LocalTime selectedTime, List<Appointment> occupiedAppointments) {
         List<LocalTime> availableTimes = new ArrayList<>();
 
@@ -316,6 +350,12 @@ public class AppointmentController {
         return availableTimes;
     }
 
+    /**
+     * Retrieves all the times within the time range starting from the selected time, including the end time.
+     *
+     * @param selectedTime The selected time.
+     * @return The list of all times.
+     */
     private List<LocalTime> getAllTimes(LocalTime selectedTime) {
         List<LocalTime> allTimes = new ArrayList<>();
 
@@ -330,27 +370,32 @@ public class AppointmentController {
         return allTimes;
     }
 
-
-
-
-
+    /**
+     * Loads client data from the data source and populates the client ComboBox.
+     * Handles any SQLException that may occur.
+     */
     private void loadClientData() {
         try {
-            // Obtener los datos de los clientes desde tu fuente de datos
+            // Retrieve client data from the data source
             ClientDAO clientDAO = new ClientDAO();
             List<Client> clients = clientDAO.findAll();
 
-            // Convertir la lista de clientes en una ObservableList
+            // Convert the list of clients into an ObservableList
             clientData = FXCollections.observableArrayList(clients);
 
-            // Asignar los datos al ComboBox
+            // Set the data to the client ComboBox
             clientComboBox.setItems(clientData);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Manejar la excepción de alguna manera apropiada para tu aplicación
+            // Handle the exception in an appropriate way for your application
         }
     }
 
+    /**
+     * Custom StringConverter for Client objects.
+     * Overrides the toString method to display a desired attribute, such as email.
+     * Provides an empty implementation for the fromString method.
+     */
     private class ClientStringConverter extends StringConverter<Client> {
         private final DefaultStringConverter defaultConverter = new DefaultStringConverter();
 
@@ -360,45 +405,50 @@ public class AppointmentController {
                 return "";
             }
 
-            // Mostrar el atributo deseado, por ejemplo, el correo electrónico
+            // Display the desired attribute, email
             return client.getEmail() ;
         }
 
         @Override
         public Client fromString(String string) {
-            // Implementar la lógica de conversión inversa si es necesario
+            // Implement the reverse conversion logic if necessary
             return null;
         }
     }
 
+    /**
+     * Handles the event of inserting an appointment.
+     * @param event The event triggered by the insert appointment action.
+     * @throws ParseException If there is an error in parsing the date or time.
+     */
     @FXML
     private void handleInsertAppointment(ActionEvent event) throws ParseException {
         AppointmentDAO dao = new AppointmentDAO();
         Appointment appointment = new Appointment();
         appointment.setId_appointment(Integer.parseInt(idAppointmentLabel.getText()));
 
+        // Parsing start time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime startTime = LocalTime.parse(startTimeComboBox.getValue().toString(), formatter);
         appointment.setStartTime(startTime);
 
-        //Otra forma de hacer lo que he echo arriba
+        // Parsing end time
         LocalTime endTime = LocalTime.parse(endTimeComboBox.getValue().toString(), formatter);
         appointment.setEndTime(endTime);
 
+        // Parsing date
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse(datePicker.getValue().toString());
 
-
+        // Converting date to LocalDate
         ZoneId zone = ZoneId.systemDefault();
         Instant instant = date.toInstant().atZone(zone).toInstant();
         LocalDate localDate = instant.atZone(zone).toLocalDate();
-
         appointment.setDate(localDate);
 
-        // Recupera el objeto Client correspondiente al id_client
+        // Retrieving the selected client by email
         Client selectedClient = clientComboBox.getValue();
         String email = selectedClient.getEmail(); // Obtener el valor del campo de email
-
         ClientDAO clientDAO = new ClientDAO();
         Client client = null;
 
@@ -409,11 +459,11 @@ public class AppointmentController {
             return; // Salir del método en caso de error
         }
 
-// Resto del código para configurar los datos de la cita
+        // Setting the client for the appointment
         appointment.setClient(client);
 
 
-        // Recupera el objeto Space correspondiente al id_space
+        // Retrieving the selected space
         Space selectedSpace = spaceComboBox.getValue();
         SpaceDAO spaceDAO = new SpaceDAO();
         Space space = null;
@@ -424,13 +474,14 @@ public class AppointmentController {
             errorLabel.setText("Space no encontrado. Asegúrese de que es correcto o créelo primero.");
         }
 
+        // Setting the space for the appointment
         appointment.setSpace(space);
 
         try {
-            // Comprobar si el id o el email ya existen en la base de datos
+            // Checking if the appointment ID already exists
             boolean idExists = dao.checkIfIdExists(appointment.getId_appointment());
 
-            // Si el id ya existe, mostrar un mensaje de error
+            // Displaying an error message if the ID already exists
             if (idExists) {
                 String errorMessage = "";
                 errorMessage += "ID already exists. ";
@@ -445,204 +496,4 @@ public class AppointmentController {
             errorLabel.setStyle("-fx-text-fill: red;");
         }
     }
-
-
-
-
-    /*// Limpiar ComboBox de horas de fin
-        endTimeComboBox.getItems().clear();
-
-        // Verificar si se seleccionó una hora
-        if (selectedTime != null) {
-            LocalTime endTimeValue = selectedTime.plusMinutes(30); // Agregar 30 minutos a la hora seleccionada
-
-            // Agregar todas las horas al ComboBox de horas de fin
-            while (endTimeValue.isBefore(LocalTime.of(21, 0)) || endTimeValue.equals(LocalTime.of(21, 0))) {
-                endTimeComboBox.getItems().add(endTimeValue);
-                endTimeValue = endTimeValue.plusMinutes(30);
-            }
-        }*/
- /*   private List<LocalTime> availableTimes = new ArrayList<>();e.printStackTrace();
-
-    @FXML
-    private void initialize() {
-        initializeComboBox();
-    }
-
-
-    private void initializeComboBox() {
-        LocalTime time = LocalTime.of(10, 00);
-        while (time.isBefore(LocalTime.of(20, 30))) {
-            availableTimes.add(time);
-            time = time.plusMinutes(30);
-        }
-        startTimeComboBox.getItems().addAll(availableTimes);
-
-
-    }**************/
-
-    /*private void updateStartTimeComboBox() {
-        // Obtener la fecha y la sala seleccionadas
-        LocalDate selectedDate = datePicker.getValue();
-        int selectedSpace = Integer.parseInt(idSpaceField.getText());
-
-        // Obtener la lista de citas existentes para la fecha y la sala seleccionadas
-        AppointmentDAO appointmentDAO = new AppointmentDAO();
-        List<Appointment> appointments = null;
-        try {
-            appointments = appointmentDAO.findByDateAndSpace(selectedSpace, selectedDate);
-        } catch (SQLException e) {
-            errorLabel.setText("Error getting appointments: " + e.getMessage());
-            return;
-        }
-
-        // Crear una lista de horas disponibles para la fecha y la sala seleccionadas
-        List<LocalTime> availableTimes = new ArrayList<>();
-        LocalTime time = LocalTime.of(10, 00);
-        while (time.isBefore(LocalTime.of(20, 30))) {
-            boolean available = true;
-            for (Appointment appointment : appointments) {
-                if (appointment.getStartTime().equals(time)) {
-                    available = false;
-                    break;
-                }
-            }
-            if (available) {
-                availableTimes.add(time);
-            }
-            time = time.plusMinutes(30);
-        }
-
-        // Actualizar la lista de horas disponibles en el primer ComboBox
-        startTimeComboBox.getItems().setAll(availableTimes);
-    }*/
-
-   /* @FXML
-    private void handleDatePickerAction(ActionEvent event) {
-        updateAvailableTimes();
-    }
-
-    @FXML
-    private void handleIdSpaceFieldAction(ActionEvent event) {
-        updateAvailableTimes();
-    }
-
-    @FXML
-    private void handleStartTimeComboBoxAction(ActionEvent event) {
-        LocalTime selectedStartTime = startTimeComboBox.getSelectionModel().getSelectedItem();
-        updateEndTimeComboBox(selectedStartTime);
-    }
-
-    private void updateEndTimeComboBox(LocalTime selectedStartTime) {
-        List<LocalTime> hoursList = new ArrayList<>();
-        LocalTime time = selectedStartTime.plusMinutes(30); // Agregar 1 hora
-        while (time.isBefore(LocalTime.of(20, 30))) { // Horario límite de 20:30
-            hoursList.add(time);
-            time = time.plusMinutes(30);
-        }
-        endTimeComboBox.getItems().setAll(hoursList);
-    }
-
-    private void updateAvailableTimes() {
-        // Obtener la fecha y la sala seleccionadas
-        LocalDate selectedDate = datePicker.getValue();
-        int selectedSpace = Integer.parseInt(idSpaceField.getText());
-
-        // Obtener la lista de citas existentes para la fecha y la sala seleccionadas
-        AppointmentDAO appointmentDAO = new AppointmentDAO();
-        List<Appointment> appointments = null;
-        try {
-            appointments = appointmentDAO.findByDateAndSpace(selectedSpace, selectedDate);
-        } catch (SQLException e) {
-            errorLabel.setText("Error getting appointments: " + e.getMessage());
-            return;
-        }
-
-        // Crear una lista de horas disponibles para la fecha y la sala seleccionadas
-        List<LocalTime> availableTimes = new ArrayList<>();
-        LocalTime time = LocalTime.of(10, 00);
-        while (time.isBefore(LocalTime.of(20, 30))) {
-            boolean available = true;
-            for (Appointment appointment : appointments) {
-                if (appointment.getStartTime().equals(time)) {
-                    available = false;
-                    break;
-                }
-            }
-            if (available) {
-                availableTimes.add(time);
-            }
-            time = time.plusMinutes(30);
-        }
-
-        // Actualizar la lista de horas disponibles en el primer ComboBox
-        startTimeComboBox.getItems().setAll(availableTimes);
-    }
-
-    @FXML
-    private void handleInsertAppointment(ActionEvent event) throws ParseException {
-        AppointmentDAO dao = new AppointmentDAO();
-        Appointment appointment = new Appointment();
-        appointment.setId_appointment(Integer.parseInt(idAppointmentField.getText()));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime startTime = LocalTime.parse(startTimeComboBox.getValue().toString(), formatter);
-        appointment.setStartTime(startTime);
-
-        //Otra forma de hacer lo que he echo arriba
-        LocalTime endTime = LocalTime.parse(endTimeComboBox.getValue().toString(), formatter);
-        appointment.setEndTime(endTime);
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = format.parse(datePicker.getValue().toString());
-
-
-        ZoneId zone = ZoneId.systemDefault();
-        Instant instant = date.toInstant().atZone(zone).toInstant();
-        LocalDate localDate = instant.atZone(zone).toLocalDate();
-
-        appointment.setDate(localDate);
-
-        // Recupera el objeto Client correspondiente al id_client
-        int idClient = Integer.parseInt(idClientField.getText());
-        ClientDAO clientDAO = new ClientDAO();
-        Client client = null;
-        try {
-            client = clientDAO.findById(idClient);
-        } catch (SQLException e) {
-            errorLabel.setText("Client no encontrado en la base de datos. Creele primero una ficha.");
-        }
-
-        appointment.setClient(client);
-
-
-        // Recupera el objeto Space correspondiente al id_space
-        int idSpace = Integer.parseInt(idSpaceField.getText());
-        SpaceDAO spaceDAO = new SpaceDAO();
-        Space space = null;
-        try {
-            space = spaceDAO.findById(idSpace);
-        } catch (SQLException e) {
-            errorLabel.setText("Space no encontrado. Asegurese de que es correcto o creelo primero.");
-        }
-
-        appointment.setSpace(space);
-
-        try {
-            // Comprobar si el id o el email ya existen en la base de datos
-            boolean idExists = dao.checkIfIdExists(appointment.getId_appointment());
-
-            // Si el id ya existe, mostrar un mensaje de error
-            if (idExists) {
-                String errorMessage = "";
-                errorMessage += "ID already exists. ";
-                errorLabel.setText(errorMessage);
-            } else {
-                dao.save(appointment);
-                errorLabel.setText("Appointment inserted successfully");
-            }
-        } catch (SQLException ex) {
-            errorLabel.setText("Error inserting space: " + ex.getMessage());
-        }
-    }*/
 }

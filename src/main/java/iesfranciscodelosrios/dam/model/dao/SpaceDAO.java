@@ -27,6 +27,12 @@ public class SpaceDAO implements DAO<Space> {
         this.conn = Connect.getConnect();
     }
 
+    /**
+     * Retrieves all spaces from the database.
+     *
+     * @return A list of Space objects representing the spaces.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public List<Space> findAll() throws SQLException {
         List<Space> result = new ArrayList<>();
@@ -44,6 +50,13 @@ public class SpaceDAO implements DAO<Space> {
         return result;
     }
 
+    /**
+     * Retrieves a space from the database based on its ID.
+     *
+     * @param id_space The ID of the space to retrieve.
+     * @return A Space object representing the space with the specified ID, or null if not found.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public Space findById(int id_space) throws SQLException {
         Space result = null;
         try(PreparedStatement pst = this.conn.prepareStatement(FINDBYID)) {
@@ -62,6 +75,13 @@ public class SpaceDAO implements DAO<Space> {
         return result;
     }
 
+    /**
+     * Checks if a space with the given ID exists in the database.
+     *
+     * @param id The ID of the space to check.
+     * @return true if a space with the specified ID exists, false otherwise.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public boolean checkIfIdExists(int id) throws SQLException {
         String sql = "SELECT * FROM space WHERE id_space = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -72,6 +92,13 @@ public class SpaceDAO implements DAO<Space> {
         }
     }
 
+    /**
+     * Saves a Space entity in the database.
+     *
+     * @param entity The Space entity to save.
+     * @return The saved Space entity.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public Space save(Space entity) throws SQLException {
         Space result = new Space();
@@ -90,6 +117,13 @@ public class SpaceDAO implements DAO<Space> {
         return result;
     }
 
+    /**
+     * Updates a Space entity in the database.
+     *
+     * @param entity The Space entity to update.
+     * @return The updated Space entity.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public Space update(Space entity) throws SQLException {
         Space result = new Space();
         if(entity != null) {
@@ -107,6 +141,12 @@ public class SpaceDAO implements DAO<Space> {
         return result;
     }
 
+    /**
+     * Deletes a Space entity from the database.
+     *
+     * @param entity The Space entity to delete.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     @Override
     public void delete(Space entity) throws SQLException {
         if(entity != null) {

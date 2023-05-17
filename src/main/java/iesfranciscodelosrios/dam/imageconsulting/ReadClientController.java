@@ -49,6 +49,12 @@ public class ReadClientController {
         this.clientDAO = new ClientDAO();
     }
 
+    /**
+     * Handles the event when the "Intro" button is clicked.
+     * Contains the logic for retrieving and displaying client information based on the entered ID.
+     *
+     * @throws SQLException if an SQL exception occurs
+     */
     @FXML
     public void handleIntroButton() {
         try {
@@ -60,39 +66,50 @@ public class ReadClientController {
                 telephoneField.setText(client.getTelephone());
                 emailField.setText(client.getEmail());
                 passwordField.setText(client.getPassword());
-                /*.setText(client.getColorTestResult().toString());*/
                 ColorTestResult result = client.getColorTestResult();
                 if (result != null) {
                     colorTestResultField.setText(result.toString());
                 } else {
-                    colorTestResultField.setText("No hay resultado de color para este cliente");
+                    colorTestResultField.setText("No color result available for this client");
                 }
             } else {
-                errorLabel.setText("No se encontró un client con ese ID");
+                errorLabel.setText("No client found with that ID");
             }
         } catch (NumberFormatException | SQLException e) {
-            errorLabel.setText("Error al buscar client: " + e.getMessage());
+            errorLabel.setText("Error searching for client: " + e.getMessage());
         }
     }
 
+    /**
+     * Handles the event when the "Delete" button is clicked.
+     * Contains the logic for deleting a client based on the entered ID.
+     *
+     * @throws SQLException if an SQL exception occurs
+     */
     @FXML
     void handleDeleteButton(ActionEvent event) {
         try {
             int id = Integer.parseInt(idField.getText());
             clientDAO.delete(new Client(id, null, null, null, null, null, null));
-            errorLabel.setText("Cliente eliminado correctamente.");
+            errorLabel.setText("Client deleted successfully.");
         } catch (NumberFormatException | SQLException e) {
-            errorLabel.setText("Error al eliminar el cliente. Debe eliminar las citas del cliente antes de borrarlo.");
+            errorLabel.setText("Error deleting the client. Please delete the client's appointments before removing it.");
         }
     }
 
     @FXML
     private Button updateButton;
 
+    /**
+     * Handles the event when the "Update" button is clicked.
+     * Contains the logic for updating the client information based on the entered values in the form.
+     *
+     * @param event the action event triggered by the button click
+     */
     @FXML
     private void handleUpdateButton(ActionEvent event) {
         try {
-            // Recupera los valores del formulario
+            // Retrieve values from the form
             int id = Integer.parseInt(idField.getText());
             String name = nameField.getText();
             String surname = surnameField.getText();
@@ -101,21 +118,27 @@ public class ReadClientController {
             String password = passwordField.getText();
             ColorTestResult colorTestResult = ColorTestResult.valueOf(colorTestResultField.getText().toUpperCase());
 
-            // Crea un objeto Client con los valores recuperados
+            // Create a Client object with the retrieved values
             Client client = new Client(id, name, surname, telephone, email, password, colorTestResult);
 
-            // Actualiza el cliente en la base de datos
+            // Update the client in the database
             ClientDAO clientDAO = new ClientDAO();
             clientDAO.update(client);
 
-            // Muestra un mensaje de éxito
+            // Display a success message
             errorLabel.setText("Client updated successfully");
         } catch (SQLException e) {
-            // Muestra un mensaje de error si ocurre una excepción
+            // Display an error message if an exception occurs
             errorLabel.setText("Error updating client: " + e.getMessage());
         }
     }
 
+    /**
+     * Handles the event when the "Insert" button is clicked.
+     * Contains the logic for inserting a new client based on the entered values in the form.
+     *
+     * @param event the action event triggered by the button click
+     */
     @FXML
     private void handleInsertButton(ActionEvent event) {
         ClientDAO dao = new ClientDAO();
@@ -129,11 +152,11 @@ public class ReadClientController {
         client.setColorTestResult(ColorTestResult.valueOf(colorTestResultField.getText()));
 
         try {
-            // Comprobar si el id o el email ya existen en la base de datos
+            // Check if the ID or email already exist in the database
             boolean idExists = dao.checkIfIdExists(client.getId_person());
             boolean emailExists = dao.checkIfEmailExists(client.getEmail());
 
-            // Si el id o el email ya existen, mostrar un mensaje de error
+            // If the ID or email already exist, display an error message
             if (idExists || emailExists) {
                 String errorMessage = "";
                 if (idExists) {

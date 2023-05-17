@@ -2,7 +2,7 @@ package iesfranciscodelosrios.dam.model.domain;
 
 import java.util.Objects;
 
-public class Person {
+public abstract class Person {
     protected int id_person;
     protected String name;
     protected String surname;

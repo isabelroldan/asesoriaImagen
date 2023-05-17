@@ -38,6 +38,10 @@ public class SpaceController {
         this.spaceDAO = new SpaceDAO();
     }
 
+    /**
+     * Handles the event when the "Intro" button is clicked.
+     * Contains the logic for retrieving and displaying space information based on the entered space ID.
+     */
     @FXML
     public void handleIntroButton() {
         try {
@@ -54,43 +58,61 @@ public class SpaceController {
         }
     }
 
+    /**
+     * Handles the event when the "Delete" button is clicked.
+     * Contains the logic for deleting a space based on the entered space ID.
+     *
+     * @param event the action event triggered by the button click
+     */
     @FXML
     void handleDeleteButton(ActionEvent event) {
         try {
             int id = Integer.parseInt(idField.getText());
             spaceDAO.delete(new Space(id, null, null));
-            errorLabel.setText("Space eliminado correctamente.");
+            errorLabel.setText("Space deleted successfully.");
         } catch (NumberFormatException | SQLException e) {
-            errorLabel.setText("Error al eliminar el space. Debe eliminar las citas del cliente antes de borrarlo.");
+            errorLabel.setText("Error deleting the space. Please delete the client's appointments before removing it.");
         }
     }
 
     @FXML
     private Button updateButton;
 
+    /**
+     * Handles the event when the "Update" button is clicked.
+     * Contains the logic for updating a space with the entered values from the form.
+     *
+     * @param event the action event triggered by the button click
+     */
     @FXML
     private void handleUpdateButton(ActionEvent event) {
         try {
-            // Recupera los valores del formulario
+            // Retrieve the values from the form
             int id = Integer.parseInt(idField.getText());
             String name = nameField.getText();
             String serviceType = serviceTypeField.getText();
 
-            // Crea un objeto Space con los valores recuperados
+            // Create a Space object with the retrieved values
             Space space = new Space(id, name, serviceType);
 
-            // Actualiza el cliente en la base de datos
+            // Update the space in the database
             SpaceDAO spaceDAO = new SpaceDAO();
             spaceDAO.update(space);
 
-            // Muestra un mensaje de éxito
+            // Display a success message
             errorLabel.setText("Space updated successfully");
         } catch (SQLException e) {
-            // Muestra un mensaje de error si ocurre una excepción
+            // Display an error message if an exception occurs
             errorLabel.setText("Error updating space: " + e.getMessage());
         }
     }
 
+    /**
+     * Handles the event when the "Insert" button is clicked.
+     * Contains the logic for inserting a new space with the entered values from the form.
+     *
+     * @param event the action event triggered by the button click
+     */
     @FXML
     private void handleInsertButton(ActionEvent event) {
         SpaceDAO dao = new SpaceDAO();
@@ -100,10 +122,10 @@ public class SpaceController {
         space.setServiceType(serviceTypeField.getText());
 
         try {
-            // Comprobar si el id o el email ya existen en la base de datos
+            // Check if the ID already exists in the database
             boolean idExists = dao.checkIfIdExists(space.getId_space());
 
-            // Si el id ya existe, mostrar un mensaje de error
+            // If the ID already exists, display an error message
             if (idExists) {
                 String errorMessage = "";
                 errorMessage += "ID already exists. ";
