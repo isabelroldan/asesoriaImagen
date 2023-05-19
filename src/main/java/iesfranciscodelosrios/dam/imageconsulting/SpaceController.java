@@ -140,6 +140,7 @@ public class SpaceController {
                 errorLabel.setText(errorMessage);
 
                 logger.error("ID already exists for space: " + space.getId_space());
+
             } else {
                 dao.save(space);
                 errorLabel.setText("Space inserted successfully");
