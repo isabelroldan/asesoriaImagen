@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <conexion>
-    <server>jdbc:mysql://localhost</server>
+    <!--<server>jdbc:mysql://localhost</server>
     <database>imageconsulting</database>
     <username>root</username>
+    <password>gallina98</password>-->
+    <server>jdbc:mysql://db4free.net</server>
+    <database>imageconsulting</database>
+    <username>irolcor</username>
     <password>gallina98</password>
 </conexion>
