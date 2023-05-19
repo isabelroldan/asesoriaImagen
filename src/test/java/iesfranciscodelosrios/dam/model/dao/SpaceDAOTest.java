@@ -36,9 +36,9 @@ class SpaceDAOTest {
     @DisplayName("Comprobamos que lo que indicamos sea igual al serviceType extraido por id y" +
             " comprobación de que al buscar un id de la base de datos no sea nulo")
     void findById(){
-        int id_space = 1;
+        int id_space = 2;
         try {
-            assertEquals("pruebaArreglando", spaceDAO.findById(id_space).getServiceType());
+            assertEquals("prueba", spaceDAO.findById(id_space).getServiceType());
 
             Space result = spaceDAO.findById(id_space);
 
@@ -80,11 +80,11 @@ class SpaceDAOTest {
     @DisplayName("Verificación que el espacio actualizado no sea nulo, que el espacio actualizado sea igual al modificado y " +
             "que el espacio de la bbdd sea igual al modificado")
     void update() throws SQLException {
-        Space existingSpace = new Space(3, "New Space", "Service B"); // Espacio a modificar
+        Space existingSpace = new Space(1, "pruebaArreglando", "pruebaArreglando"); // Espacio a modificar
 
         // Modificamos el espacio existente
-        existingSpace.setName("Updated Space");
-        existingSpace.setServiceType("Service A");
+        existingSpace.setName("Sala 1");
+        existingSpace.setServiceType("Asesoría de Imagen Personal");
 
         Space updatedSpace = spaceDAO.update(existingSpace);
 
