@@ -2,62 +2,103 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(https://i.pinimg.com/564x/73/99/6f/73996f3dadf73ff416bcb2104f647527.jpg); -fx-background-repeat: stretch; -fx-background-size: 650 550; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iesfranciscodelosrios.dam.imageconsulting.ReadClientController">
+    <children>
 
-    <GridPane alignment="center" hgap="10" layoutX="-3.0" layoutY="-4.0" prefHeight="400.0" prefWidth="600.0" vgap="10">
 
-        <Label text="Introduce el ID del cliente:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-        <TextField fx:id="idField" prefHeight="26.0" prefWidth="154.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Surname:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <TextField fx:id="surnameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <GridPane alignment="center" hgap="10" layoutX="75.0" layoutY="26.0" prefHeight="370.0" prefWidth="522.0" vgap="10">
 
-        <Label text="Telephone:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <VBox GridPane.vgrow="ALWAYS">
+                <VBox prefHeight="50.0" prefWidth="70.0" />
+            </VBox>
 
-        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Introduce el ID del cliente:" />
 
-        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="idField" prefHeight="26.0" prefWidth="154.0" GridPane.columnIndex="1" />
 
-        <Label text="Color Test Result:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <TextField fx:id="colorTestResultField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Name:" GridPane.rowIndex="1" />
+            <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Button onAction="#handleIntroButton" text="Intro" GridPane.columnIndex="2" />
+            <Label text="Surname:" GridPane.rowIndex="2" />
+            <TextField fx:id="surnameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label fx:id="errorLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-        <Button fx:id="insertButton" onAction="#handleInsertButton" text="Insert" GridPane.rowIndex="8" />
-      <Button fx:id="updateButton" onAction="#handleUpdateButton" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <Button fx:id="deleteButton" onAction="#handleDeleteButton" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Label text="Telephone:" GridPane.rowIndex="3" />
+            <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <columnConstraints>
-            <ColumnConstraints maxWidth="171.19998779296876" minWidth="86.39996337890625" prefWidth="144.8" />
-            <ColumnConstraints maxWidth="155.20003662109374" minWidth="71.20001220703125" prefWidth="140.79998779296875" />
-         <ColumnConstraints maxWidth="155.20003662109374" minWidth="36.80001220703127" prefWidth="49.60001220703123" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="50.400000000000006" minHeight="21.600012207031256" prefHeight="27.20001831054688" />
-            <RowConstraints maxHeight="30.39998779296876" minHeight="1.6000000000000085" prefHeight="24.799981689453134" />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         <RowConstraints />
-        </rowConstraints>
+            <Label text="Email:" GridPane.rowIndex="4" />
+            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-    </GridPane>
+            <Label text="Password:" GridPane.rowIndex="5" />
+            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+            <Label text="Color Test Result:" GridPane.rowIndex="6" />
+            <TextField fx:id="colorTestResultField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+            <Button onAction="#handleIntroButton" text="Intro" GridPane.columnIndex="2" />
+
+            <Label fx:id="errorLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Button fx:id="insertButton" onAction="#handleInsertButton" text="Insert" GridPane.rowIndex="8" />
+          <Button fx:id="updateButton" onAction="#handleUpdateButton" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+          <Button fx:id="deleteButton" onAction="#handleDeleteButton" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+
+            <columnConstraints>
+                <ColumnConstraints maxWidth="171.19998779296876" minWidth="86.39996337890625" prefWidth="144.8" />
+                <ColumnConstraints maxWidth="155.20003662109374" minWidth="71.20001220703125" prefWidth="140.79998779296875" />
+             <ColumnConstraints maxWidth="155.20003662109374" minWidth="36.80001220703127" prefWidth="49.60001220703123" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="50.400000000000006" minHeight="21.600012207031256" prefHeight="27.20001831054688" />
+                <RowConstraints maxHeight="30.39998779296876" minHeight="1.6000000000000085" prefHeight="24.799981689453134" />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+             <RowConstraints />
+            </rowConstraints>
+
+        </GridPane>
+            <MenuBar layoutY="-5.0" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: rgba(255,255,255,0.63); -fx-background-radius: 0;">
+                <menus>
+                    <Menu fx:id="menuButton" mnemonicParsing="false" style="-fx-font-size: 17px;" text="☰">
+                        <items>
+                            <MenuItem fx:id="readClient" onAction="#handleReadClient" text="Client management" />
+
+                                     <MenuItem fx:id="readProfessional" onAction="#handleProfessional" text="Professional management" />
+
+                                     <MenuItem fx:id="readSpace" onAction="#handleSpace" text="Space management" />
+
+                                     <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
+                                <items>
+                                    <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment" text="Read" />
+                                    <MenuItem fx:id="insertAppointment" onAction="#handleInsertAppointment" text="Insert" />
+                                    <MenuItem fx:id="updateAppointment" text="Update" />
+                                    <MenuItem fx:id="deleteAppointment" text="Delete" />
+                                </items>
+                            </Menu>
+                            <SeparatorMenuItem />
+                            <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#handleExitClick" text="Exit" />
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+
+    </children>
 
 </AnchorPane>

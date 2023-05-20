@@ -26,35 +26,17 @@
             <children>
                   <MenuBar prefHeight="26.0" prefWidth="15.0" style="-fx-background-color: rgba(255,255,255,0.63); -fx-background-radius: 0;">
                       <menus>
-                          <Menu fx:id="menuButton" mnemonicParsing="false" text="☰" style="-fx-font-size: 17px;">
+                          <Menu fx:id="menuButton" mnemonicParsing="false" style="-fx-font-size: 17px;" text="☰">
                               <items>
-                                  <Menu mnemonicParsing="false" onAction="#handleClientesBtn" text="Client management" >
-                                      <items>
-                                          <MenuItem fx:id="readClient" onAction="#handleReadClient" text="Read" />
-                                          <MenuItem fx:id="insertClient" onAction="#handleInsertClient" text="Insert" />
-                                          <MenuItem fx:id="updateClient" onAction="#handleUpdateClient" text="Update" />
-                                          <MenuItem fx:id="deleteClient" onAction="#handleDeleteClient" text="Delete" />
-                                      </items>
-                                  </Menu>
-                                  <Menu mnemonicParsing="false" onAction="#handleProfesionalesBtn" text="Professional management">
-                                      <items>
-                                          <MenuItem fx:id="readProfessional" onAction="#handleProfessional" text="Read" />
-                                          <MenuItem fx:id="insertProfessional" text="Insert" />
-                                          <MenuItem fx:id="updateProfessional" text="Update" />
-                                          <MenuItem fx:id="deleteProfessional" text="Delete" />
-                                      </items>
-                                  </Menu>
-                                  <Menu mnemonicParsing="false" onAction="#handleEspaciosBtn" text="Space management">
-                                      <items>
-                                          <MenuItem fx:id="readSpace" onAction="#handleSpace" text="Read" />
-                                          <MenuItem fx:id="insertSpace" text="Insert" />
-                                          <MenuItem fx:id="updateSpace" text="Update" />
-                                          <MenuItem fx:id="daleteSpace" text="Delete" />
-                                      </items>
-                                  </Menu>
+                                  <MenuItem fx:id="readClient" onAction="#handleReadClient" text="Client management" />
+
+                                  <MenuItem fx:id="readProfessional" onAction="#handleProfessional" text="Professional management" />
+
+                                  <MenuItem fx:id="readSpace" onAction="#handleSpace" text="Space management" />
+
                                   <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
                                       <items>
-                                          <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment"  text="Read" />
+                                          <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment" text="Read" />
                                           <MenuItem fx:id="insertAppointment" onAction="#handleInsertAppointment" text="Insert" />
                                           <MenuItem fx:id="updateAppointment" text="Update" />
                                           <MenuItem fx:id="deleteAppointment" text="Delete" />
@@ -120,16 +102,7 @@
                      <Font size="20.0" />
                   </font></Label>
                 </HBox>
-                <HBox alignment="CENTER">
-                    <Label text="Password:">
-                  <font>
-                     <Font size="20.0" />
-                  </font></Label>
-                    <Label fx:id="passwordLabel" text="Password: ">
-                  <font>
-                     <Font size="20.0" />
-                  </font></Label>
-                </HBox>
+                <HBox alignment="CENTER" />
                 <HBox alignment="CENTER">
                     <Label text="DNI:">
                   <font>

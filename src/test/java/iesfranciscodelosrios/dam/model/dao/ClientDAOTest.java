@@ -1,5 +1,6 @@
 package iesfranciscodelosrios.dam.model.dao;
 
+
 import iesfranciscodelosrios.dam.model.domain.Client;
 import iesfranciscodelosrios.dam.model.domain.ColorTestResult;
 import org.junit.jupiter.api.BeforeAll;

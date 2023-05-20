@@ -90,7 +90,7 @@ public class ClientDAO implements DAO<Client> {
                     client.setSurname(res.getString("surname"));
                     client.setTelephone(res.getString("telephone"));
                     client.setEmail(res.getString("email"));
-                    client.setPassword(res.getString("password"));
+                    /*client.setPassword(res.getString("password"));*/
 
                     // Retrieve the color test result string from the result set
                     String resultString = res.getString("colorTestResult");

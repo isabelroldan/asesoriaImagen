@@ -52,12 +52,6 @@ public class MenuController {
     @FXML
     private Label spaceLabel;
 
-    @FXML
-    private Menu menuButton;
-
-    @FXML
-    private MenuItem readClient;
-
 
     /**
      * Handles the action of reading a client.
@@ -73,44 +67,7 @@ public class MenuController {
         }
     }
 
-    /**
-     * Handles the action of inserting a client.
-     * Navigates to the "readClient" screen.
-     */
-    @FXML
-    void handleInsertClient() {
-        try {
-            App.setRoot("readClient");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    /**
-     * Handles the action of updating a client.
-     * Navigates to the "readClient" screen.
-     */
-    @FXML
-    void handleUpdateClient() {
-        try {
-            App.setRoot("readClient");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Handles the action of deleting a client.
-     * Navigates to the "readClient" screen.
-     */
-    @FXML
-    void handleDeleteClient() {
-        try {
-            App.setRoot("readClient");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
      * Handles the action of navigating to the "space" screen.
@@ -174,39 +131,11 @@ public class MenuController {
         surnameLabel.setText(professional.getSurname());
         telephoneLabel.setText((professional.getTelephone()));
         emailLabel.setText(professional.getEmail());
-        passwordLabel.setText(professional.getPassword());
+        /*passwordLabel.setText(professional.getPassword());*/
         dniLabel.setText(professional.getDni());
         nPersonnelLabel.setText(Integer.toString(professional.getnPersonnel()));
         nSocialSecurityLabel.setText(Integer.toString(professional.getnSocialSecurity()));
         spaceLabel.setText(professional.getSpace().getName());
-    }
-
-
-    /**
-     * Handles the event when the "Clientes" button is clicked.
-     * Contains the logic for handling the selection of clientes.
-     */
-    @FXML
-    private void handleClientesBtn(ActionEvent event) {
-        System.out.println("Selected clientes");
-    }
-
-    /**
-     * Handles the event when the "Profesionales" button is clicked.
-     * Contains the logic for handling the selection of profesionales.
-     */
-    @FXML
-    private void handleProfesionalesBtn(ActionEvent event) {
-        System.out.println("Selected profesionales");
-    }
-
-    /**
-     * Handles the event when the "Espacios" button is clicked.
-     * Contains the logic for handling the selection of espacios.
-     */
-    @FXML
-    private void handleEspaciosBtn(ActionEvent event) {
-        System.out.println("Selected espacios");
     }
 
     /**

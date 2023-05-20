@@ -92,7 +92,7 @@ public class ProfessionalDAO implements DAO<Professional> {
                     professional.setSurname(res.getString("surname"));
                     professional.setTelephone(res.getString("telephone"));
                     professional.setEmail(res.getString("email"));
-                    professional.setPassword(res.getString("password"));
+                    /*professional.setPassword(res.getString("password"));*/
                     professional.setDni(res.getString("dni"));
                     professional.setnPersonnel(res.getInt("nPersonnel"));
                     professional.setnSocialSecurity(res.getInt("nSocialSecurity"));
@@ -271,7 +271,7 @@ public class ProfessionalDAO implements DAO<Professional> {
                     professional.setSurname(res.getString("surname"));
                     professional.setTelephone(res.getString("telephone"));
                     professional.setEmail(res.getString("email"));
-                    professional.setPassword(res.getString("password"));
+                    /*professional.setPassword(res.getString("password"));*/
                     professional.setDni(res.getString("dni"));
                     professional.setnPersonnel(res.getInt("nPersonnel"));
                     professional.setnSocialSecurity(res.getInt("nSocialSecurity"));

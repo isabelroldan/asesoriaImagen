@@ -19,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -501,5 +502,97 @@ public class AppointmentController {
             errorLabel.setText("Error inserting space: " + ex.getMessage());
             errorLabel.setStyle("-fx-text-fill: red;");
         }
+    }
+
+    /*--------------------------------------MENU OPTION-----------------------------------------*/
+    /**
+     * Handles the action of reading a client.
+     * Navigates to the "readClient" screen.
+     */
+    @FXML
+    void handleReadClient() {
+        try {
+            // Navigate to the "readClient" screen
+            App.setRoot("readClient");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    /**
+     * Handles the action of navigating to the "space" screen.
+     */
+    @FXML
+    void handleSpace() {
+        try {
+            App.setRoot("space");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Handles the action of navigating to the "professional" screen.
+     */
+    @FXML
+    void handleProfessional() {
+        try {
+            App.setRoot("professional");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Handles the action of navigating to the "insertAppointment" screen.
+     */
+    @FXML
+    void handleInsertAppointment() {
+        try {
+            App.setRoot("insertAppointment");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Handles the action of navigating to the "appointment" screen.
+     */
+    @FXML
+    void handleReadAppointment() {
+        try {
+            App.setRoot("appointment");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Handles the event when the "Citas" button is clicked.
+     * Contains the logic for handling the selection of citas.
+     */
+    @FXML
+    private void handleCitasBtn(ActionEvent event) {
+        System.out.println("Selected citas");
+    }
+
+    /**
+     * Handles the event when the "Exit" button is clicked.
+     * Contains the logic for handling the exit action.
+     */
+    @FXML
+    private void handleExitClick(ActionEvent event) {
+        // Lógica para manejar la selección de salir
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Salir");
+        alert.setHeaderText("¿Está seguro de que desea salir?");
+        alert.setContentText("Si selecciona 'Aceptar', la aplicación se cerrará.");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                System.exit(0);
+            }
+        });
     }
 }

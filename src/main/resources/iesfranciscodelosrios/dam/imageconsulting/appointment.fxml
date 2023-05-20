@@ -2,14 +2,53 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iesfranciscodelosrios.dam.imageconsulting.AppointmentController2" style="-fx-background-image: url(https://i.pinimg.com/564x/73/99/6f/73996f3dadf73ff416bcb2104f647527.jpg); -fx-background-repeat: stretch; -fx-background-size: 650 550; -fx-background-position: center center;">
+<AnchorPane prefHeight="418.0" prefWidth="755.0" style="-fx-background-image: url(https://i.pinimg.com/564x/73/99/6f/73996f3dadf73ff416bcb2104f647527.jpg); -fx-background-repeat: stretch; -fx-background-size: 650 550; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iesfranciscodelosrios.dam.imageconsulting.AppointmentController2">
 
     <children>
+
+        <VBox prefHeight="38.0" prefWidth="62.0">
+            <VBox prefHeight="400.0" prefWidth="84.0">
+                <children>
+                    <MenuBar prefHeight="26.0" prefWidth="15.0" style="-fx-background-color: rgba(255,255,255,0.63); -fx-background-radius: 0;">
+                        <menus>
+                            <Menu fx:id="menuButton" mnemonicParsing="false" style="-fx-font-size: 17px;" text="☰">
+                                <items>
+                                    <MenuItem fx:id="readClient" onAction="#handleReadClient" text="Client management" />
+
+                                    <MenuItem fx:id="readProfessional" onAction="#handleProfessional" text="Professional management" />
+
+                                    <MenuItem fx:id="readSpace" onAction="#handleSpace" text="Space management" />
+
+                                    <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
+                                        <items>
+                                            <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment" text="Read" />
+                                            <MenuItem fx:id="insertAppointment" onAction="#handleInsertAppointment" text="Insert" />
+                                            <MenuItem fx:id="updateAppointment" text="Update" />
+                                            <MenuItem fx:id="deleteAppointment" text="Delete" />
+                                        </items>
+                                    </Menu>
+                                    <SeparatorMenuItem />
+                                    <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#handleExitClick" text="Exit" />
+                                </items>
+                            </Menu>
+                        </menus>
+                    </MenuBar>
+                </children></VBox>
+        </VBox>
+
+
         <Label layoutX="308.0" layoutY="35.0" prefHeight="64.0" prefWidth="89.0" text="Citas" AnchorPane.leftAnchor="288.0" AnchorPane.topAnchor="15.0">
             <font>
                 <Font size="18.0" />
@@ -20,22 +59,30 @@
         <TextField fx:id="idAppointmentField" layoutX="339.0" layoutY="103.0" prefHeight="25.0" prefWidth="100.0" />
         <Button layoutX="461.0" layoutY="103.0" onAction="#handleIntroButtonAction" text="Intro" />
 
-        <Label layoutX="207.0" layoutY="143.0" text="Fecha:" />
-        <Label fx:id="dateLabel" layoutX="307.0" layoutY="143.0" />
+        <Label layoutX="205.0" layoutY="204.0" text="Fecha:" />
+        <DatePicker fx:id="dateLabel" layoutX="305.0" layoutY="204.0" />
+        <!--<Label fx:id="dateLabel" layoutX="307.0" layoutY="143.0" />-->
 
-        <Label layoutX="206.0" layoutY="189.0" text="Hora de inicio:" />
-        <Label fx:id="startTimeLabel" layoutX="306.0" layoutY="189.0" prefWidth="100.0" />
+        <Label layoutX="204.0" layoutY="250.0" text="Hora de inicio:" />
+        <ComboBox fx:id="startTimeLabel" layoutX="304.0" layoutY="250.0" onAction="#updateStartTimeComboBox" prefWidth="100.0" />
+        <!--<Label fx:id="startTimeLabel" layoutX="306.0" layoutY="189.0" prefWidth="100.0" />-->
 
-        <Label layoutX="206.0" layoutY="229.0" text="Hora de fin:" />
-        <Label fx:id="endTimeLabel" layoutX="306.0" layoutY="229.0" prefWidth="100.0" />
+        <Label layoutX="204.0" layoutY="290.0" text="Hora de fin:" />
+        <ComboBox fx:id="endTimeLabel" layoutX="304.0" layoutY="290.0" prefWidth="100.0" />
+        <!--<Label fx:id="endTimeLabel" layoutX="306.0" layoutY="229.0" prefWidth="100.0" />-->
 
-        <Label layoutX="208.0" layoutY="272.0" text="ID de espacio:" />
-        <Label fx:id="spaceLabel" layoutX="308.0" layoutY="272.0" prefHeight="25.0" prefWidth="100.0" />
+        <Label layoutX="204.0" layoutY="158.0" text="ID de espacio:" />
+        <ComboBox fx:id="spaceLabel" layoutX="304.0" layoutY="158.0" prefHeight="26.0" prefWidth="234.0" />
+        <!--<Label fx:id="spaceLabel" layoutX="308.0" layoutY="272.0" prefHeight="25.0" prefWidth="100.0" />-->
 
-        <Label layoutX="207.0" layoutY="315.0" text="Email del cliente:" />
-        <Label fx:id="clientLabel" layoutX="308.0" layoutY="311.0" prefHeight="26.0" prefWidth="288.0" />
+        <Label layoutX="204.0" layoutY="337.0" text="Email del cliente:" />
+        <ComboBox fx:id="clientLabel" layoutX="305.0" layoutY="333.0" prefHeight="26.0" prefWidth="233.0" />
+        <!--<Label fx:id="clientLabel" layoutX="308.0" layoutY="311.0" prefHeight="26.0" prefWidth="288.0" />-->
+
         <Button fx:id="deleteButton" layoutX="313.0" layoutY="365.0" onAction="#handleDeleteButton" text="Delete" />
         <Label fx:id="errorLabel" layoutX="20.0" layoutY="360.0" textFill="RED" />
+      <Button layoutX="501.0" layoutY="204.0" mnemonicParsing="false" onAction="#handleHoursAvailableButton" text="Availability" />
+      <Button onAction="#updateAppointment" layoutX="363.0" layoutY="378.0" mnemonicParsing="false" text="Update" />
 
     </children>
     <padding>

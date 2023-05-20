@@ -1,0 +1,5 @@
+module:iesfranciscodelosrios.dam.imageconsulting
+iesfranciscodelosrios.dam.imageconsulting
+iesfranciscodelosrios.dam.model.connections
+iesfranciscodelosrios.dam.model.dao
+iesfranciscodelosrios.dam.model.domain

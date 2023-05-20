@@ -9,10 +9,49 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iesfranciscodelosrios.dam.imageconsulting.AppointmentController">
 
 
     <children>
+
+        <VBox >
+            <VBox prefHeight="400.0" prefWidth="84.0">
+                <children>
+                    <MenuBar prefHeight="26.0" prefWidth="15.0" style="-fx-background-color: rgba(255,255,255,0.63); -fx-background-radius: 0;">
+                        <menus>
+                            <Menu fx:id="menuButton" mnemonicParsing="false" text="☰" style="-fx-font-size: 17px;">
+                                <items>
+                                    <MenuItem fx:id="readClient" onAction="#handleReadClient" text="Client management" />
+
+                                    <MenuItem fx:id="readProfessional" onAction="#handleProfessional" text="Professional management"/>
+
+                                    <MenuItem fx:id="readSpace" onAction="#handleSpace" text="Space management"/>
+
+                                    <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
+                                        <items>
+                                            <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment"  text="Read" />
+                                            <MenuItem fx:id="insertAppointment" onAction="#handleInsertAppointment" text="Insert" />
+                                            <MenuItem fx:id="updateAppointment" text="Update" />
+                                            <MenuItem fx:id="deleteAppointment" text="Delete" />
+                                        </items>
+                                    </Menu>
+                                    <SeparatorMenuItem />
+                                    <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#handleExitClick" text="Exit" />
+                                </items>
+                            </Menu>
+                        </menus>
+                    </MenuBar>
+                </children></VBox>
+        </VBox>
+
+
+
+
         <Label layoutX="244.0" layoutY="43.0" text="Introducir cita" AnchorPane.leftAnchor="244.0" AnchorPane.topAnchor="43.0">
             <font>
                 <Font size="18.0" />

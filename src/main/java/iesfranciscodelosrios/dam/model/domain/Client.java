@@ -34,9 +34,6 @@ public class Client extends Person {
 
     @Override
     public String toString() {
-        return "Client" +
-                super.toString() +
-                "\n\tcolorTestResult=" + colorTestResult +
-                "\n\tappointments=" + appointments;
+        return email;
     }
 }

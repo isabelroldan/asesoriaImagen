@@ -77,8 +77,8 @@ public class Space {
 
     @Override
     public String toString() {
-        return  "id_space: " + id_space +
-                ", name: " + name +
+        return
+                "Name: " + name +
                 ", serviceType: " + serviceType;
     }
 }
