@@ -1,0 +1,418 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AppointmentDAO</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">iesfranciscodelosrios.dam.model.dao</a>
+</div>
+
+<h1>Coverage Summary for Class: AppointmentDAO (iesfranciscodelosrios.dam.model.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppointmentDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/134)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package iesfranciscodelosrios.dam.model.dao;
+&nbsp;
+&nbsp;import iesfranciscodelosrios.dam.model.connections.Connect;
+&nbsp;import iesfranciscodelosrios.dam.model.domain.Appointment;
+&nbsp;import iesfranciscodelosrios.dam.model.domain.Client;
+&nbsp;import iesfranciscodelosrios.dam.model.domain.Space;
+&nbsp;
+&nbsp;import javax.xml.bind.JAXBException;
+&nbsp;import java.sql.*;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.LocalTime;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class AppointmentDAO implements DAO&lt;Appointment&gt; {
+&nbsp;
+&nbsp;    private final static  String FINDALL = &quot;SELECT * FROM appointment&quot;;
+&nbsp;    private final static  String FINDBYID = &quot;SELECT * FROM appointment WHERE id_appointment = ?&quot;;
+&nbsp;    private final static  String INSERT = &quot;INSERT INTO appointment(id_appointment, startTime, endTime, date, id_client, id_space) VALUES(?, ?, ?, ?, ?, ?)&quot;;
+&nbsp;    private final static  String UPDATE = &quot;UPDATE appointment SET startTime = ?, endTime = ?, date = ?, id_client= ?, id_space = ? WHERE id_appointment = ?&quot;;
+&nbsp;    private final static  String DELETE = &quot;DELETE FROM appointment WHERE id_appointment = ?&quot;;
+&nbsp;
+&nbsp;    private Connection conn;
+&nbsp;
+<b class="nc">&nbsp;    public AppointmentDAO(Connection conn) {</b>
+<b class="nc">&nbsp;        this.conn = conn;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public AppointmentDAO() {</b>
+<b class="nc">&nbsp;        this.conn = Connect.getConnect();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves all appointments from the database.
+&nbsp;     * @return A list of Appointment objects representing all appointments.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public List&lt;Appointment&gt; findAll() throws SQLException {
+&nbsp;        // Create a new list to store the appointments
+<b class="nc">&nbsp;        List&lt;Appointment&gt; result = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;        // Prepare the SQL statement to retrieve all appointments
+<b class="nc">&nbsp;        try(PreparedStatement pst = this.conn.prepareStatement(FINDALL)) {</b>
+&nbsp;            // Execute the SQL query and retrieve the results
+<b class="nc">&nbsp;            try(ResultSet res = pst.executeQuery()) {</b>
+&nbsp;                // Iterate over the result set
+<b class="nc">&nbsp;                while (res.next()) {</b>
+&nbsp;                    // Create a new Appointment object
+<b class="nc">&nbsp;                    Appointment appointment = new Appointment();</b>
+&nbsp;
+&nbsp;                    // Set the properties of the appointment using data from the result set
+<b class="nc">&nbsp;                    appointment.setId_appointment(res.getInt(&quot;id_appointment&quot;));</b>
+<b class="nc">&nbsp;                    appointment.setStartTime(res.getTime(&quot;startTime&quot;).toLocalTime());</b>
+<b class="nc">&nbsp;                    appointment.setEndTime(res.getTime(&quot;endTime&quot;).toLocalTime());</b>
+<b class="nc">&nbsp;                    appointment.setDate(res.getDate(&quot;date&quot;).toLocalDate());</b>
+&nbsp;
+&nbsp;                    //LAZY
+&nbsp;
+&nbsp;                    // Retrieve the client associated with the appointment using ClientDAO
+<b class="nc">&nbsp;                    ClientDAO cdao = new ClientDAO(this.conn);</b>
+<b class="nc">&nbsp;                    Client client = cdao.findById(res.getInt(&quot;id_client&quot;));</b>
+<b class="nc">&nbsp;                    appointment.setClient(client);</b>
+&nbsp;
+&nbsp;                    // Retrieve the space associated with the appointment using SpaceDAO
+<b class="nc">&nbsp;                    SpaceDAO adao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;                    Space space = adao.findById(res.getInt(&quot;id_space&quot;));</b>
+<b class="nc">&nbsp;                    appointment.setSpace(space);</b>
+&nbsp;
+&nbsp;                    // Add the appointment to the result list
+<b class="nc">&nbsp;                    result.add(appointment);</b>
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;        // Return the list of appointments
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves an appointment from the database based on its ID.
+&nbsp;     *
+&nbsp;     * @param id_appointment The ID of the appointment to retrieve.
+&nbsp;     * @return An Appointment object representing the found appointment, or null if not found.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Appointment findById(int id_appointment) throws SQLException {
+<b class="nc">&nbsp;        Appointment result = null;</b>
+&nbsp;        // Prepare the SQL statement to retrieve the appointment by its ID
+<b class="nc">&nbsp;        try(PreparedStatement pst = this.conn.prepareStatement(FINDBYID)) {</b>
+<b class="nc">&nbsp;            pst.setInt(1, id_appointment);</b>
+&nbsp;            // Execute the SQL query and retrieve the result
+<b class="nc">&nbsp;            try(ResultSet res = pst.executeQuery()) {</b>
+<b class="nc">&nbsp;                if(res.next()) {</b>
+&nbsp;                    // Create a new Appointment object
+<b class="nc">&nbsp;                    Appointment appointment = new Appointment();</b>
+&nbsp;                    // Set the properties of the appointment using data from the result set
+<b class="nc">&nbsp;                    appointment.setId_appointment(res.getInt(&quot;id_appointment&quot;));</b>
+<b class="nc">&nbsp;                    appointment.setStartTime(res.getTime(&quot;startTime&quot;).toLocalTime());</b>
+<b class="nc">&nbsp;                    appointment.setEndTime(res.getTime(&quot;endTime&quot;).toLocalTime());</b>
+<b class="nc">&nbsp;                    appointment.setDate(res.getDate(&quot;date&quot;).toLocalDate());</b>
+&nbsp;
+&nbsp;                    // Retrieve the client associated with the appointment using ClientDAO
+<b class="nc">&nbsp;                    ClientDAO cdao = new ClientDAO(this.conn);</b>
+<b class="nc">&nbsp;                    Client client = cdao.findById(res.getInt(&quot;id_client&quot;));</b>
+<b class="nc">&nbsp;                    appointment.setClient(client);</b>
+&nbsp;
+&nbsp;                    // Retrieve the space associated with the appointment using SpaceDAO
+<b class="nc">&nbsp;                    SpaceDAO sdao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;                    Space space = sdao.findById(res.getInt(&quot;id_space&quot;));</b>
+<b class="nc">&nbsp;                    appointment.setSpace(space);</b>
+<b class="nc">&nbsp;                    result = appointment; // Set the found appointment as the result</b>
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if an appointment ID exists in the database.
+&nbsp;     *
+&nbsp;     * @param id The appointment ID to check.
+&nbsp;     * @return true if the ID exists in the database, false otherwise.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    public boolean checkIfIdExists(int id) throws SQLException {
+<b class="nc">&nbsp;        String sql = &quot;SELECT * FROM appointment WHERE id_appointment = ?&quot;;</b>
+&nbsp;        // Prepare the SQL statement to check if the ID exists
+<b class="nc">&nbsp;        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {</b>
+<b class="nc">&nbsp;            pstmt.setInt(1, id);</b>
+&nbsp;            // Execute the SQL query and retrieve the result
+<b class="nc">&nbsp;            try (ResultSet rs = pstmt.executeQuery()) {</b>
+<b class="nc">&nbsp;                return rs.next(); // Return true if a result is found, indicating the ID exists</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Saves an Appointment entity to the database.
+&nbsp;     *
+&nbsp;     * @param entity The Appointment object to be saved.
+&nbsp;     * @return The saved Appointment object.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Appointment save(Appointment entity) throws SQLException {
+<b class="nc">&nbsp;        Appointment result = new Appointment();</b>
+<b class="nc">&nbsp;        if(entity != null) {</b>
+<b class="nc">&nbsp;            Appointment appointment = findById(entity.getId_appointment());</b>
+&nbsp;
+&nbsp;            // Retrieve the client associated with the appointment using ClientDAO
+<b class="nc">&nbsp;            ClientDAO cdao = new ClientDAO(this.conn);</b>
+<b class="nc">&nbsp;            Client myClient = cdao.findById(entity.getClient().getId_person());</b>
+&nbsp;
+&nbsp;            // Retrieve the space associated with the appointment using SpaceDAO
+<b class="nc">&nbsp;            SpaceDAO sdao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;            Space mySpace = sdao.findById(entity.getSpace().getId_space());</b>
+&nbsp;
+<b class="nc">&nbsp;            if(appointment == null) {</b>
+<b class="nc">&nbsp;                if(myClient == null &amp; mySpace == null){</b>
+&nbsp;                    // Save the associated client and space if they do not exist in the database
+&nbsp;                    //EAGER
+<b class="nc">&nbsp;                    cdao.save(entity.getClient());</b>
+<b class="nc">&nbsp;                    sdao.save(entity.getSpace());</b>
+&nbsp;                }
+&nbsp;
+&nbsp;                // Insert the appointment into the database
+<b class="nc">&nbsp;                try(PreparedStatement pst = this.conn.prepareStatement(INSERT)) {</b>
+<b class="nc">&nbsp;                    pst.setInt(1, entity.getId_appointment());</b>
+<b class="nc">&nbsp;                    pst.setTime(2, Time.valueOf(entity.getStartTime()));</b>
+<b class="nc">&nbsp;                    pst.setTime(3, Time.valueOf(entity.getEndTime()));</b>
+<b class="nc">&nbsp;                    pst.setDate(4, Date.valueOf(entity.getDate()));</b>
+<b class="nc">&nbsp;                    pst.setInt(5, entity.getClient().getId_person());</b>
+<b class="nc">&nbsp;                    pst.setInt(6, entity.getSpace().getId_space());</b>
+<b class="nc">&nbsp;                    pst.executeUpdate();</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;
+&nbsp;
+&nbsp;            }
+<b class="nc">&nbsp;            result = entity;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Updates an existing Appointment entity in the database.
+&nbsp;     *
+&nbsp;     * @param entity The updated Appointment object.
+&nbsp;     * @return The updated Appointment object.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Appointment update(Appointment entity) throws SQLException {
+<b class="nc">&nbsp;        Appointment result = new Appointment();</b>
+<b class="nc">&nbsp;        if(entity != null) {</b>
+<b class="nc">&nbsp;            Appointment appointment = findById(entity.getId_appointment());</b>
+&nbsp;
+&nbsp;            // Retrieve the client associated with the appointment using ClientDAO
+<b class="nc">&nbsp;            ClientDAO cdao = new ClientDAO(this.conn);</b>
+<b class="nc">&nbsp;            Client myClient = cdao.findById(entity.getClient().getId_person());</b>
+&nbsp;
+&nbsp;            // Retrieve the space associated with the appointment using SpaceDAO
+<b class="nc">&nbsp;            SpaceDAO sdao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;            Space mySpace = sdao.findById(entity.getSpace().getId_space());</b>
+&nbsp;
+<b class="nc">&nbsp;            if(appointment != null) {</b>
+<b class="nc">&nbsp;                if(myClient == null &amp; mySpace == null){</b>
+&nbsp;                    // Save the associated client and space if they do not exist in the database
+&nbsp;                    //EAGER
+<b class="nc">&nbsp;                    cdao.save(entity.getClient());</b>
+<b class="nc">&nbsp;                    sdao.save(entity.getSpace());</b>
+&nbsp;                }
+&nbsp;                // Update the appointment in the database
+<b class="nc">&nbsp;                try(PreparedStatement pst = this.conn.prepareStatement(UPDATE)) {</b>
+<b class="nc">&nbsp;                    pst.setTime(1, Time.valueOf(entity.getStartTime()));</b>
+<b class="nc">&nbsp;                    pst.setTime(2, Time.valueOf(entity.getEndTime()));</b>
+<b class="nc">&nbsp;                    pst.setDate(3, Date.valueOf(entity.getDate()));</b>
+<b class="nc">&nbsp;                    pst.setInt(4, entity.getClient().getId_person());</b>
+<b class="nc">&nbsp;                    pst.setInt(5, entity.getSpace().getId_space());</b>
+<b class="nc">&nbsp;                    pst.setInt(6, entity.getId_appointment());</b>
+<b class="nc">&nbsp;                    pst.executeUpdate();</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;
+&nbsp;
+&nbsp;            }
+<b class="nc">&nbsp;            result = entity;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes an Appointment entity from the database.
+&nbsp;     *
+&nbsp;     * @param entity The Appointment object to be deleted.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void delete(Appointment entity) throws SQLException {
+<b class="nc">&nbsp;        if(entity != null) {</b>
+&nbsp;            // Delete the appointment from the database
+<b class="nc">&nbsp;            try(PreparedStatement pst = this.conn.prepareStatement(DELETE)) {</b>
+<b class="nc">&nbsp;                pst.setInt(1, entity.getId_appointment());</b>
+<b class="nc">&nbsp;                pst.executeUpdate();</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves a list of Appointments based on the given space ID and date.
+&nbsp;     *
+&nbsp;     * @param spaceId The ID of the space.
+&nbsp;     * @param date    The date for which to retrieve the appointments.
+&nbsp;     * @return A list of Appointments matching the given space ID and date.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    public List&lt;Appointment&gt; findByDateAndSpace(int spaceId, LocalDate date) throws SQLException {
+<b class="nc">&nbsp;        List&lt;Appointment&gt; appointments = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        String query = &quot;SELECT * FROM appointment WHERE id_space = ? AND date = ?&quot;;</b>
+&nbsp;        // Prepare the SQL statement to select appointments based on space ID and date
+<b class="nc">&nbsp;        try (PreparedStatement statement = conn.prepareStatement(query)) {</b>
+<b class="nc">&nbsp;            statement.setInt(1, spaceId);</b>
+<b class="nc">&nbsp;            statement.setDate(2, java.sql.Date.valueOf(date));</b>
+<b class="nc">&nbsp;            ResultSet resultSet = statement.executeQuery();</b>
+&nbsp;            // Iterate over the result set and create Appointment objects
+<b class="nc">&nbsp;            while (resultSet.next()) {</b>
+<b class="nc">&nbsp;                Appointment appointment = new Appointment();</b>
+<b class="nc">&nbsp;                appointment.setId_appointment(resultSet.getInt(&quot;id_appointment&quot;));</b>
+<b class="nc">&nbsp;                appointment.setStartTime(resultSet.getTime(&quot;startTime&quot;).toLocalTime());</b>
+<b class="nc">&nbsp;                appointment.setEndTime(resultSet.getTime(&quot;endTime&quot;).toLocalTime());</b>
+<b class="nc">&nbsp;                appointment.setDate(resultSet.getDate(&quot;date&quot;).toLocalDate());</b>
+<b class="nc">&nbsp;                int clientId = resultSet.getInt(&quot;id_client&quot;);</b>
+<b class="nc">&nbsp;                if (clientId &gt; 0) {</b>
+&nbsp;                    // Retrieve the associated client using ClientDAO
+<b class="nc">&nbsp;                    ClientDAO clientDAO = new ClientDAO(conn);</b>
+<b class="nc">&nbsp;                    Client client = clientDAO.findById(clientId);</b>
+<b class="nc">&nbsp;                    appointment.setClient(client);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                int spaceIdFromResultSet = resultSet.getInt(&quot;id_space&quot;);</b>
+<b class="nc">&nbsp;                if (spaceIdFromResultSet &gt; 0) {</b>
+&nbsp;                    // Retrieve the associated space using SpaceDAO
+<b class="nc">&nbsp;                    SpaceDAO spaceDAO = new SpaceDAO(conn);</b>
+<b class="nc">&nbsp;                    Space space = spaceDAO.findById(spaceIdFromResultSet);</b>
+<b class="nc">&nbsp;                    appointment.setSpace(space);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                appointments.add(appointment);</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return appointments;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves the last ID of the Appointment from the database.
+&nbsp;     *
+&nbsp;     * @return The last ID of the Appointment.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    public int findLastId() throws SQLException {
+<b class="nc">&nbsp;        String query = &quot;SELECT MAX(id_appointment) AS max_id FROM appointment&quot;;</b>
+&nbsp;        // Prepare the SQL statement to retrieve the last ID of the Appointment
+<b class="nc">&nbsp;        try (PreparedStatement statement = conn.prepareStatement(query)) {</b>
+<b class="nc">&nbsp;            ResultSet resultSet = statement.executeQuery();</b>
+<b class="nc">&nbsp;            if (resultSet.next()) {</b>
+&nbsp;                // Retrieve the last ID from the result set and return it
+<b class="nc">&nbsp;                return resultSet.getInt(&quot;max_id&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;        // If no ID is found, return 0 or a default value
+<b class="nc">&nbsp;        return 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void close() throws Exception {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-20 01:22</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > DAO</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">iesfranciscodelosrios.dam.model.dao</a>
+</div>
+
+<h1>Coverage Summary for Class: DAO (iesfranciscodelosrios.dam.model.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">DAO</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package iesfranciscodelosrios.dam.model.dao;
+&nbsp;
+&nbsp;import java.sql.SQLException;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface DAO&lt;T&gt; extends AutoCloseable {
+&nbsp;    /**
+&nbsp;     * Retrieves all entities of type T from the database.
+&nbsp;     *
+&nbsp;     * @return A list containing all entities of type T.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    List&lt;T&gt; findAll() throws SQLException;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves an entity of type T from the database based on the provided ID.
+&nbsp;     *
+&nbsp;     * @param id The ID used to identify the entity.
+&nbsp;     * @return The entity of type T matching the provided ID, or null if not found.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    T findById(int id) throws SQLException;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Saves the provided entity of type T into the database.
+&nbsp;     *
+&nbsp;     * @param entity The entity of type T to be saved.
+&nbsp;     * @return The saved entity of type T.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    T save(T entity) throws SQLException;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Updates the provided entity of type T in the database.
+&nbsp;     *
+&nbsp;     * @param entity The entity of type T to be updated.
+&nbsp;     * @return The updated entity of type T.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    T update(T entity) throws SQLException;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes the provided entity of type T from the database.
+&nbsp;     *
+&nbsp;     * @param entity The entity of type T to be deleted.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    void delete(T entity) throws SQLException;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-20 01:22</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Person</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">iesfranciscodelosrios.dam.model.domain</a>
+</div>
+
+<h1>Coverage Summary for Class: Person (iesfranciscodelosrios.dam.model.domain)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Person</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    76,5%
+  </span>
+  <span class="absValue">
+    (13/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    73,1%
+  </span>
+  <span class="absValue">
+    (19/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package iesfranciscodelosrios.dam.model.domain;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;public abstract class Person {
+&nbsp;    protected int id_person;
+&nbsp;    protected String name;
+&nbsp;    protected String surname;
+&nbsp;    protected String telephone;
+&nbsp;    protected String email;
+&nbsp;    protected String password;
+&nbsp;
+<b class="fc">&nbsp;    public Person(int id_person, String name, String surname, String telephone, String email, String password) {</b>
+<b class="fc">&nbsp;        this.id_person = id_person;</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;        this.surname = surname;</b>
+<b class="fc">&nbsp;        this.telephone = telephone;</b>
+<b class="fc">&nbsp;        this.email = email;</b>
+<b class="fc">&nbsp;        this.password = password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Person() {
+<b class="nc">&nbsp;        this(0, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getId_person() {
+<b class="fc">&nbsp;        return id_person;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setId_person(int id_person) {
+<b class="fc">&nbsp;        this.id_person = id_person;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setName(String name) {
+<b class="fc">&nbsp;        this.name = name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getSurname() {
+<b class="fc">&nbsp;        return surname;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSurname(String surname) {
+<b class="fc">&nbsp;        this.surname = surname;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getTelephone() {
+<b class="fc">&nbsp;        return telephone;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setTelephone(String telephone) {
+<b class="fc">&nbsp;        this.telephone = telephone;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getEmail() {
+<b class="fc">&nbsp;        return email;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setEmail(String email) {
+<b class="fc">&nbsp;        this.email = email;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPassword() {
+<b class="fc">&nbsp;        return password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPassword(String password) {
+<b class="fc">&nbsp;        this.password = password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object o) {
+<b class="nc">&nbsp;        if (this == o) return true;</b>
+<b class="nc">&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="nc">&nbsp;        Person person = (Person) o;</b>
+<b class="nc">&nbsp;        return id_person == person.id_person;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="nc">&nbsp;        return Objects.hash(id_person);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;Person &quot; +</b>
+&nbsp;                &quot;\n\tid_person=&quot; + id_person +
+&nbsp;                &quot;\n\tname=&#39;&quot; + name + &#39;\&#39;&#39; +
+&nbsp;                &quot;\n\tsurname=&#39;&quot; + surname + &#39;\&#39;&#39; +
+&nbsp;                &quot;\n\ttelephone=&#39;&quot; + telephone + &#39;\&#39;&#39; +
+&nbsp;                &quot;\n\temail=&#39;&quot; + email + &#39;\&#39;&#39; +
+&nbsp;                &quot;\n\tpassword=&#39;&quot; + password + &#39;\&#39;&#39;;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-20 01:22</div>
+</div>
+</body>
+</html>

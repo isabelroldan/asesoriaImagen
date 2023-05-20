@@ -1,0 +1,397 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ProfessionalDAO</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">iesfranciscodelosrios.dam.model.dao</a>
+</div>
+
+<h1>Coverage Summary for Class: ProfessionalDAO (iesfranciscodelosrios.dam.model.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProfessionalDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/146)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package iesfranciscodelosrios.dam.model.dao;
+&nbsp;
+&nbsp;import iesfranciscodelosrios.dam.model.domain.Professional;
+&nbsp;import iesfranciscodelosrios.dam.model.connections.Connect;
+&nbsp;import iesfranciscodelosrios.dam.model.domain.Space;
+&nbsp;
+&nbsp;import javax.xml.bind.JAXBException;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.sql.PreparedStatement;
+&nbsp;import java.sql.ResultSet;
+&nbsp;import java.sql.SQLException;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class ProfessionalDAO implements DAO&lt;Professional&gt; {
+&nbsp;
+&nbsp;    private final static String FINDALL = &quot;SELECT * FROM professional&quot;;
+&nbsp;    private final static String FINDBYID = &quot;SELECT * FROM professional WHERE id_professional = ?&quot;;
+&nbsp;    private final static String INSERT = &quot;INSERT INTO professional(id_professional, name, surname, telephone, email, password, dni, nPersonnel, nSocialSecurity, id_space) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)&quot;;
+&nbsp;    private final static String UPDATE = &quot;UPDATE professional SET name = ?, surname = ?, telephone = ?, email = ?, password = ?, dni = ?, nPersonnel = ?, nSocialSecurity = ?, id_space = ? WHERE id_professional = ?&quot;;
+&nbsp;    private final static String DELETE = &quot;DELETE FROM professional WHERE id_professional = ?&quot;;
+&nbsp;    private final static String PROFESSIONALLOGIN = &quot;SELECT * FROM professional WHERE email = ? AND password = ?&quot;;
+&nbsp;    private final static String GETPROFESSIONAL = &quot;SELECT * FROM professional WHERE email = ?&quot;;
+&nbsp;
+&nbsp;    private Connection conn;
+&nbsp;
+<b class="nc">&nbsp;    public ProfessionalDAO(Connection conn) {</b>
+<b class="nc">&nbsp;        this.conn = conn;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public ProfessionalDAO() {</b>
+<b class="nc">&nbsp;        this.conn = Connect.getConnect();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves all professionals from the database.
+&nbsp;     *
+&nbsp;     * @return A list of professionals.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public List&lt;Professional&gt; findAll() throws SQLException {
+<b class="nc">&nbsp;        List&lt;Professional&gt; result = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        try(PreparedStatement pst = this.conn.prepareStatement(FINDALL)) {</b>
+<b class="nc">&nbsp;            try(ResultSet res = pst.executeQuery()) {</b>
+<b class="nc">&nbsp;                while(res.next()) {</b>
+&nbsp;                    // Creating a new Professional object
+<b class="nc">&nbsp;                    Professional professional = new Professional();</b>
+&nbsp;                    // Setting the properties of the Professional object
+<b class="nc">&nbsp;                    professional.setId_person(res.getInt(&quot;id_professional&quot;));</b>
+<b class="nc">&nbsp;                    professional.setName(res.getString(&quot;name&quot;));</b>
+<b class="nc">&nbsp;                    professional.setSurname(res.getString(&quot;surname&quot;));</b>
+<b class="nc">&nbsp;                    professional.setTelephone(res.getString(&quot;telephone&quot;));</b>
+<b class="nc">&nbsp;                    professional.setEmail(res.getString(&quot;email&quot;));</b>
+<b class="nc">&nbsp;                    professional.setPassword(res.getString(&quot;password&quot;));</b>
+<b class="nc">&nbsp;                    professional.setDni(res.getString(&quot;dni&quot;));</b>
+<b class="nc">&nbsp;                    professional.setnPersonnel(res.getInt(&quot;nPersonnel&quot;));</b>
+<b class="nc">&nbsp;                    professional.setnSocialSecurity(res.getInt(&quot;nSocialSecurity&quot;));</b>
+&nbsp;
+&nbsp;                    // Retrieving the associated Space object from the SpaceDAO
+<b class="nc">&nbsp;                    SpaceDAO adao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;                    Space space = adao.findById(res.getInt(&quot;id_space&quot;));</b>
+<b class="nc">&nbsp;                    professional.setSpace(space);</b>
+&nbsp;
+&nbsp;                    // Adding the Professional object to the result list
+<b class="nc">&nbsp;                    result.add(professional);</b>
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves a professional from the database based on the provided ID.
+&nbsp;     *
+&nbsp;     * @param id_professional The ID of the professional to retrieve.
+&nbsp;     * @return The professional object if found, or null if not found.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Professional findById(int id_professional) throws SQLException {
+<b class="nc">&nbsp;        Professional result = null;</b>
+<b class="nc">&nbsp;        try(PreparedStatement pst = this.conn.prepareStatement(FINDBYID)) {</b>
+<b class="nc">&nbsp;            pst.setInt(1, id_professional);</b>
+<b class="nc">&nbsp;            try(ResultSet res = pst.executeQuery()) {</b>
+<b class="nc">&nbsp;                if(res.next()) {</b>
+&nbsp;                    // Creating a new Professional object
+<b class="nc">&nbsp;                    Professional professional = new Professional();</b>
+&nbsp;                    // Setting the properties of the Professional object
+<b class="nc">&nbsp;                    professional.setId_person(res.getInt(&quot;id_professional&quot;));</b>
+<b class="nc">&nbsp;                    professional.setName(res.getString(&quot;name&quot;));</b>
+<b class="nc">&nbsp;                    professional.setSurname(res.getString(&quot;surname&quot;));</b>
+<b class="nc">&nbsp;                    professional.setTelephone(res.getString(&quot;telephone&quot;));</b>
+<b class="nc">&nbsp;                    professional.setEmail(res.getString(&quot;email&quot;));</b>
+<b class="nc">&nbsp;                    professional.setPassword(res.getString(&quot;password&quot;));</b>
+<b class="nc">&nbsp;                    professional.setDni(res.getString(&quot;dni&quot;));</b>
+<b class="nc">&nbsp;                    professional.setnPersonnel(res.getInt(&quot;nPersonnel&quot;));</b>
+<b class="nc">&nbsp;                    professional.setnSocialSecurity(res.getInt(&quot;nSocialSecurity&quot;));</b>
+&nbsp;
+&nbsp;                    // Retrieving the associated Space object from the SpaceDAO
+<b class="nc">&nbsp;                    SpaceDAO adao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;                    Space space = adao.findById(res.getInt(&quot;id_space&quot;));</b>
+<b class="nc">&nbsp;                    professional.setSpace(space);</b>
+<b class="nc">&nbsp;                    result = professional;</b>
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if a professional with the specified ID exists in the database.
+&nbsp;     *
+&nbsp;     * @param id The ID of the professional to check.
+&nbsp;     * @return true if a professional with the specified ID exists, false otherwise.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    public boolean checkIfIdExists(int id) throws SQLException {
+<b class="nc">&nbsp;        String sql = &quot;SELECT * FROM professional WHERE id_professional = ?&quot;;</b>
+<b class="nc">&nbsp;        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {</b>
+<b class="nc">&nbsp;            pstmt.setInt(1, id);</b>
+<b class="nc">&nbsp;            try (ResultSet rs = pstmt.executeQuery()) {</b>
+<b class="nc">&nbsp;                return rs.next();</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if a professional with the specified email exists in the database.
+&nbsp;     *
+&nbsp;     * @param email The email of the professional to check.
+&nbsp;     * @return true if a professional with the specified email exists, false otherwise.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    public boolean checkIfEmailExists(String email) throws SQLException {
+<b class="nc">&nbsp;        String sql = &quot;SELECT * FROM professional WHERE email = ?&quot;;</b>
+<b class="nc">&nbsp;        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {</b>
+<b class="nc">&nbsp;            pstmt.setString(1, email);</b>
+<b class="nc">&nbsp;            try (ResultSet rs = pstmt.executeQuery()) {</b>
+<b class="nc">&nbsp;                return rs.next();</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Saves a Professional entity in the database.
+&nbsp;     *
+&nbsp;     * @param entity The Professional entity to be saved.
+&nbsp;     * @return The saved Professional entity.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Professional save(Professional entity) throws SQLException {
+<b class="nc">&nbsp;        Professional result = new Professional();</b>
+<b class="nc">&nbsp;        if(entity != null) {</b>
+<b class="nc">&nbsp;            Professional professional = findById(entity.getId_person());</b>
+<b class="nc">&nbsp;            SpaceDAO sdao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;            Space mySpace = sdao.findById(entity.getSpace().getId_space());</b>
+<b class="nc">&nbsp;            if(professional == null) {</b>
+<b class="nc">&nbsp;                if(mySpace == null)</b>
+<b class="nc">&nbsp;                    sdao.save(entity.getSpace());</b>
+<b class="nc">&nbsp;                try(PreparedStatement pst = this.conn.prepareStatement(INSERT)) {</b>
+<b class="nc">&nbsp;                    pst.setInt(1, entity.getId_person());</b>
+<b class="nc">&nbsp;                    pst.setString(2, entity.getName());</b>
+<b class="nc">&nbsp;                    pst.setString(3, entity.getSurname());</b>
+<b class="nc">&nbsp;                    pst.setString(4, entity.getTelephone());</b>
+<b class="nc">&nbsp;                    pst.setString(5, entity.getEmail());</b>
+<b class="nc">&nbsp;                    pst.setString(6, entity.getPassword());</b>
+<b class="nc">&nbsp;                    pst.setString(7, entity.getDni());</b>
+<b class="nc">&nbsp;                    pst.setInt(8, entity.getnPersonnel());</b>
+<b class="nc">&nbsp;                    pst.setInt(9, entity.getnSocialSecurity());</b>
+<b class="nc">&nbsp;                    pst.setInt(10, entity.getSpace().getId_space());</b>
+<b class="nc">&nbsp;                    pst.executeUpdate();</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;
+&nbsp;            }
+<b class="nc">&nbsp;            result = entity;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Updates a Professional entity in the database.
+&nbsp;     *
+&nbsp;     * @param entity The Professional entity to be updated.
+&nbsp;     * @return The updated Professional entity.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    public Professional update(Professional entity) throws SQLException {
+<b class="nc">&nbsp;        Professional result = new Professional();</b>
+<b class="nc">&nbsp;        if(entity != null) {</b>
+<b class="nc">&nbsp;            Professional professional = findById(entity.getId_person());</b>
+<b class="nc">&nbsp;            SpaceDAO sdao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;            Space mySpace = sdao.findById(entity.getSpace().getId_space());</b>
+<b class="nc">&nbsp;            if(professional != null) {</b>
+<b class="nc">&nbsp;                if(mySpace == null)</b>
+<b class="nc">&nbsp;                    sdao.save(entity.getSpace());</b>
+<b class="nc">&nbsp;                try(PreparedStatement pst = this.conn.prepareStatement(UPDATE)) {</b>
+<b class="nc">&nbsp;                    pst.setString(1, entity.getName());</b>
+<b class="nc">&nbsp;                    pst.setString(2, entity.getSurname());</b>
+<b class="nc">&nbsp;                    pst.setString(3, entity.getTelephone());</b>
+<b class="nc">&nbsp;                    pst.setString(4, entity.getEmail());</b>
+<b class="nc">&nbsp;                    pst.setString(5, entity.getPassword());</b>
+<b class="nc">&nbsp;                    pst.setString(6, entity.getDni());</b>
+<b class="nc">&nbsp;                    pst.setInt(7, entity.getnPersonnel());</b>
+<b class="nc">&nbsp;                    pst.setInt(8, entity.getnSocialSecurity());</b>
+<b class="nc">&nbsp;                    pst.setInt(9, entity.getSpace().getId_space());</b>
+<b class="nc">&nbsp;                    pst.setInt(10, entity.getId_person());</b>
+<b class="nc">&nbsp;                    pst.executeUpdate();</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;            }
+<b class="nc">&nbsp;            result = entity;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes a Professional entity from the database.
+&nbsp;     *
+&nbsp;     * @param entity The Professional entity to be deleted.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void delete(Professional entity) throws SQLException {
+<b class="nc">&nbsp;        if(entity != null) {</b>
+<b class="nc">&nbsp;            try(PreparedStatement pst = this.conn.prepareStatement(DELETE)) {</b>
+<b class="nc">&nbsp;                pst.setInt(1, entity.getId_person());</b>
+<b class="nc">&nbsp;                pst.executeUpdate();</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Authenticates a professional based on their email and password.
+&nbsp;     *
+&nbsp;     * @param email    The email of the professional.
+&nbsp;     * @param password The password of the professional.
+&nbsp;     * @return true if the professional is authenticated, false otherwise.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    public boolean professionalLogin(String email, String password) throws SQLException {
+<b class="nc">&nbsp;        boolean result = false;</b>
+<b class="nc">&nbsp;        try(PreparedStatement pst = this.conn.prepareStatement(PROFESSIONALLOGIN)) {</b>
+<b class="nc">&nbsp;            pst.setString(1, email);</b>
+<b class="nc">&nbsp;            pst.setString(2, password);</b>
+<b class="nc">&nbsp;            try(ResultSet res = pst.executeQuery()) {</b>
+<b class="nc">&nbsp;                if(res.next()) {</b>
+<b class="nc">&nbsp;                    result = true;</b>
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retrieves a professional based on their email.
+&nbsp;     *
+&nbsp;     * @param email The email of the professional.
+&nbsp;     * @return The Professional object representing the professional, or null if not found.
+&nbsp;     * @throws SQLException if there is an error executing the SQL query.
+&nbsp;     */
+&nbsp;    public Professional getProfessional(String email) throws SQLException {
+<b class="nc">&nbsp;        Professional result = null;</b>
+<b class="nc">&nbsp;        try(PreparedStatement pst = this.conn.prepareStatement(GETPROFESSIONAL)) {</b>
+<b class="nc">&nbsp;            pst.setString(1, email);</b>
+<b class="nc">&nbsp;            try(ResultSet res = pst.executeQuery()) {</b>
+<b class="nc">&nbsp;                if(res.next()) {</b>
+<b class="nc">&nbsp;                    Professional professional = new Professional();</b>
+<b class="nc">&nbsp;                    professional.setId_person(res.getInt(&quot;id_professional&quot;));</b>
+<b class="nc">&nbsp;                    professional.setName(res.getString(&quot;name&quot;));</b>
+<b class="nc">&nbsp;                    professional.setSurname(res.getString(&quot;surname&quot;));</b>
+<b class="nc">&nbsp;                    professional.setTelephone(res.getString(&quot;telephone&quot;));</b>
+<b class="nc">&nbsp;                    professional.setEmail(res.getString(&quot;email&quot;));</b>
+<b class="nc">&nbsp;                    professional.setPassword(res.getString(&quot;password&quot;));</b>
+<b class="nc">&nbsp;                    professional.setDni(res.getString(&quot;dni&quot;));</b>
+<b class="nc">&nbsp;                    professional.setnPersonnel(res.getInt(&quot;nPersonnel&quot;));</b>
+<b class="nc">&nbsp;                    professional.setnSocialSecurity(res.getInt(&quot;nSocialSecurity&quot;));</b>
+<b class="nc">&nbsp;                    SpaceDAO adao = new SpaceDAO(this.conn);</b>
+<b class="nc">&nbsp;                    Space space = adao.findById(res.getInt(&quot;id_space&quot;));</b>
+<b class="nc">&nbsp;                    professional.setSpace(space);</b>
+<b class="nc">&nbsp;                    result = professional;</b>
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void close() throws Exception {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-20 01:22</div>
+</div>
+</body>
+</html>

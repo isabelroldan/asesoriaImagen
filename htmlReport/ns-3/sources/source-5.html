@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Professional</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">iesfranciscodelosrios.dam.model.domain</a>
+</div>
+
+<h1>Coverage Summary for Class: Professional (iesfranciscodelosrios.dam.model.domain)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Professional</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package iesfranciscodelosrios.dam.model.domain;
+&nbsp;
+&nbsp;public class Professional extends Person {
+&nbsp;    private String dni;
+&nbsp;    private int nPersonnel;
+&nbsp;    private int nSocialSecurity;
+&nbsp;    private Space space;
+&nbsp;
+&nbsp;    public Professional(int id_person, String name, String surname, String telephone, String email, String password, String dni, int nPersonnel, int nSocialSecurity, Space space) {
+<b class="nc">&nbsp;        super(id_person, name, surname, telephone, email, password);</b>
+<b class="nc">&nbsp;        this.dni = dni;</b>
+<b class="nc">&nbsp;        this.nPersonnel = nPersonnel;</b>
+<b class="nc">&nbsp;        this.nSocialSecurity = nSocialSecurity;</b>
+<b class="nc">&nbsp;        this.space = space;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Professional() {
+<b class="nc">&nbsp;        this(0, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, 0, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getDni() {
+<b class="nc">&nbsp;        return dni;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDni(String dni) {
+<b class="nc">&nbsp;        this.dni = dni;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getnPersonnel() {
+<b class="nc">&nbsp;        return nPersonnel;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setnPersonnel(int nPersonnel) {
+<b class="nc">&nbsp;        this.nPersonnel = nPersonnel;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getnSocialSecurity() {
+<b class="nc">&nbsp;        return nSocialSecurity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setnSocialSecurity(int nSocialSecurity) {
+<b class="nc">&nbsp;        this.nSocialSecurity = nSocialSecurity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Space getSpace() {
+<b class="nc">&nbsp;        return space;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSpace(Space space) {
+<b class="nc">&nbsp;        this.space = space;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;Professional&quot; +</b>
+<b class="nc">&nbsp;                super.toString() +</b>
+&nbsp;                &quot;\n\tdni=&#39;&quot; + dni +
+&nbsp;                &quot;\n\tnPersonnel=&quot; + nPersonnel +
+&nbsp;                &quot;\n\tnSocialSecurity=&quot; + nSocialSecurity +
+&nbsp;                &quot;\n\tspace=&quot; + space;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-20 01:22</div>
+</div>
+</body>
+</html>
