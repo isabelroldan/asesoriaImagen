@@ -83,8 +83,7 @@ public class SpaceDAO implements DAO<Space> {
      * @throws SQLException if there is an error executing the SQL query.
      */
     public boolean checkIfIdExists(int id) throws SQLException {
-        String sql = "SELECT * FROM space WHERE id_space = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(FINDBYID)) {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 return rs.next();
