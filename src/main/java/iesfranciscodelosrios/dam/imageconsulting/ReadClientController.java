@@ -1,5 +1,6 @@
 package iesfranciscodelosrios.dam.imageconsulting;
 
+import iesfranciscodelosrios.dam.imageconsulting.utils.ValidatorUtils;
 import iesfranciscodelosrios.dam.model.dao.ClientDAO;
 import iesfranciscodelosrios.dam.model.domain.Client;
 import iesfranciscodelosrios.dam.model.domain.ColorTestResult;
@@ -164,23 +165,43 @@ public class ReadClientController {
             boolean idExists = dao.checkIfIdExists(client.getId_person());
             boolean emailExists = dao.checkIfEmailExists(client.getEmail());
 
+            // Perform validations
+            boolean isValid = true;
+            String errorMessage = "";
+
+            // Validate email
+            if (!ValidatorUtils.isValidEmail(client.getEmail())) {
+                isValid = false;
+                errorMessage += "Invalid email. ";
+            }
+
+            // Validate telephone
+            if (!ValidatorUtils.isValidPhone(client.getTelephone())) {
+                isValid = false;
+                errorMessage += "Invalid telephone number. ";
+            }
+
+            // Validate other fields as needed
+
             // If the ID or email already exist, display an error message
             if (idExists || emailExists) {
-                String errorMessage = "";
                 if (idExists) {
                     errorMessage += "ID already exists. ";
                 }
                 if (emailExists) {
-                    errorMessage += "Email already exists.";
+                    errorMessage += "Email already exists. ";
                 }
-                errorLabel.setText(errorMessage);
-            } else {
+                isValid = false;
+            }
+
+            if (isValid) {
                 dao.save(client);
                 errorLabel.setText("Client inserted successfully");
+            } else {
+                errorLabel.setText(errorMessage);
             }
         } catch (SQLException ex) {
             errorLabel.setText("Error inserting client: " + ex.getMessage());
-
             logger.error("Error inserting client: " + ex.getMessage(), ex);
         }
     }
@@ -257,6 +278,15 @@ public class ReadClientController {
     @FXML
     private void handleCitasBtn(ActionEvent event) {
         System.out.println("Selected citas");
+    }
+
+    @FXML
+    void handleAppointmentClient() {
+        try {
+            App.setRoot("clientAppointment");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

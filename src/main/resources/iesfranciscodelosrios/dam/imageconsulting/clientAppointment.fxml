@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="606.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iesfranciscodelosrios.dam.imageconsulting.ClientAppointmentController">
+    <children>
+
+        <VBox prefHeight="38.0" prefWidth="62.0">
+            <VBox prefHeight="400.0" prefWidth="84.0">
+                <children>
+                    <MenuBar prefHeight="14.0" prefWidth="12.0" style="-fx-background-color: rgba(255,255,255,0.63); -fx-background-radius: 0;">
+                        <menus>
+                            <Menu fx:id="menuButton" mnemonicParsing="false" style="-fx-font-size: 17px;" text="☰">
+                                <items>
+                                    <MenuItem fx:id="readClient" onAction="#handleReadClient" text="Client management" />
+
+                                    <MenuItem fx:id="readProfessional" onAction="#handleProfessional" text="Professional management" />
+
+                                    <MenuItem fx:id="readSpace" onAction="#handleSpace" text="Space management" />
+
+                                    <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
+                                        <items>
+                                            <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment" text="Read, Update and Delete" />
+                                            <MenuItem fx:id="insertAppointment" onAction="#handleInsertAppointment" text="Insert" />
+                                            <MenuItem fx:id="appointmentClient" onAction="#handleAppointmentClient" text="Appointment of client" />
+                                        </items>
+                                    </Menu>
+                                    <SeparatorMenuItem />
+                                    <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#handleExitClick" text="Exit" />
+                                </items>
+                            </Menu>
+                        </menus>
+                    </MenuBar>
+                </children></VBox>
+        </VBox>
+
+
+
+        <GridPane alignment="center" hgap="10" layoutX="41.0" prefHeight="606.0" prefWidth="559.0" vgap="10" xmlns:fx="http://javafx.com/fxml/1">
+            <children>
+                <Label text="Buscar por email:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="searchField" onKeyTyped="#handleSearch" prefHeight="26.0" prefWidth="429.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <TableView fx:id="clientTable" onMouseClicked="#handleClientSelection" prefHeight="302.0" prefWidth="579.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                    <columns>
+                        <TableColumn fx:id="nameColumn" text="Nombre" />
+                        <TableColumn fx:id="surnameColumn" text="Apellido" />
+                        <TableColumn fx:id="telephoneColumn" text="Teléfono" />
+                        <TableColumn fx:id="emailColumn" prefWidth="147.20001220703125" text="Email" />
+                        <TableColumn fx:id="colorTestResultColumn" prefWidth="164.00006103515625" text="Resultado del test de color" />
+                    </columns>
+                </TableView>
+                <TableView fx:id="appointmentTable" prefHeight="256.0" prefWidth="579.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                    <columns>
+                        <TableColumn fx:id="dateColumn" prefWidth="144.0" text="Fecha" />
+                        <TableColumn fx:id="startTimeColumn" prefWidth="111.20001220703125" text="Hora de inicio" />
+                        <TableColumn fx:id="endTimeColumn" prefWidth="135.2000732421875" text="Hora de fin" />
+                        <TableColumn fx:id="spaceIdColumn" prefWidth="186.4000122070313" text="ID de espacio" />
+                    </columns>
+                </TableView>
+            </children>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </children>
+</AnchorPane>

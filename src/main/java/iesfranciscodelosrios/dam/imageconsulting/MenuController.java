@@ -117,6 +117,15 @@ public class MenuController {
         }
     }
 
+    @FXML
+    void handleAppointmentClient() {
+        try {
+            App.setRoot("clientAppointment");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     /**
      * Initializes the controller after its root element has been completely processed.

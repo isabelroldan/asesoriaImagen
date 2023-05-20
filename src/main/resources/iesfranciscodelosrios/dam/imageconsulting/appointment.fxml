@@ -33,10 +33,9 @@
 
                                     <Menu mnemonicParsing="false" onAction="#handleCitasBtn" text="Appointment management">
                                         <items>
-                                            <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment" text="Read" />
+                                            <MenuItem fx:id="readAppointment" onAction="#handleReadAppointment" text="Read, Update and Delete" />
                                             <MenuItem fx:id="insertAppointment" onAction="#handleInsertAppointment" text="Insert" />
-                                            <MenuItem fx:id="updateAppointment" text="Update" />
-                                            <MenuItem fx:id="deleteAppointment" text="Delete" />
+                                            <MenuItem fx:id="appointmentClient" onAction="#handleAppointmentClient" text="Appointment of client" />
                                         </items>
                                     </Menu>
                                     <SeparatorMenuItem />
@@ -79,10 +78,10 @@
         <ComboBox fx:id="clientLabel" layoutX="305.0" layoutY="333.0" prefHeight="26.0" prefWidth="233.0" />
         <!--<Label fx:id="clientLabel" layoutX="308.0" layoutY="311.0" prefHeight="26.0" prefWidth="288.0" />-->
 
-        <Button fx:id="deleteButton" layoutX="313.0" layoutY="365.0" onAction="#handleDeleteButton" text="Delete" />
+        <Button fx:id="deleteButton" layoutX="431.0" layoutY="378.0" onAction="#handleDeleteButton" prefHeight="26.0" prefWidth="107.0" text="Delete" />
         <Label fx:id="errorLabel" layoutX="20.0" layoutY="360.0" textFill="RED" />
       <Button layoutX="501.0" layoutY="204.0" mnemonicParsing="false" onAction="#handleHoursAvailableButton" text="Availability" />
-      <Button onAction="#updateAppointment" layoutX="363.0" layoutY="378.0" mnemonicParsing="false" text="Update" />
+      <Button layoutX="235.0" layoutY="377.0" mnemonicParsing="false" onAction="#updateAppointment" prefHeight="26.0" prefWidth="114.0" text="Update" />
 
     </children>
     <padding>

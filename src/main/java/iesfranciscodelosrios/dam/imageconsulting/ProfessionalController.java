@@ -1,5 +1,6 @@
 package iesfranciscodelosrios.dam.imageconsulting;
 
+import iesfranciscodelosrios.dam.imageconsulting.utils.ValidatorUtils;
 import iesfranciscodelosrios.dam.model.dao.ClientDAO;
 import iesfranciscodelosrios.dam.model.dao.ProfessionalDAO;
 import iesfranciscodelosrios.dam.model.dao.SpaceDAO;
@@ -164,23 +165,96 @@ public class ProfessionalController {
     private void handleInsertButton(ActionEvent event) throws SQLException {
         ProfessionalDAO dao = new ProfessionalDAO();
         Professional professional = new Professional();
-        professional.setId_person(Integer.parseInt(idField.getText()));
-        professional.setName(nameField.getText());
-        professional.setSurname(surnameField.getText());
-        professional.setTelephone(telephoneField.getText());
-        professional.setEmail(emailField.getText());
-        professional.setPassword(passwordField.getText());
-        professional.setDni(dniField.getText());
-        professional.setnPersonnel(Integer.parseInt(nPersonnelField.getText()));
-        professional.setnSocialSecurity(Integer.parseInt(nSocialSecurityField.getText()));
 
-        // Retrieve the Space object corresponding to the id_space
-        int idSpace = Integer.parseInt(id_spaceField.getText());
+        // Obtener los valores de los campos
+        String idFieldText = idField.getText();
+        String name = nameField.getText();
+        String surname = surnameField.getText();
+        String telephone = telephoneField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String dni = dniField.getText();
+        String nPersonnelFieldText = nPersonnelField.getText();
+        String nSocialSecurityFieldText = nSocialSecurityField.getText();
+        String idSpaceFieldText = id_spaceField.getText();
+
+        // Validar los campos usando los métodos de ValidatorUtils
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if (idFieldText.isEmpty()) {
+            isValid = false;
+            errorMessage += "ID is required. ";
+        }
+
+        if (name.isEmpty()) {
+            isValid = false;
+            errorMessage += "Name is required. ";
+        }
+
+        if (surname.isEmpty()) {
+            isValid = false;
+            errorMessage += "Surname is required. ";
+        }
+
+        if (!ValidatorUtils.isValidPhone(telephone)) {
+            isValid = false;
+            errorMessage += "Telephone is invalid. ";
+        }
+
+        if (!ValidatorUtils.isValidEmail(email)) {
+            isValid = false;
+            errorMessage += "Email is invalid. ";
+        }
+
+        if (password.isEmpty()) {
+            isValid = false;
+            errorMessage += "Password is required. ";
+        }
+
+        if (!ValidatorUtils.isValidDni(dni)) {
+            isValid = false;
+            errorMessage += "DNI is invalid. ";
+        }
+
+        if (nPersonnelFieldText.isEmpty()) {
+            isValid = false;
+            errorMessage += "nPersonnel is required. ";
+        }
+
+        if (!ValidatorUtils.isValidSocialSecurityNumber(nSocialSecurityFieldText)) {
+            isValid = false;
+            errorMessage += "nSocialSecurity is invalid. ";
+        }
+
+        if (idSpaceFieldText.isEmpty()) {
+            isValid = false;
+            errorMessage += "ID Space is required. ";
+        }
+
+        if (!isValid) {
+            // Mostrar el mensaje de error en el errorLabel
+            errorLabel.setText(errorMessage);
+            return;
+        }
+
+        // Los campos son válidos, crear el objeto Professional y guardarlo en la base de datos
+        professional.setId_person(Integer.parseInt(idFieldText));
+        professional.setName(name);
+        professional.setSurname(surname);
+        professional.setTelephone(telephone);
+        professional.setEmail(email);
+        professional.setPassword(password);
+        professional.setDni(dni);
+        professional.setnPersonnel(Integer.parseInt(nPersonnelFieldText));
+        professional.setnSocialSecurity(Integer.parseInt(nSocialSecurityFieldText));
+
+        // Obtener el objeto Space correspondiente al id_space
+        int idSpace = Integer.parseInt(idSpaceFieldText);
         SpaceDAO spaceDAO = new SpaceDAO();
         Space space = spaceDAO.findById(idSpace);
 
         professional.setSpace(space);
-
         try {
             // Check if the id or email already exist in the database
             boolean idExists = dao.checkIfIdExists(professional.getId_person());
@@ -188,7 +262,7 @@ public class ProfessionalController {
 
             // If the id or email already exist, display an error message
             if (idExists || emailExists) {
-                String errorMessage = "";
+                errorMessage = "";
                 if (idExists) {
                     errorMessage += "ID already exists. ";
                 }
@@ -279,6 +353,15 @@ public class ProfessionalController {
     @FXML
     private void handleCitasBtn(ActionEvent event) {
         System.out.println("Selected citas");
+    }
+
+    @FXML
+    void handleAppointmentClient() {
+        try {
+            App.setRoot("clientAppointment");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ import iesfranciscodelosrios.dam.model.domain.Space;
 import javax.xml.bind.JAXBException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -306,6 +307,63 @@ public class AppointmentDAO implements DAO<Appointment> {
         }
         // If no ID is found, return 0 or a default value
         return 0;
+    }
+
+    public List<Appointment> findByClientId(int clientId) throws SQLException {
+        List<Appointment> appointments = new ArrayList<>();
+        String query = "SELECT * FROM appointment WHERE id_client = ?";
+        // Prepare the SQL statement to select appointments based on client ID
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, clientId);
+            ResultSet resultSet = statement.executeQuery();
+            // Iterate over the result set and create Appointment objects
+            while (resultSet.next()) {
+                Appointment appointment = new Appointment();
+                appointment.setId_appointment(resultSet.getInt("id_appointment"));
+                appointment.setStartTime(resultSet.getTime("startTime").toLocalTime());
+                appointment.setEndTime(resultSet.getTime("endTime").toLocalTime());
+                appointment.setDate(resultSet.getDate("date").toLocalDate());
+
+                // Retrieve the associated client using ClientDAO
+                ClientDAO clientDAO = new ClientDAO(conn);
+                Client client = clientDAO.findById(resultSet.getInt("id_client"));
+                appointment.setClient(client);
+
+                // Retrieve the associated space using SpaceDAO
+                SpaceDAO spaceDAO = new SpaceDAO(conn);
+                Space space = spaceDAO.findById(resultSet.getInt("id_space"));
+                appointment.setSpace(space);
+
+                appointments.add(appointment);
+            }
+        }
+        return appointments;
+    }
+
+
+
+
+
+
+    public List<Appointment> findByClientIdInner(int clientId) throws SQLException {
+        List<Appointment> appointments = new ArrayList<>();
+        String query = "SELECT appointment.*, space.name AS space_name FROM appointment INNER JOIN space ON appointment.id_space = space.id_space WHERE id_client = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)){
+            statement.setInt(1, clientId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id_appointment = resultSet.getInt("id_appointment");
+                LocalTime startTime = resultSet.getTime("startTime").toLocalTime();
+                LocalTime endTime = resultSet.getTime("endTime").toLocalTime();
+                LocalDate date = resultSet.getDate("date").toLocalDate();
+                int id_space = resultSet.getInt("id_space");
+                String spaceName = resultSet.getString("space_name");
+                // Create an Appointment object with the retrieved data
+                Appointment appointment = new Appointment(id_appointment, startTime, endTime, date, id_space, spaceName);
+                appointments.add(appointment);
+            }
+        }
+        return appointments;
     }
 
     @Override

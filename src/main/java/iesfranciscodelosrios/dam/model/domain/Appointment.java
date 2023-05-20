@@ -23,6 +23,14 @@ public class Appointment {
         this.space = space;
     }
 
+    public Appointment(int id_appointment, LocalTime startTime, LocalTime endTime, LocalDate date, int id_space, String spaceName) {
+        this.id_appointment = id_appointment;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.date = date;
+        this.space = new Space(id_space, spaceName); // Crear un nuevo objeto Space
+    }
+
     public Appointment() {
         this.id_appointment = 0;
         this.startTime = LocalTime.parse("00:00:00");

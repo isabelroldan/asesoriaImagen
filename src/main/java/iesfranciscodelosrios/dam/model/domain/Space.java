@@ -22,6 +22,11 @@ public class Space {
         this(0,"", "");
     }
 
+    public Space(int id_space, String name) {
+        this.id_space = id_space;
+        this.name = name;
+    }
+
     public int getId_space() {
         return id_space;
     }

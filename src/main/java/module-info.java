@@ -12,5 +12,9 @@ module iesfranciscodelosrios.dam.imageconsulting {
 
     opens iesfranciscodelosrios.dam.model.connections to java.xml.bind;
 
+    opens iesfranciscodelosrios.dam.model.domain to javafx.base;
+
     exports iesfranciscodelosrios.dam.imageconsulting;
+    exports iesfranciscodelosrios.dam.imageconsulting.utils;
+    opens iesfranciscodelosrios.dam.imageconsulting.utils to javafx.fxml;
 }

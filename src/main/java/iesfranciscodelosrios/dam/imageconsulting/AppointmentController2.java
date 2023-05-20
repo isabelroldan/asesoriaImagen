@@ -510,6 +510,15 @@ public class AppointmentController2 {
         System.out.println("Selected citas");
     }
 
+    @FXML
+    void handleAppointmentClient() {
+        try {
+            App.setRoot("clientAppointment");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Handles the event when the "Exit" button is clicked.
      * Contains the logic for handling the exit action.

@@ -263,7 +263,42 @@ public class ClientDAO implements DAO<Client> {
         }
     }
 
+    public List<Client> findByEmailWrite(String email) throws SQLException {
+        List<Client> clients = new ArrayList<>();
+        String query = "SELECT * FROM client WHERE email LIKE ?";
+        // Prepare the SQL statement to select clients based on email pattern
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, "%" + email + "%");
+            ResultSet resultSet = statement.executeQuery();
+            // Iterate over the result set and create Client objects
+            while (resultSet.next()) {
+                Client client = new Client();
+                client.setId_person(resultSet.getInt("id_client"));
+                client.setName(resultSet.getString("name"));
+                client.setSurname(resultSet.getString("surname"));
+                client.setTelephone(resultSet.getString("telephone"));
+                client.setEmail(resultSet.getString("email"));
 
+                String resultString = resultSet.getString("colorTestResult");
+                ColorTestResult ctr = null;
+                // Find the corresponding ColorTestResult enum value
+                for(ColorTestResult r: ColorTestResult.values()) {
+                    if(r.name().equalsIgnoreCase(resultString)) {
+                        ctr = r;
+                        break;
+                    }
+                }
+
+                // Set the color test result on the client if it is not null
+                if (client != null) {
+                    client.setColorTestResult(ctr);
+
+                }
+                clients.add(client);
+            }
+        }
+        return clients;
+    }
 
     @Override
     public void close() throws Exception {
