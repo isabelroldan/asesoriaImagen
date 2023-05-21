@@ -8,6 +8,8 @@ module iesfranciscodelosrios.dam.imageconsulting {
     requires org.apache.logging.log4j;
     requires org.apache.logging.log4j.core;
 
+    requires org.junit.jupiter.api;
+
     opens iesfranciscodelosrios.dam.imageconsulting to javafx.fxml;
 
     opens iesfranciscodelosrios.dam.model.connections to java.xml.bind;
