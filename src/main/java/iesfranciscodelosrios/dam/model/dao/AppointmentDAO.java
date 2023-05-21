@@ -309,6 +309,13 @@ public class AppointmentDAO implements DAO<Appointment> {
         return 0;
     }
 
+    /**
+     * Retrieves a list of appointments associated with a specific client ID.
+     *
+     * @param clientId The ID of the client.
+     * @return A list of Appointment objects associated with the specified client ID.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public List<Appointment> findByClientId(int clientId) throws SQLException {
         List<Appointment> appointments = new ArrayList<>();
         String query = "SELECT * FROM appointment WHERE id_client = ?";
@@ -340,11 +347,13 @@ public class AppointmentDAO implements DAO<Appointment> {
         return appointments;
     }
 
-
-
-
-
-
+    /**
+     * Retrieves a list of appointments associated with a specific client ID, including the associated space name.
+     *
+     * @param clientId The ID of the client.
+     * @return A list of Appointment objects associated with the specified client ID, including the associated space name.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public List<Appointment> findByClientIdInner(int clientId) throws SQLException {
         List<Appointment> appointments = new ArrayList<>();
         String query = "SELECT appointment.*, space.name AS space_name FROM appointment INNER JOIN space ON appointment.id_space = space.id_space WHERE id_client = ?";

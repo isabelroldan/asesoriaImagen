@@ -263,6 +263,13 @@ public class ClientDAO implements DAO<Client> {
         }
     }
 
+    /**
+     * Retrieves a list of clients based on an email pattern.
+     *
+     * @param email The email pattern to search for.
+     * @return A list of Client objects matching the specified email pattern.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public List<Client> findByEmailWrite(String email) throws SQLException {
         List<Client> clients = new ArrayList<>();
         String query = "SELECT * FROM client WHERE email LIKE ?";

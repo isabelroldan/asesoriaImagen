@@ -103,6 +103,11 @@ public class AppointmentController2 {
         }
     }
 
+    /**
+     * Handles the event when the hours available button is clicked.
+     *
+     * @param event The action event triggered by the button click.
+     */
     @FXML
     private void handleHoursAvailableButton(ActionEvent event) {
         // Get the selected space and chosen date
@@ -306,6 +311,9 @@ public class AppointmentController2 {
         return availableTimes;
     }
 
+    /**
+     * Updates the appointment based on the changes made in the UI.
+     */
     @FXML
     private void updateAppointment() {
         // Get the entered appointment ID

@@ -114,6 +114,13 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
+    /**
+     * Retrieves a Professional object with the specified ID, including the password.
+     *
+     * @param id_professional The ID of the professional to retrieve.
+     * @return A Professional object representing the professional with the specified ID, including the password, or null if not found.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public Professional findByIdWithPassword(int id_professional) throws SQLException {
         Professional result = null;
         try(PreparedStatement pst = this.conn.prepareStatement(FINDBYID)) {
@@ -321,6 +328,13 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
+    /**
+     * Retrieves a Professional object with the specified email, including the password.
+     *
+     * @param email The email of the professional to retrieve.
+     * @return A Professional object representing the professional with the specified email, including the password, or null if not found.
+     * @throws SQLException if there is an error executing the SQL query.
+     */
     public Professional getProfessionalWithPassword(String email) throws SQLException {
         Professional result = null;
         try(PreparedStatement pst = this.conn.prepareStatement(GETPROFESSIONAL)) {

@@ -69,6 +69,10 @@ public class ClientAppointmentController {
         this.clientDAO = new ClientDAO();
     }
 
+    /**
+     * Initialization method for the controller.
+     * Configures the client table, the appointment table, and displays all clients.
+     */
     @FXML
     private void initialize() {
         configureClientTable();
@@ -77,6 +81,12 @@ public class ClientAppointmentController {
 
     }
 
+    /**
+     * Event handler for the search field.
+     * Searches for clients based on the entered email.
+     * If the search term is empty, displays all clients.
+     * @param event The KeyEvent triggered by the search field.
+     */
     @FXML
     private void handleSearch(KeyEvent event) {
         String searchTerm = searchField.getText().trim();
@@ -88,6 +98,9 @@ public class ClientAppointmentController {
         }
     }
 
+    /**
+     * Configures the client table by setting up the cell value factories for each column.
+     */
     private void configureClientTable() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
@@ -96,6 +109,9 @@ public class ClientAppointmentController {
         colorTestResultColumn.setCellValueFactory(new PropertyValueFactory<>("colorTestResult"));
     }
 
+    /**
+     * Retrieves and displays all clients in the client table.
+     */
     private void showAllClients() {
         try {
             List<Client> clients = clientDAO.findAll();
@@ -107,6 +123,12 @@ public class ClientAppointmentController {
         }
     }
 
+    /**
+     * Searches clients in the client table based on the provided email.
+     * Displays the matching clients in the table.
+     *
+     * @param email The email to search for
+     */
     private void searchClientsByEmail(String email) {
         try {
             List<Client> clients = clientDAO.findByEmailWrite(email);
@@ -121,6 +143,10 @@ public class ClientAppointmentController {
 
     private Client selectedClient;
 
+    /**
+     * Loads appointments for the selected client.
+     * Retrieves and displays the appointments in the appointment table.
+     */
     private void loadAppointments() {
         if (selectedClient != null) {
             try {
@@ -136,6 +162,12 @@ public class ClientAppointmentController {
         }
     }
 
+    /**
+     * Handles the selection of a client in the client table.
+     * If a client is double-clicked, the appointments for that client are loaded and displayed.
+     *
+     * @param event The mouse event
+     */
     @FXML
     private void handleClientSelection(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -146,6 +178,11 @@ public class ClientAppointmentController {
         }
     }
 
+    /**
+     * Loads and displays the appointments for a given client.
+     *
+     * @param client The client for which to load the appointments
+     */
     private void loadAppointmentsForClient(Client client) {
         try {
             List<Appointment> appointments = appointmentDAO.findByClientId(client.getId_person());
@@ -160,6 +197,9 @@ public class ClientAppointmentController {
         }
     }
 
+    /**
+     * Configures the appointment table columns.
+     */
     private void configureAppointmentTable() {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));

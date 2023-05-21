@@ -117,6 +117,11 @@ public class MenuController {
         }
     }
 
+    /**
+     * Handles the event when the "Appointment Client" button is clicked.
+     * Navigates to the "clientAppointment" view.
+     * @throws IOException if an I/O error occurs during the navigation.
+     */
     @FXML
     void handleAppointmentClient() {
         try {
