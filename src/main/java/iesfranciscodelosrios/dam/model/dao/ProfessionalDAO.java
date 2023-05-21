@@ -1,8 +1,11 @@
 package iesfranciscodelosrios.dam.model.dao;
 
+import iesfranciscodelosrios.dam.imageconsulting.utils.PasswordAuthentication;
+import iesfranciscodelosrios.dam.imageconsulting.utils.ValidatorUtils;
 import iesfranciscodelosrios.dam.model.domain.Professional;
 import iesfranciscodelosrios.dam.model.connections.Connect;
 import iesfranciscodelosrios.dam.model.domain.Space;
+import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBException;
 import java.sql.Connection;
@@ -31,6 +34,9 @@ public class ProfessionalDAO implements DAO<Professional> {
     public ProfessionalDAO() {
         this.conn = Connect.getConnect();
     }
+
+    private static PasswordAuthentication pa = new PasswordAuthentication();
+
 
     /**
      * Retrieves all professionals from the database.
@@ -108,6 +114,36 @@ public class ProfessionalDAO implements DAO<Professional> {
         return result;
     }
 
+    public Professional findByIdWithPassword(int id_professional) throws SQLException {
+        Professional result = null;
+        try(PreparedStatement pst = this.conn.prepareStatement(FINDBYID)) {
+            pst.setInt(1, id_professional);
+            try(ResultSet res = pst.executeQuery()) {
+                if(res.next()) {
+                    // Creating a new Professional object
+                    Professional professional = new Professional();
+                    // Setting the properties of the Professional object
+                    professional.setId_person(res.getInt("id_professional"));
+                    professional.setName(res.getString("name"));
+                    professional.setSurname(res.getString("surname"));
+                    professional.setTelephone(res.getString("telephone"));
+                    professional.setEmail(res.getString("email"));
+                    professional.setPassword(res.getString("password"));
+                    professional.setDni(res.getString("dni"));
+                    professional.setnPersonnel(res.getInt("nPersonnel"));
+                    professional.setnSocialSecurity(res.getInt("nSocialSecurity"));
+
+                    // Retrieving the associated Space object from the SpaceDAO
+                    SpaceDAO adao = new SpaceDAO(this.conn);
+                    Space space = adao.findById(res.getInt("id_space"));
+                    professional.setSpace(space);
+                    result = professional;
+                }
+            }
+        }
+        return result;
+    }
+
     /**
      * Checks if a professional with the specified ID exists in the database.
      *
@@ -165,7 +201,7 @@ public class ProfessionalDAO implements DAO<Professional> {
                     pst.setString(3, entity.getSurname());
                     pst.setString(4, entity.getTelephone());
                     pst.setString(5, entity.getEmail());
-                    pst.setString(6, entity.getPassword());
+                    pst.setString(6, pa.hash (entity.getPassword()));
                     pst.setString(7, entity.getDni());
                     pst.setInt(8, entity.getnPersonnel());
                     pst.setInt(9, entity.getnSocialSecurity());
@@ -272,6 +308,32 @@ public class ProfessionalDAO implements DAO<Professional> {
                     professional.setTelephone(res.getString("telephone"));
                     professional.setEmail(res.getString("email"));
                     /*professional.setPassword(res.getString("password"));*/
+                    professional.setDni(res.getString("dni"));
+                    professional.setnPersonnel(res.getInt("nPersonnel"));
+                    professional.setnSocialSecurity(res.getInt("nSocialSecurity"));
+                    SpaceDAO adao = new SpaceDAO(this.conn);
+                    Space space = adao.findById(res.getInt("id_space"));
+                    professional.setSpace(space);
+                    result = professional;
+                }
+            }
+        }
+        return result;
+    }
+
+    public Professional getProfessionalWithPassword(String email) throws SQLException {
+        Professional result = null;
+        try(PreparedStatement pst = this.conn.prepareStatement(GETPROFESSIONAL)) {
+            pst.setString(1, email);
+            try(ResultSet res = pst.executeQuery()) {
+                if(res.next()) {
+                    Professional professional = new Professional();
+                    professional.setId_person(res.getInt("id_professional"));
+                    professional.setName(res.getString("name"));
+                    professional.setSurname(res.getString("surname"));
+                    professional.setTelephone(res.getString("telephone"));
+                    professional.setEmail(res.getString("email"));
+                    professional.setPassword(res.getString("password"));
                     professional.setDni(res.getString("dni"));
                     professional.setnPersonnel(res.getInt("nPersonnel"));
                     professional.setnSocialSecurity(res.getInt("nSocialSecurity"));

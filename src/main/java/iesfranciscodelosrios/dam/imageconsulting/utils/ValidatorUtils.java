@@ -3,6 +3,7 @@ package iesfranciscodelosrios.dam.imageconsulting.utils;
 import java.util.regex.Pattern;
 
 public class ValidatorUtils {
+    private static PasswordAuthentication pa = new PasswordAuthentication();
     private static final String EMAIL_REGEX = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
     private static final String DNI_REGEX = "\\d{8}[a-zA-Z]";
 

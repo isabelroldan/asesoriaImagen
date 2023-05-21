@@ -1,5 +1,6 @@
 package iesfranciscodelosrios.dam.imageconsulting;
 
+import iesfranciscodelosrios.dam.imageconsulting.utils.PasswordAuthentication;
 import iesfranciscodelosrios.dam.imageconsulting.utils.ValidatorUtils;
 import iesfranciscodelosrios.dam.model.dao.ClientDAO;
 import iesfranciscodelosrios.dam.model.dao.ProfessionalDAO;
@@ -64,6 +65,7 @@ public class ProfessionalController {
     }
 
     private static final Logger logger = LogManager.getLogger(ProfessionalController.class);
+
 
     /**
      * Handles the event when the "Intro" button is clicked.
@@ -222,10 +224,10 @@ public class ProfessionalController {
             errorMessage += "nPersonnel is required. ";
         }
 
-        if (!ValidatorUtils.isValidSocialSecurityNumber(nSocialSecurityFieldText)) {
+        /*if (!ValidatorUtils.isValidSocialSecurityNumber(nSocialSecurityFieldText)) {
             isValid = false;
             errorMessage += "nSocialSecurity is invalid. ";
-        }
+        }*/
 
         if (idSpaceFieldText.isEmpty()) {
             isValid = false;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import iesfranciscodelosrios.dam.imageconsulting.utils.PasswordAuthentication;
 import iesfranciscodelosrios.dam.model.connections.Connect;
 import iesfranciscodelosrios.dam.model.dao.ProfessionalDAO;
 import iesfranciscodelosrios.dam.model.domain.Professional;
@@ -24,20 +25,28 @@ public class LoginController {
     @FXML
     private PasswordField passField;
 
-
+    private static PasswordAuthentication pa = new PasswordAuthentication();
     /**
      * Handles the validation of the user and password in the home button action.
      * It checks if the entered user and password are correct.
      */
     @FXML
-    private void btnHomeValidate() { //Controlador de usuario y contraseña
+    private void btnHomeValidate() throws SQLException { //Controlador de usuario y contraseña
         Connection conn = Connect.getConnect();
         ProfessionalDAO dao = new ProfessionalDAO(conn);
+        Professional professional = dao.getProfessionalWithPassword(userField.getText());
 
         boolean result = false;
+
+
         try {
             // Check if the entered user and password are valid
-            result = dao.professionalLogin(userField.getText(), passField.getText());
+            /*result = dao.professionalLogin(userField.getText(), passField.getText());*/
+
+            if (professional != null) {
+                // Use PasswordAuthentication to authenticate the password
+                result = pa.authenticate(passField.getText().toCharArray(), professional.getPassword());
+            }
 
             if (result == true) {
                 // If the login is successful
